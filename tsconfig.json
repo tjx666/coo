@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "target": "ES2019",
+        "module": "ESNext",
+        "allowJs": true,
+        "checkJs": true,
+        "jsx": "react",
+        "removeComments": true,
+        "isolatedModules": true,
+
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "strictPropertyInitialization": true,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+
+        "moduleResolution": "node",
+        "baseUrl": "./",
+        "paths": {},
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+
+        "forceConsistentCasingInFileNames": true
+    },
+    "exclude": ["node_modules", "dist", "out", "public", "scripts", "src/main"]
+}

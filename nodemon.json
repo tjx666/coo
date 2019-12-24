@@ -1,0 +1,9 @@
+{
+    "verbose": true,
+    "quiet": true,
+    "watch": ["./src/main"],
+    "ext": "ts",
+    "execMap": {
+        "js": "npm run compile && electron"
+    }
+}

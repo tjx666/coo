@@ -1,0 +1,58 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "airbnb",
+        "airbnb/hooks",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": ["@typescript-eslint", "react"],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".ts", ".tsx", ".js", ".json"]
+            }
+        }
+    },
+    "rules": {
+        "prettier/prettier": "off",
+
+        "react/jsx-indent": ["error", 4],
+        "react/jsx-filename-extension": [
+            1,
+            { "extensions": [".ts", ".tsx", ".json", ".js"] }
+        ],
+        "react/jsx-one-expression-per-line": "off",
+
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+
+        "no-console": "off",
+        "no-unused-vars": "warn",
+        "func-names": "off"
+    },
+    "overrides": [
+        {
+            "files": ["scripts/**/*.ts"],
+            "rules": {
+                "import/no-extraneous-dependencies": "off"
+            }
+        }
+    ]
+}
