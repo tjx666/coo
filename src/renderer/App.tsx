@@ -6,7 +6,7 @@ const App = () => {
 
     return (
         <div className="app">
-            <h1>Hello World!</h1>
+            <h1>Hello electron!</h1>
             {`We are using node ${node}, Chrome ${chrome}, and Electron ${electron}`}
         </div>
     );

@@ -12,7 +12,7 @@ const mergedConfig = merge(commonConfig, {
     plugins: [
         new ProgressBarPlugin(),
         new ForkTsCheckerWebpackPlugin({ memoryLimit: 2048 }),
-        new SizePlugin({ writeFile: false }),
+        new SizePlugin(),
         new HardSourceWebpackPlugin({
             info: { mode: 'none', level: 'error' },
         }),
