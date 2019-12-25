@@ -2,14 +2,22 @@
     "name": "coo",
     "version": "1.0.0",
     "description": "coo is a cross-platform chat application",
-    "main": "./out/main.js",
-    "repository": "git@github.com:tjx666/coo.git",
-    "author": "YuTengjing",
-    "license": "MIT",
     "private": true,
+    "main": "./out/main.js",
+    "license": "MIT",
+    "homepage": "https://github.com/tjx666/coo-server",
+    "author": {
+        "name": "YuTengjing",
+        "url": "https://github.com/tjx666",
+        "email": "ytj2713151713@gmail.com"
+    },
+    "repository": {
+        "url": "git@github.com:tjx666/coo.git",
+        "type": "git"
+    },
     "scripts": {
-        "start": "concurrently -kill-others-on-fail npm:start-renderer npm:start-main",
-        "start-main": "wait-on http-get://localhost:1027/ && wait-on ./out/index.js && nodemon ./out/index.js",
+        "start": "concurrently -k yarn:start-renderer yarn:start-main",
+        "start-main": "wait-on http-get://localhost:1027/ && nodemon ./out/index.js",
         "start-renderer": "cross-env NODE_ENV=development ts-node --files -P ./scripts/tsconfig.json ./scripts/devServer",
         "compile": "rimraf -rf ./out && cross-env NODE_ENV=development tsc -p ./src/main",
         "build": "cross-env NODE_ENV=production ts-node --files -P ./scripts/tsconfig.json ./scripts/build",
