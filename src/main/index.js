@@ -1,37 +1,31 @@
-import { app, BrowserWindow } from 'electron';
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const electron_1 = require("electron");
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
-
-let win: BrowserWindow | null;
-
+let win;
 function createWindow() {
-    win = new BrowserWindow({
+    win = new electron_1.BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
             nodeIntegration: true,
         },
     });
-
     win.loadURL('http://127.0.0.1:3600');
-
     win.webContents.openDevTools();
-
     win.on('closed', () => {
         win = null;
     });
 }
-
-app.on('ready', createWindow);
-
-app.on('window-all-closed', () => {
+electron_1.app.on('ready', createWindow);
+electron_1.app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
-        app.quit();
+        electron_1.app.quit();
     }
 });
-
-app.on('activate', () => {
+electron_1.app.on('activate', () => {
     if (win === null) {
         createWindow();
     }
 });
+//# sourceMappingURL=index.js.map

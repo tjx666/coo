@@ -4,6 +4,6 @@
     "watch": ["./src/main"],
     "ext": "ts",
     "execMap": {
-        "js": "npm run compile && electron"
+        "js": "yarn run compile && cross-env NODE_ENV=development electron"
     }
 }

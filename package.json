@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "coo is a cross-platform chat application",
     "private": true,
-    "main": "./out/main.js",
+    "main": "./out/index.js",
     "license": "MIT",
     "homepage": "https://github.com/tjx666/coo-server",
     "author": {
@@ -16,12 +16,13 @@
         "type": "git"
     },
     "scripts": {
-        "start": "concurrently -k yarn:start-renderer yarn:start-main",
-        "start-main": "wait-on http-get://localhost:1027/ && nodemon ./out/index.js",
+        "start": "concurrently -r -i --kill-others-on-fail yarn:clean yarn:start-renderer yarn:start-main",
+        "start-main": "wait-on http-get://localhost:3600/ && nodemon",
         "start-renderer": "cross-env NODE_ENV=development ts-node --files -P ./scripts/tsconfig.json ./scripts/devServer",
-        "compile": "rimraf -rf ./out && cross-env NODE_ENV=development tsc -p ./src/main",
+        "compile": "rimraf -rf ./out && tsc -p ./src/main",
         "build": "cross-env NODE_ENV=production ts-node --files -P ./scripts/tsconfig.json ./scripts/build",
         "test": "echo 'skip tests...'",
+        "clean": "rimraf -rf ./out ./dist",
         "reinstall": "rimraf -rf ./node_modules && yarn"
     },
     "husky": {
@@ -46,6 +47,7 @@
         "electron": "^7.1.7",
         "lodash": "^4.17.15",
         "log-symbols": "^3.0.0",
+        "normalize.css": "^8.0.1",
         "react": "^16.12.0",
         "react-dom": "^16.12.0",
         "react-router": "^5.1.2",

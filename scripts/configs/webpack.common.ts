@@ -22,7 +22,12 @@ const commonConfig: Configuration = {
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.json', '.js'],
-        alias: {},
+        alias: {
+            'normalize.css': resolve(
+                projectRoot,
+                './node_modules/normalize.css/normalize.css'
+            ),
+        },
     },
     plugins: [
         new FriendlyErrorsPlugin(),

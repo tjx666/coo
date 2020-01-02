@@ -12,12 +12,21 @@ const devServerOptions: WebpackDevServer.Configuration = {
 
 const server = new WebpackDevServer(compiler, devServerOptions);
 const HOSTNAME = 'localhost';
-const PORT = 1027;
+const PORT = 3600;
 const address = `http://${HOSTNAME}:${PORT}`;
 
 server.listen(PORT, HOSTNAME, () => {
     // prettier-ignore
     console.log(`${chalk.bgYellow.black.bold(' INFO ')} DevServer is running at ${chalk.magenta.bold.underline(address)} ${logSymbols.success}`);
+});
+
+process.on('SIGINT', () => {
+    console.log(
+        chalk.greenBright.bold(
+            `\n${Math.random() > 0.5 ? 'See you again' : 'Goodbye'}!`
+        )
+    );
+    process.exit();
 });
 
 process.on('unhandledRejection', err => {

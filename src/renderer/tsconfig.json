@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "ES2019",
+        "target": "ESNext",
         "module": "ESNext",
         "allowJs": true,
         "checkJs": true,
@@ -29,6 +29,5 @@
         "emitDecoratorMetadata": true,
 
         "forceConsistentCasingInFileNames": true
-    },
-    "exclude": ["node_modules", "dist", "out", "public", "scripts", "src/main"]
+    }
 }

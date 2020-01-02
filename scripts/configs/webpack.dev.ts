@@ -1,6 +1,8 @@
+import { resolve } from 'path';
 import merge from 'webpack-merge';
 import { HotModuleReplacementPlugin, NamedModulesPlugin } from 'webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+
 import commonConfig from './webpack.common';
 
 const devConfig = merge(commonConfig, {
@@ -9,7 +11,7 @@ const devConfig = merge(commonConfig, {
     plugins: [
         new HotModuleReplacementPlugin(),
         new NamedModulesPlugin(),
-        new ForkTsCheckerWebpackPlugin({ memoryLimit: 1024 }),
+        new ForkTsCheckerWebpackPlugin({ memoryLimit: 1024, tsconfig: resolve(__dirname, '../../src/renderer/tsconfig.json') }),
     ],
 });
 
