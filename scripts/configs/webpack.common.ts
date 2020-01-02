@@ -5,8 +5,30 @@ import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
+import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
+import darkTheme from '@ant-design/dark-theme';
 
 const projectRoot = resolve(__dirname, '../../');
+
+function getCSSLoaders(importLoaders: number) {
+    return [
+        'style-loader',
+        {
+            loader: 'css-loader',
+            options: {
+                sourceMap: true,
+                importLoaders,
+            },
+        },
+        {
+            loader: 'postcss-loader',
+            options: {
+                ident: 'postcss',
+                plugins: [autoprefixer()],
+            },
+        },
+    ];
+}
 
 const commonConfig: Configuration = {
     target: 'electron-renderer',
@@ -30,6 +52,7 @@ const commonConfig: Configuration = {
         },
     },
     plugins: [
+        new AntdDayjsWebpackPlugin(),
         new FriendlyErrorsPlugin(),
         new HashedModuleIdsPlugin({
             hashFunction: 'sha256',
@@ -64,20 +87,18 @@ const commonConfig: Configuration = {
             },
             {
                 test: /\.css$/,
+                use: getCSSLoaders(1),
+            },
+            {
+                test: /\.less$/,
                 use: [
-                    'style-loader',
+                    ...getCSSLoaders(2),
                     {
-                        loader: 'css-loader',
+                        loader: 'less-loader',
                         options: {
                             sourceMap: true,
-                            importLoaders: 1,
-                        },
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            ident: 'postcss',
-                            plugins: [autoprefixer()],
+                            javascriptEnabled: true,
+                            modifyVars: darkTheme,
                         },
                     },
                 ],
@@ -85,21 +106,7 @@ const commonConfig: Configuration = {
             {
                 test: /\.scss$/,
                 use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true,
-                            importLoaders: 2,
-                        },
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            ident: 'postcss',
-                            plugins: [autoprefixer()],
-                        },
-                    },
+                    ...getCSSLoaders(2),
                     {
                         loader: 'sass-loader',
                         options: { sourceMap: true },

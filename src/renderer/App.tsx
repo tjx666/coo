@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Button, Switch } from 'antd';
 import './App.scss';
 
 const App = () => {
@@ -6,6 +7,8 @@ const App = () => {
 
     return (
         <div className="app">
+            <Button>按钮</Button>
+            <Switch />
             <h1>Hello electron!</h1>
             {`We are using node ${node}, Chrome ${chrome}, and Electron ${electron}`}
         </div>
