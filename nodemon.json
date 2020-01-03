@@ -4,6 +4,9 @@
     "watch": ["./src/main"],
     "ext": "ts",
     "execMap": {
-        "js": "yarn run compile && cross-env NODE_ENV=development electron"
+        "js": "ts-node -P ./scripts/tsconfig.json ./scripts/startMain.ts"
+    },
+    "events": {
+        "restart": "ts-node -P ./scripts/tsconfig.json ./scripts/restartMain.ts"
     }
 }

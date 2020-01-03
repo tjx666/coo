@@ -1,21 +1,29 @@
 import { app, BrowserWindow } from 'electron';
+import windowStateKeeper from 'electron-window-state';
 
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
 
 let win: BrowserWindow | null;
 
 function createWindow() {
+    const mainWindowState = windowStateKeeper({
+        defaultWidth: 1096,
+        defaultHeight: 760,
+    });
+
     win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        x: mainWindowState.x,
+        y: mainWindowState.y,
+        width: mainWindowState.width,
+        height: mainWindowState.height,
         webPreferences: {
             nodeIntegration: true,
         },
     });
 
-    win.loadURL('http://127.0.0.1:3600');
+    mainWindowState.manage(win);
 
-    win.webContents.openDevTools();
+    win.loadURL('http://127.0.0.1:3600');
 
     win.on('closed', () => {
         win = null;

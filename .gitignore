@@ -1,3 +1,6 @@
+# custom
+size-plugin.json
+
 # Logs
 logs
 *.log
@@ -137,7 +140,8 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*

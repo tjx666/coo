@@ -17,7 +17,7 @@ const address = `http://${HOSTNAME}:${PORT}`;
 
 server.listen(PORT, HOSTNAME, () => {
     // prettier-ignore
-    console.log(`${chalk.bgYellow.black.bold(' INFO ')} DevServer is running at ${chalk.magenta.bold.underline(address)} ${logSymbols.success}`);
+    console.log(`${chalk.bgYellow.black(' INFO ')} DevServer is running at ${chalk.magenta.bold.underline(address)} ${logSymbols.success}`);
 });
 
 process.on('SIGINT', () => {
