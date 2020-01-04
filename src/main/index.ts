@@ -19,11 +19,12 @@ function createWindow() {
         webPreferences: {
             nodeIntegration: true,
         },
+        // frame: false
     });
+    win.removeMenu();
+    win.loadURL('http://127.0.0.1:3600');
 
     mainWindowState.manage(win);
-
-    win.loadURL('http://127.0.0.1:3600');
 
     win.on('closed', () => {
         win = null;
