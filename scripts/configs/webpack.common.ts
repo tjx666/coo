@@ -6,7 +6,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
-import darkTheme from '@ant-design/dark-theme';
 
 const projectRoot = resolve(__dirname, '../../');
 
@@ -98,7 +97,7 @@ const commonConfig: Configuration = {
                         options: {
                             sourceMap: true,
                             javascriptEnabled: true,
-                            modifyVars: darkTheme,
+                            modifyVars: { '@primary-color': '#1DA57A' },
                         },
                     },
                 ],

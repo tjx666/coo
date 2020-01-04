@@ -45,7 +45,6 @@
         ]
     },
     "dependencies": {
-        "@ant-design/dark-theme": "^1.0.3",
         "antd": "^3.26.5",
         "chalk": "^3.0.0",
         "electron": "^7.1.7",

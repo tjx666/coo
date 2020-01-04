@@ -13,8 +13,11 @@ const mergedConfig = merge(commonConfig, {
     mode: 'production',
     plugins: [
         new ProgressBarPlugin(),
-        new ForkTsCheckerWebpackPlugin({ memoryLimit: 2048, tsconfig: resolve(__dirname, '../../src/renderer/tsconfig.json') }),
-        new SizePlugin(),
+        new ForkTsCheckerWebpackPlugin({
+            memoryLimit: 2048,
+            tsconfig: resolve(__dirname, '../../src/renderer/tsconfig.json'),
+        }),
+        new SizePlugin({ writeFile: false }),
         new HardSourceWebpackPlugin({
             info: { mode: 'none', level: 'error' },
         }),
