@@ -27,7 +27,12 @@ module.exports = function(api) {
         },
     ];
 
-    const plugins = ['@babel/plugin-transform-runtime', 'lodash', importPlugin];
+    const plugins = [
+        '@babel/plugin-transform-runtime',
+        'react-hot-loader/babel',
+        'lodash',
+        importPlugin,
+    ];
 
     return {
         presets,

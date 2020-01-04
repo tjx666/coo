@@ -32,7 +32,7 @@ function getCSSLoaders(importLoaders: number) {
 const commonConfig: Configuration = {
     target: 'electron-renderer',
     context: projectRoot,
-    entry: './src/renderer/index.tsx',
+    entry: ['react-hot-loader/patch', './src/renderer'],
     output: {
         publicPath: '/',
         path: resolve(projectRoot, './dist'),
@@ -48,6 +48,7 @@ const commonConfig: Configuration = {
                 projectRoot,
                 './node_modules/normalize.css/normalize.css'
             ),
+            'react-dom': '@hot-loader/react-dom',
         },
     },
     plugins: [
