@@ -21,7 +21,10 @@
 
         "moduleResolution": "node",
         "baseUrl": "./",
-        "paths": {},
+        "paths": {
+            "components/*": ["components/*"],
+            "assets/*": ["assets/*"]
+        },
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
 

@@ -22,13 +22,16 @@
         "import/resolver": {
             "node": {
                 "extensions": [".ts", ".tsx", ".js", ".json"]
+            },
+            "typescript": {
+                "directory": ["./scripts/tsconfig.json", "./src/main/tsconfig.json", "./src/renderer/tsconfig.json"]
             }
         }
     },
     "rules": {
         "prettier/prettier": "off",
 
-        "import/extensions": 0,
+        "import/extensions": "off",
 
         "react/jsx-indent": ["error", 4],
         "react/jsx-indent-props": ["error", 4],
