@@ -18,20 +18,10 @@ module.exports = function(api) {
         envPreset,
     ];
 
-    const importPlugin = [
-        'import',
-        {
-            libraryName: 'antd',
-            libraryDirectory: 'es',
-            style: true,
-        },
-    ];
-
     const plugins = [
         '@babel/plugin-transform-runtime',
         'react-hot-loader/babel',
         'lodash',
-        importPlugin,
     ];
 
     return {

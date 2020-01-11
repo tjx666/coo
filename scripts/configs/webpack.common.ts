@@ -5,7 +5,6 @@ import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
-import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
 
 const projectRoot = resolve(__dirname, '../../');
 
@@ -52,7 +51,6 @@ const commonConfig: Configuration = {
         },
     },
     plugins: [
-        new AntdDayjsWebpackPlugin(),
         new FriendlyErrorsPlugin(),
         new HashedModuleIdsPlugin({
             hashFunction: 'sha256',
@@ -88,20 +86,6 @@ const commonConfig: Configuration = {
             {
                 test: /\.css$/,
                 use: getCSSLoaders(1),
-            },
-            {
-                test: /\.less$/,
-                use: [
-                    ...getCSSLoaders(2),
-                    {
-                        loader: 'less-loader',
-                        options: {
-                            sourceMap: true,
-                            javascriptEnabled: true,
-                            modifyVars: { '@primary-color': '#1DA57A' },
-                        },
-                    },
-                ],
             },
             {
                 test: /\.scss$/,

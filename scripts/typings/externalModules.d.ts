@@ -1,0 +1,59 @@
+declare module 'speed-measure-webpack-plugin' {
+    import { Configuration, Plugin } from 'webpack';
+
+    interface SpeedMeasurePluginOptions {
+        disable: boolean;
+        outputFormat:
+            | 'json'
+            | 'human'
+            | 'humanVerbose'
+            | ((outputObj: object) => void);
+        outputTarget: string | ((outputObj: string) => void);
+        pluginNames: object;
+        granularLoaderData: boolean;
+    }
+
+    class SpeedMeasurePlugin extends Plugin {
+        constructor(options?: Partial<SpeedMeasurePluginOptions>);
+        wrap(webpackConfig: Configuration): Configuration;
+    }
+
+    export = SpeedMeasurePlugin;
+}
+
+declare module 'progress-bar-webpack-plugin' {
+    import { Compiler, Plugin } from 'webpack';
+
+    interface ProgressBarPluginOptions {
+        format: string;
+        clear: boolean;
+    }
+
+    class ProgressBarPlugin extends Plugin {
+        constructor(options?: Partial<ProgressBarPluginOptions>);
+    }
+
+    export = ProgressBarPlugin;
+}
+
+declare module 'size-plugin' {
+    import { Compiler, Plugin } from 'webpack';
+
+    interface SizePluginOptions {
+        writeFile?: boolean;
+    }
+
+    class SizePlugin extends Plugin {
+        constructor(options?: SizePluginOptions);
+    }
+
+    export = SizePlugin;
+}
+
+declare module 'antd-dayjs-webpack-plugin' {
+    import { Plugin } from 'webpack';
+
+    class WebpackDayjsPlugin extends Plugin {}
+
+    export = WebpackDayjsPlugin;
+}
