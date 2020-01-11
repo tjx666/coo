@@ -8,9 +8,7 @@ async function startMain() {
     console.log(`${prefix} Compiling main...`);
     await command('npx tsc -p ./src/main');
 
-    console.log(
-        `${prefix} Starting main in ${chalk.yellow('development')} mode...`
-    );
+    console.log(`${prefix} Starting main in ${chalk.yellow('development')} mode...`);
     await command(`npx cross-env NODE_ENV=development electron ${argv._}`);
 }
 

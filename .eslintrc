@@ -4,12 +4,7 @@
         "es6": true,
         "node": true
     },
-    "extends": [
-        "airbnb",
-        "airbnb/hooks",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:prettier/recommended"
-    ],
+    "extends": ["airbnb", "airbnb/hooks", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -37,10 +32,7 @@
 
         "react/jsx-indent": ["error", 4],
         "react/jsx-indent-props": ["error", 4],
-        "react/jsx-filename-extension": [
-            1,
-            { "extensions": [".ts", ".tsx", ".json", ".js"] }
-        ],
+        "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx", ".json", ".js"] }],
         "react/jsx-one-expression-per-line": "off",
 
         "@typescript-eslint/explicit-function-return-type": "off",

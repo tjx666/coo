@@ -16,16 +16,14 @@ const PORT = 3600;
 const address = `http://${HOSTNAME}:${PORT}`;
 
 server.listen(PORT, HOSTNAME, () => {
-    // prettier-ignore
-    console.log(`${chalk.bgYellow.black(' INFO ')} DevServer is running at ${chalk.magenta.bold.underline(address)} ${logSymbols.success}`);
+    console.log(
+        // prettier-ignore
+        `${chalk.bgYellow.black(' INFO ')} DevServer is running at ${chalk.magenta.bold.underline(address)} ${logSymbols.success}`
+    );
 });
 
 process.on('SIGINT', () => {
-    console.log(
-        chalk.greenBright.bold(
-            `\n${Math.random() > 0.5 ? 'See you again' : 'Goodbye'}!`
-        )
-    );
+    console.log(chalk.greenBright.bold(`\n${Math.random() > 0.5 ? 'See you again' : 'Goodbye'}!`));
     process.exit();
 });
 

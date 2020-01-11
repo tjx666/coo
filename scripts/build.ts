@@ -9,9 +9,7 @@ compiler.run((error, stats) => {
     const compileError: Error & { details?: string } = error;
 
     if (error) {
-        console.log(
-            `${chalk.redBright.bold('ERROR')} webpack configuration error!`
-        );
+        console.log(`${chalk.redBright.bold('ERROR')} webpack configuration error!`);
         console.error(error);
 
         if (compileError.details) {

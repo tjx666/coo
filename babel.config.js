@@ -12,17 +12,8 @@ module.exports = function(api) {
         },
     ];
 
-    const presets = [
-        '@babel/preset-typescript',
-        '@babel/preset-react',
-        envPreset,
-    ];
-
-    const plugins = [
-        '@babel/plugin-transform-runtime',
-        'react-hot-loader/babel',
-        'lodash',
-    ];
+    const presets = ['@babel/preset-typescript', '@babel/preset-react', envPreset];
+    const plugins = ['@babel/plugin-transform-runtime', 'react-hot-loader/babel', 'lodash'];
 
     return {
         presets,
