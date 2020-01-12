@@ -2,8 +2,6 @@
     "compilerOptions": {
         "target": "ES2020",
         "module": "ESNext",
-        "allowJs": true,
-        "checkJs": true,
         "jsx": "react",
         "removeComments": true,
         "isolatedModules": true,
@@ -22,8 +20,9 @@
         "moduleResolution": "node",
         "baseUrl": "./",
         "paths": {
-            "components/*": ["components/*"],
-            "assets/*": ["assets/*"]
+            "assets/*": ["assets/*"],
+            "lib/*": ["lib/*"],
+            "components/*": ["components/*"]
         },
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
@@ -32,5 +31,6 @@
         "emitDecoratorMetadata": true,
 
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "exclude": ["node_modules", "assets"]
 }

@@ -45,8 +45,9 @@ const commonConfig: Configuration = {
         alias: {
             'normalize.css$': resolve(projectRoot, './node_modules/normalize.css/normalize.css'),
             'react-dom$': '@hot-loader/react-dom',
+            assets: resolve(projectRoot, 'src/renderer/assets/'),
+            lib: resolve(projectRoot, 'src/renderer/lib'),
             components: resolve(projectRoot, 'src/renderer/components'),
-            assets: resolve(projectRoot, 'src/assets'),
         },
     },
     plugins: [

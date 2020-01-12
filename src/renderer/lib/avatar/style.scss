@@ -1,5 +1,18 @@
 .avatar {
+    display: inline-block;
+    text-align: center;
+
     &-circle {
         border-radius: 50%;
+    }
+
+    &-large {
+        width: 64px;
+        height: 64px;
+    }
+
+    &-small {
+        width: 32px;
+        height: 32px;
     }
 }

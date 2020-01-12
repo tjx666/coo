@@ -1,1 +1,2 @@
-export { default } from './sidebar';
+/* eslint-disable import/prefer-default-export */
+export { default as Sidebar } from './sidebar';
