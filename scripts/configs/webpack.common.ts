@@ -1,10 +1,12 @@
 import { resolve } from 'path';
-import { Configuration, HashedModuleIdsPlugin, DefinePlugin } from 'webpack';
+import { Configuration, HashedModuleIdsPlugin } from 'webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
+import { argv } from 'yargs';
+import { command } from 'execa';
 
 const projectRoot = resolve(__dirname, '../../');
 
@@ -71,9 +73,6 @@ const commonConfig: Configuration = {
             allowAsyncCycles: false,
             cwd: process.cwd(),
         }),
-        new DefinePlugin({
-            __REACT_DEVTOOLS_GLOBAL_HOOK__: '({ isDisabled: true })',
-        }),
     ],
     module: {
         rules: [
@@ -115,5 +114,12 @@ const commonConfig: Configuration = {
         ],
     },
 };
+
+if (argv.devtools) {
+    (commonConfig.entry as string[]).unshift('react-devtools');
+    command('npx react-devtools').catch(err => {
+        console.error('Startup react-devtools occur error:', err);
+    });
+}
 
 export default commonConfig;

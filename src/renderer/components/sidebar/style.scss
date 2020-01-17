@@ -7,6 +7,20 @@
     background-color: rgb(38, 41, 45);
 
     .avatar {
-        margin: 20px 0;
+        margin: 20px 0 40px;
+    }
+
+    .menu-item {
+        margin-bottom: 20px;
+        color: gray;
+        font-size: 24px;
+
+        &:hover:not(.menu-item-activated) {
+            color: white;
+        }
+
+        &-activated {
+            color: rgb(7, 193, 96);
+        }
     }
 }

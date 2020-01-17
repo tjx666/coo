@@ -43,7 +43,8 @@
 
         "no-console": "off",
         "no-unused-vars": "warn",
-        "func-names": "off"
+        "func-names": "off",
+        "no-unused-expressions": "off"
     },
     "overrides": [
         {
