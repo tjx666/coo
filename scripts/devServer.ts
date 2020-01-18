@@ -1,7 +1,8 @@
+import chalk from 'chalk';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import chalk from 'chalk';
 import logSymbols from 'log-symbols';
+
 import devConfig from './configs/webpack.dev';
 
 const compiler = webpack(devConfig);
@@ -22,7 +23,7 @@ server.listen(PORT, HOSTNAME, () => {
     );
 });
 
-process.on('SIGINT', () => {
+process.on('exit', () => {
     console.log(chalk.greenBright.bold(`\n${Math.random() > 0.5 ? 'See you again' : 'Goodbye'}!`));
     process.exit();
 });

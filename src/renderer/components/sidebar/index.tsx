@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { Avatar } from 'lib';
-import avatarPath from 'assets/images/avatar.jpg';
 
+import SidebarAvatar from './sidebarAvatar';
 import MenuItem from './menuItem';
 import './style.scss';
 
 export default function Sidebar() {
-    const [activatedMenuItemIndex, setActivatedMenuItemIndex] = React.useState(0);
+    const [activatedMenuItemIndex, setActivatedMenuItemIndex] = React.useState(-1);
+
+    const handleClickAvatar = () => {
+        setActivatedMenuItemIndex(-1);
+    };
 
     const handleClickMessage = () => {
         setActivatedMenuItemIndex(0);
@@ -18,7 +21,7 @@ export default function Sidebar() {
 
     return (
         <aside className="sidebar">
-            <Avatar src={avatarPath} size={34} />
+            <SidebarAvatar onClick={handleClickAvatar} />
             <MenuItem
                 activated={activatedMenuItemIndex === 0}
                 iconType="message1"

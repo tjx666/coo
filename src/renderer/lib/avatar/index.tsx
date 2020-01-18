@@ -10,9 +10,10 @@ interface AvatarProps {
     src?: string;
     shape?: 'square' | 'circular' | 'circle';
     size?: number | 'small' | 'default' | 'large';
+    onClick?: (event?: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
 }
 
-export default function Avatar({ className: clsProp, style: styleProp, src, shape, size }: AvatarProps) {
+export default function Avatar({ className: clsProp, style: styleProp, src, shape, size, onClick }: AvatarProps) {
     const className = classNames('avatar', clsProp, {
         'avatar-circular': shape === 'circular',
         'avatar-circle': shape === 'circle',
@@ -33,8 +34,12 @@ export default function Avatar({ className: clsProp, style: styleProp, src, shap
         <Icon style={{ fontSize: avatarSize * 0.75 }} type="user" />
     );
 
+    const handleClick = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+        onClick && onClick(event);
+    };
+
     return (
-        <span className={className} style={style}>
+        <span className={className} style={style} onClick={handleClick}>
             {children}
         </span>
     );

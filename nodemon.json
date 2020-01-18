@@ -4,9 +4,9 @@
     "watch": ["./src/main"],
     "ext": "ts",
     "execMap": {
-        "js": "ts-node -P ./scripts/tsconfig.json ./scripts/startMain.ts"
+        "js": "ts-node -P scripts/tsconfig.json scripts/startMain.ts"
     },
     "events": {
-        "restart": "ts-node -P ./scripts/tsconfig.json ./scripts/restartMain.ts"
+        "restart": "ts-node -P scripts/tsconfig.json scripts/restartMain.ts"
     }
 }

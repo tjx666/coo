@@ -13,7 +13,12 @@ module.exports = function(api) {
     ];
 
     const presets = ['@babel/preset-typescript', '@babel/preset-react', envPreset];
-    const plugins = ['@babel/plugin-transform-runtime', 'react-hot-loader/babel', 'lodash'];
+    const plugins = [
+        '@babel/plugin-transform-runtime',
+        'react-hot-loader/babel',
+        'lodash',
+        '@babel/plugin-proposal-optional-chaining',
+    ];
 
     return {
         presets,

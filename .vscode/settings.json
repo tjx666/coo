@@ -2,6 +2,7 @@
     "path-intellisense.mappings": {
         "assets": "${workspaceRoot}/src/renderer/assets",
         "lib": "${workspaceRoot}/src/renderer/lib",
+        "pages": "${workspaceRoot}/src/renderer/pages",
         "components": "${workspaceRoot}/src/renderer/components"
     }
 }

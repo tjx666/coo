@@ -14,7 +14,7 @@
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": 2018,
+        "ecmaVersion": 2020,
         "sourceType": "module"
     },
     "plugins": ["@typescript-eslint", "react"],
@@ -24,7 +24,7 @@
                 "extensions": [".ts", ".tsx", ".js", ".json"]
             },
             "typescript": {
-                "directory": ["./scripts/tsconfig.json", "./src/main/tsconfig.json", "./src/renderer/tsconfig.json"]
+                "directory": ["scripts/tsconfig.json", "src/main/tsconfig.json", "src/renderer/tsconfig.json"]
             }
         }
     },
@@ -33,18 +33,21 @@
 
         "import/extensions": "off",
 
-        "react/jsx-indent": ["error", 4],
-        "react/jsx-indent-props": ["error", 4],
         "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx", ".json", ".js"] }],
+        "react/jsx-indent-props": ["error", 4],
+        "react/jsx-indent": ["error", 4],
         "react/jsx-one-expression-per-line": "off",
 
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-explicit-any": "off",
 
-        "no-console": "off",
-        "no-unused-vars": "warn",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-static-element-interactions": "off",
+
         "func-names": "off",
-        "no-unused-expressions": "off"
+        "no-console": "off",
+        "no-unused-expressions": "off",
+        "no-unused-vars": "warn"
     },
     "overrides": [
         {

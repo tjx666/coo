@@ -1,1 +1,9 @@
 @import './styles/reset.scss';
+
+.app {
+    display: flex;
+
+    main {
+        flex: 1;
+    }
+}

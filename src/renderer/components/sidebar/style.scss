@@ -1,10 +1,11 @@
 .sidebar {
     display: flex;
+    flex-basis: 60px;
     flex-direction: column;
+    flex-grow: 0;
     align-items: center;
-    width: 60px;
     height: 100vh;
-    background-color: rgb(38, 41, 45);
+    background-color: rgb(37, 40, 43);
 
     .avatar {
         margin: 20px 0 40px;
@@ -14,6 +15,7 @@
         margin-bottom: 20px;
         color: gray;
         font-size: 24px;
+        cursor: pointer;
 
         &:hover:not(.menu-item-activated) {
             color: white;

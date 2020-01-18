@@ -1,12 +1,12 @@
 import { resolve } from 'path';
+import { argv } from 'yargs';
+import { command } from 'execa';
+
 import { Configuration, HashedModuleIdsPlugin } from 'webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import autoprefixer from 'autoprefixer';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
-import { argv } from 'yargs';
-import { command } from 'execa';
 
 const projectRoot = resolve(__dirname, '../../');
 
@@ -18,13 +18,6 @@ function getCSSLoaders(importLoaders: number) {
             options: {
                 sourceMap: true,
                 importLoaders,
-            },
-        },
-        {
-            loader: 'postcss-loader',
-            options: {
-                ident: 'postcss',
-                plugins: [autoprefixer()],
             },
         },
     ];
@@ -49,6 +42,7 @@ const commonConfig: Configuration = {
             'react-dom$': '@hot-loader/react-dom',
             assets: resolve(projectRoot, 'src/renderer/assets/'),
             lib: resolve(projectRoot, 'src/renderer/lib'),
+            pages: resolve(projectRoot, 'src/renderer/pages'),
             components: resolve(projectRoot, 'src/renderer/components'),
         },
     },
@@ -84,12 +78,12 @@ const commonConfig: Configuration = {
             },
             {
                 test: /\.css$/,
-                use: getCSSLoaders(1),
+                use: getCSSLoaders(0),
             },
             {
                 test: /\.scss$/,
                 use: [
-                    ...getCSSLoaders(2),
+                    ...getCSSLoaders(1),
                     {
                         loader: 'sass-loader',
                         options: { sourceMap: true },
@@ -118,7 +112,8 @@ const commonConfig: Configuration = {
 if (argv.devtools) {
     (commonConfig.entry as string[]).unshift('react-devtools');
     command('npx react-devtools').catch(err => {
-        console.error('Startup react-devtools occur error:', err);
+        console.error('Startup react-devtools occur error');
+        console.error(err);
     });
 }
 
