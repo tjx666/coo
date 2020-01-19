@@ -24,6 +24,7 @@ function getCSSLoaders(importLoaders: number) {
 }
 
 const commonConfig: Configuration = {
+    cache: true,
     target: 'electron-renderer',
     context: projectRoot,
     entry: ['react-hot-loader/patch', './src/renderer'],
