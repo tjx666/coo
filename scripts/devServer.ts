@@ -5,12 +5,18 @@ import logSymbols from 'log-symbols';
 
 import devConfig from './configs/webpack.dev';
 
-const compiler = webpack(devConfig);
-
 const devServerOptions: WebpackDevServer.Configuration = {
+    publicPath: devConfig.output!.publicPath,
+    contentBase: 'dist',
     quiet: true,
+    stats: 'minimal',
+    hot: true,
+    historyApiFallback: true,
 };
 
+WebpackDevServer.addDevServerEntrypoints(devConfig, devServerOptions);
+
+const compiler = webpack(devConfig);
 const server = new WebpackDevServer(compiler, devServerOptions);
 const HOSTNAME = 'localhost';
 const PORT = 3600;
