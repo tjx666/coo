@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { IconFont } from 'lib';
 
 import SidebarAvatar from './sidebarAvatar';
 import MenuItem from './menuItem';
@@ -22,16 +23,17 @@ export default function Sidebar() {
     return (
         <aside className="sidebar">
             <SidebarAvatar onClick={handleClickAvatar} />
+            <IconFont type="message1" />
             <MenuItem
                 activated={activatedMenuItemIndex === 0}
-                iconType="message1"
-                activatedIconType="valentine_-message-love-bubble-talk"
+                iconType="icon-message1"
+                activatedIconType="icon-valentine_-message-love-bubble-talk"
                 onClick={handleClickMessage}
             />
             <MenuItem
                 activated={activatedMenuItemIndex === 1}
-                iconType="contacts-line"
-                activatedIconType="contacts-fill"
+                iconType="icon-contacts-line"
+                activatedIconType="icon-contacts-fill"
                 onClick={handleClickContacts}
             />
         </aside>

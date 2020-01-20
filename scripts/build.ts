@@ -12,10 +12,7 @@ compiler.run((error, stats) => {
         console.log(`${chalk.redBright.bold('ERROR')} webpack configuration error!`);
         console.error(error);
 
-        if (compileError.details) {
-            console.error(compileError.details);
-        }
-
+        compileError.details && console.error(compileError.details);
         return;
     }
 

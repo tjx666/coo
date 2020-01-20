@@ -1,3 +1,5 @@
+@import '~styles/theme.scss';
+
 .sidebar {
     display: flex;
     flex-basis: 60px;
@@ -5,9 +7,9 @@
     flex-grow: 0;
     align-items: center;
     height: 100vh;
-    background-color: rgb(37, 40, 43);
+    background-color: rgb(53, 73, 94);
 
-    .avatar {
+    &-avatar {
         margin: 20px 0 40px;
     }
 
@@ -22,7 +24,7 @@
         }
 
         &-activated {
-            color: rgb(7, 193, 96);
+            color: $primary-color;
         }
     }
 }

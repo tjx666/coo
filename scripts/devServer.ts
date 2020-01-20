@@ -1,8 +1,8 @@
 import { resolve } from 'path';
 import chalk from 'chalk';
+import logSymbols from 'log-symbols';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import logSymbols from 'log-symbols';
 
 import devConfig from './configs/webpack.dev';
 
@@ -26,16 +26,11 @@ const compiler = webpack(devConfig);
 const server = new WebpackDevServer(compiler, devServerConfig);
 
 server.listen(PORT, HOSTNAME, () => {
-    console.log(
-        // prettier-ignore
-        `${chalk.bgYellow.black(' INFO ')} DevServer is running at ${chalk.magenta.bold.underline(address)} ${logSymbols.success}`
-    );
+    const infoPrefix = chalk.bgYellow.black(' INFO ');
+    console.log(`${infoPrefix} DevServer is running at ${chalk.magenta.bold.underline(address)} ${logSymbols.success}`);
 });
 
-process.on('exit', () => {
-    console.log(chalk.greenBright.bold(`\n${Math.random() > 0.5 ? 'See you again' : 'Goodbye'}!`));
-    process.exit();
-});
+process.on('exit', () => server.close());
 
 process.on('unhandledRejection', err => {
     console.error('You may have promise forgot to catch!');

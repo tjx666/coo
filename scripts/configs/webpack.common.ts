@@ -7,8 +7,10 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
+import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
 
 const projectRoot = resolve(__dirname, '../../');
+const renderer = resolve(projectRoot, 'src/renderer/');
 
 function getCSSLoaders(importLoaders: number) {
     return [
@@ -41,13 +43,15 @@ const commonConfig: Configuration = {
         alias: {
             'normalize.css$': resolve(projectRoot, './node_modules/normalize.css/normalize.css'),
             'react-dom': '@hot-loader/react-dom',
-            assets: resolve(projectRoot, 'src/renderer/assets/'),
-            lib: resolve(projectRoot, 'src/renderer/lib'),
-            pages: resolve(projectRoot, 'src/renderer/pages'),
-            components: resolve(projectRoot, 'src/renderer/components'),
+            assets: resolve(renderer, 'assets/'),
+            styles: resolve(renderer, 'styles'),
+            lib: resolve(renderer, 'lib'),
+            pages: resolve(renderer, 'pages'),
+            components: resolve(renderer, 'components'),
         },
     },
     plugins: [
+        new AntdDayjsWebpackPlugin(),
         new FriendlyErrorsPlugin(),
         new HashedModuleIdsPlugin({
             hashFunction: 'sha256',
@@ -80,6 +84,20 @@ const commonConfig: Configuration = {
             {
                 test: /\.css$/,
                 use: getCSSLoaders(0),
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    ...getCSSLoaders(1),
+                    {
+                        loader: 'less-loader',
+                        options: {
+                            javascriptEnabled: true,
+                            modifyVars: { '@primary-color': 'rgb(65, 184, 131)' },
+                            sourceMap: true,
+                        },
+                    },
+                ],
             },
             {
                 test: /\.scss$/,

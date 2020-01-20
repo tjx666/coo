@@ -1,5 +1,5 @@
-import { command } from 'execa';
 import chalk from 'chalk';
+import { command } from 'execa';
 import { argv } from 'yargs';
 
 async function startMain() {

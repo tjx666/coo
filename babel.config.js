@@ -11,12 +11,21 @@ module.exports = function(api) {
             corejs: 3,
         },
     ];
-
     const presets = ['@babel/preset-typescript', '@babel/preset-react', envPreset];
+
+    const importPlugin = [
+        'import',
+        {
+            libraryName: 'antd',
+            libraryDirectory: 'es',
+            style: true,
+        },
+    ];
     const plugins = [
         '@babel/plugin-transform-runtime',
         'react-hot-loader/babel',
         'lodash',
+        importPlugin,
         '@babel/plugin-proposal-optional-chaining',
     ];
 

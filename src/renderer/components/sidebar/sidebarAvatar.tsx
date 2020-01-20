@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Avatar } from 'lib';
+import { Avatar } from 'antd';
 
 import avatarPath from 'assets/images/avatar.jpg';
 
@@ -14,8 +14,8 @@ export default function SidebarAvatar({ onClick }: SidebarAvatarProps) {
     };
 
     return (
-        <Link to="/login">
-            <Avatar src={avatarPath} size={34} onClick={handleClick} />
+        <Link className="sidebar-avatar" to="/login" onClick={handleClick}>
+            <Avatar src={avatarPath} size={34} />
         </Link>
     );
 }

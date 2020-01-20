@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { Icon } from 'lib';
+import { IconFont } from 'lib';
 
 interface MenuItemProps {
     activated: boolean;
@@ -13,7 +13,7 @@ function MenuItem({ iconType, activatedIconType, activated, onClick }: MenuItemP
     const className = classNames('menu-item', { 'menu-item-activated': activated });
     const handleClick = () => onClick(activated);
 
-    return <Icon className={className} type={activated ? activatedIconType : iconType} onClick={handleClick} />;
+    return <IconFont className={className} type={activated ? activatedIconType : iconType} onClick={handleClick} />;
 }
 
 export default MenuItem;
