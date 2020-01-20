@@ -12,8 +12,8 @@ const App = () => {
             <Sidebar />
             <main>
                 <Switch>
-                    <Route path="/login" component={Register} />
-                    <Redirect to="/login" />
+                    <Route path="/register" component={Register} />
+                    <Redirect to="/register" />
                 </Switch>
             </main>
         </div>
