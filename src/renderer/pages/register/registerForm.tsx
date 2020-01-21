@@ -1,15 +1,27 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
-import { Form, Icon, Input, Button } from 'antd';
-import { FormComponentProps } from 'antd/lib/form/Form';
+import { Form, Icon, Input, Button, message } from 'antd';
+import { FormComponentProps, WrappedFormUtils } from 'antd/lib/form/Form';
+
+import api, { AxiosResponse } from '../../api';
+import { UserRegisterResponse } from '../../dto/user';
 
 const { Item: FormItem } = Form;
+
+type Ref = FormComponentProps;
+interface RegisterFormProps extends FormComponentProps {
+    form: WrappedFormUtils<FormFields>;
+}
+
+interface FormFields {
+    email: string;
+    name: string;
+    password: string;
+}
+
 const InputsStyle: React.CSSProperties = {
     color: 'rgba(0,0,0,.25)',
 };
 
-type RegisterFormProps = FormComponentProps;
-
-type Ref = FormComponentProps;
 const RegisterForm = forwardRef<Ref, RegisterFormProps>(({ form }: RegisterFormProps, ref) => {
     useImperativeHandle(ref, () => ({ form }));
 
@@ -17,10 +29,29 @@ const RegisterForm = forwardRef<Ref, RegisterFormProps>(({ form }: RegisterFormP
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        form.validateFields(err => {
-            if (err) {
-                console.log('校验出错');
-                console.error(err);
+        form.validateFields(async (validateErr, values) => {
+            if (!validateErr) {
+                const { email, name, password } = values;
+                let resp: AxiosResponse<UserRegisterResponse> | undefined;
+
+                try {
+                    resp = await api<UserRegisterResponse>('registerUser', {
+                        data: { email, name, password },
+                    });
+                } catch (err) {
+                    console.error(err);
+                    message.error('注册失败！');
+                    return;
+                }
+
+                const { code, msg, data } = resp.data;
+                if (code === 0) {
+                    message.success('注册成功！');
+                    localStorage.setItem('jwt', data);
+                } else {
+                    console.error(msg);
+                    message.error(msg);
+                }
             }
         });
     };
