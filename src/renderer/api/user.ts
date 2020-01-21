@@ -1,9 +1,13 @@
 import { AxiosRequestConfig } from 'axios';
 
 const requestConfigs: Record<string, AxiosRequestConfig> = {
-    registerUser: {
+    register: {
         method: 'POST',
         url: '/users/register',
+    },
+    login: {
+        method: 'POST',
+        url: '/users/login',
     },
 };
 

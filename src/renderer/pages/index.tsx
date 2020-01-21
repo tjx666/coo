@@ -1,2 +1,2 @@
-/* eslint-disable import/prefer-default-export */
-export { default as Register } from './register';
+export { default as RegisterPage } from './register';
+export { default as LoginPage } from './login';

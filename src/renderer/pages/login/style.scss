@@ -1,0 +1,16 @@
+.login {
+    text-align: center;
+
+    .title {
+        display: inline-block;
+        margin: 120px auto 0;
+        font-weight: bold;
+        font-size: 24px;
+    }
+
+    #login-form {
+        max-width: 300px;
+        margin: 20px auto 0;
+        text-align: center;
+    }
+}

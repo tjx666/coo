@@ -1,3 +1,2 @@
-import { CommonResponse } from './index';
-
-export type UserRegisterResponse = CommonResponse<string>;
+export type RegisterResponse = CommonResponse<string>;
+export type LoginResponse = CommonResponse<string>;
