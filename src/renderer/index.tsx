@@ -5,6 +5,12 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 
+if (process.env.NODE_ENV === 'development') {
+    window.j = (path: string) => {
+        window.location.href = path;
+    };
+}
+
 ReactDOM.render(
     <BrowserRouter>
         <App />

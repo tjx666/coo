@@ -1,5 +1,5 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { Form, Icon, Input, Button, message } from 'antd';
 import { FormComponentProps, WrappedFormUtils } from 'antd/lib/form/Form';
 
@@ -74,9 +74,10 @@ const LoginForm = forwardRef<Ref, LoginFormProps>(({ form }: LoginFormProps, ref
             <FormItem>{emailInput}</FormItem>
             <FormItem>{passwordInput}</FormItem>
             <FormItem>
-                <Button type="primary" htmlType="submit">
+                <Button className="login-btn" type="primary" htmlType="submit">
                     登入
                 </Button>
+                <Link to="/register">注册</Link>
             </FormItem>
         </Form>
     );

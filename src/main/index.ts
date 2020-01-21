@@ -1,10 +1,13 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { app, BrowserWindow } from 'electron';
 import windowStateKeeper from 'electron-window-state';
+import debug from 'electron-debug';
+import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
+debug();
 
 let win: BrowserWindow | null;
-
 function createWindow() {
     const mainWindowState = windowStateKeeper({
         defaultWidth: 1096,
@@ -22,7 +25,6 @@ function createWindow() {
     });
     win.removeMenu();
     win.loadURL('http://127.0.0.1:3600');
-    win.webContents.openDevTools();
     mainWindowState.manage(win);
 
     win.on('closed', () => {
@@ -30,7 +32,12 @@ function createWindow() {
     });
 }
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+    createWindow();
+    installExtension(REACT_DEVELOPER_TOOLS)
+        .then(name => console.log(`Added Extension:  ${name}`))
+        .catch(err => console.log('An error occurred: ', err));
+});
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {

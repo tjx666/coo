@@ -1,7 +1,4 @@
 import { resolve } from 'path';
-import { argv } from 'yargs';
-import { command } from 'execa';
-
 import { Configuration, HashedModuleIdsPlugin } from 'webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
@@ -127,13 +124,5 @@ const commonConfig: Configuration = {
         ],
     },
 };
-
-if (argv.devtools) {
-    (commonConfig.entry as string[]).unshift('react-devtools');
-    command('npx react-devtools').catch(err => {
-        console.error('Startup react-devtools occur error');
-        console.error(err);
-    });
-}
 
 export default commonConfig;
