@@ -33,10 +33,13 @@
 
         "import/extensions": "off",
 
+        "react/prop-types": "off",
+
         "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx", ".json", ".js"] }],
         "react/jsx-indent-props": ["error", 4],
         "react/jsx-indent": ["error", 4],
         "react/jsx-one-expression-per-line": "off",
+        "react/jsx-props-no-spreading": "off",
 
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-explicit-any": "off",
