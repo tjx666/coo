@@ -1,37 +1,42 @@
-module.exports = function(api) {
+const envPreset = [
+    '@babel/preset-env',
+    {
+        useBuiltIns: 'usage',
+        targets: {
+            browsers: {
+                electron: '7.1.9',
+            },
+        },
+        corejs: 3,
+    },
+];
+
+const importPlugin = [
+    'import',
+    {
+        libraryName: 'antd',
+        libraryDirectory: 'es',
+        style: true,
+    },
+];
+
+module.exports = api => {
     api.cache(true);
 
-    const envPreset = [
-        '@babel/env',
-        {
-            targets: {
-                browsers: ['last 2 version', 'Firefox ESR', '> 1%', 'ie >= 9'],
-            },
-            useBuiltIns: 'usage',
-            corejs: 3,
-        },
-    ];
-    const presets = ['@babel/preset-typescript', '@babel/preset-react', envPreset];
-
-    const importPlugin = [
-        'import',
-        {
-            libraryName: 'antd',
-            libraryDirectory: 'es',
-            style: true,
-        },
-    ];
-    const plugins = [
-        '@babel/plugin-transform-runtime',
-        'react-hot-loader/babel',
-        'lodash',
-        importPlugin,
-        '@babel/plugin-proposal-optional-chaining',
-    ];
-
     return {
-        presets,
-        plugins,
+        presets: ['@babel/preset-typescript', '@babel/preset-react', envPreset],
+        plugins: ['@babel/plugin-transform-runtime', '@babel/plugin-proposal-optional-chaining', importPlugin],
+        env: {
+            development: {
+                plugins: ['react-hot-loader/babel'],
+            },
+            production: {
+                plugins: [
+                    '@babel/plugin-transform-react-constant-elements',
+                    '@babel/plugin-transform-react-inline-elements',
+                ],
+            },
+        },
         sourceMaps: true,
         retainLines: true,
     };

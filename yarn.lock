@@ -620,11 +620,27 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.3"
 
+"@babel/plugin-transform-react-constant-elements@^7.8.3":
+  version "7.8.3"
+  resolved "https://registry.npm.taobao.org/@babel/plugin-transform-react-constant-elements/download/@babel/plugin-transform-react-constant-elements-7.8.3.tgz#784c25294bddaad2323eb4ff0c9f4a3f6c87d6bc"
+  integrity sha1-eEwlKUvdqtIyPrT/DJ9KP2yH1rw=
+  dependencies:
+    "@babel/helper-annotate-as-pure" "^7.8.3"
+    "@babel/helper-plugin-utils" "^7.8.3"
+
 "@babel/plugin-transform-react-display-name@^7.8.3":
   version "7.8.3"
   resolved "https://registry.npm.taobao.org/@babel/plugin-transform-react-display-name/download/@babel/plugin-transform-react-display-name-7.8.3.tgz#70ded987c91609f78353dd76d2fb2a0bb991e8e5"
   integrity sha1-cN7Zh8kWCfeDU9120vsqC7mR6OU=
   dependencies:
+    "@babel/helper-plugin-utils" "^7.8.3"
+
+"@babel/plugin-transform-react-inline-elements@^7.8.3":
+  version "7.8.3"
+  resolved "https://registry.npm.taobao.org/@babel/plugin-transform-react-inline-elements/download/@babel/plugin-transform-react-inline-elements-7.8.3.tgz#fc234d02a35bb188ee3f933d068824e067e42b23"
+  integrity sha1-/CNNAqNbsYjuP5M9Bogk4GfkKyM=
+  dependencies:
+    "@babel/helper-builder-react-jsx" "^7.8.3"
     "@babel/helper-plugin-utils" "^7.8.3"
 
 "@babel/plugin-transform-react-jsx-self@^7.8.3":
