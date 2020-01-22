@@ -90,7 +90,7 @@ const commonConfig: Configuration = {
                         loader: 'less-loader',
                         options: {
                             javascriptEnabled: true,
-                            modifyVars: { '@primary-color': 'rgb(65, 184, 131)' },
+                            modifyVars: { '@primary-color': 'rgb(56, 115, 254)' },
                             sourceMap: true,
                         },
                     },
