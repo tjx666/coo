@@ -1,7 +1,7 @@
 import { hot } from 'react-hot-loader/root';
 import * as React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { RegisterPage, LoginPage } from 'pages';
+import { RegisterPage, LoginPage, MessagePage } from 'pages';
 
 import './App.scss';
 
@@ -11,7 +11,8 @@ const App = () => {
             <Switch>
                 <Route path="/register" component={RegisterPage} />
                 <Route path="/login" component={LoginPage} />
-                <Redirect to="/login" />
+                <Route path="/message" component={MessagePage} />
+                <Redirect to="/message" />
             </Switch>
         </div>
     );

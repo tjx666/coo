@@ -24,16 +24,10 @@ export default function Sidebar() {
         <aside className="sidebar">
             <SidebarAvatar onClick={handleClickAvatar} />
             <IconFont type="message1" />
-            <MenuItem
-                activated={activatedMenuItemIndex === 0}
-                iconType="icon-message1"
-                activatedIconType="icon-valentine_-message-love-bubble-talk"
-                onClick={handleClickMessage}
-            />
+            <MenuItem activated={activatedMenuItemIndex === 0} iconType="icon-message-" onClick={handleClickMessage} />
             <MenuItem
                 activated={activatedMenuItemIndex === 1}
-                iconType="icon-contacts-line"
-                activatedIconType="icon-contacts-fill"
+                iconType="icon-contacts-fill"
                 onClick={handleClickContacts}
             />
         </aside>

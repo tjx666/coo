@@ -7,24 +7,40 @@
     flex-grow: 0;
     align-items: center;
     height: 100vh;
-    background-color: rgb(53, 73, 94);
+    background-image: linear-gradient(rgb(83, 96, 128), rgb(47, 56, 78));
 
-    &-avatar {
-        margin: 20px 0 40px;
+    .sidebar-avatar-link {
+        margin: 20px 0 30px;
+
+        .avatar-wrapper {
+            border: 2px solid white;
+            border-radius: 50%;
+        }
     }
 
     .menu-item {
-        margin-bottom: 20px;
-        color: gray;
-        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 46px;
         cursor: pointer;
 
-        &:hover:not(.menu-item-activated) {
-            color: white;
+        .icon-font {
+            color: rgb(142, 149, 166);
+            font-size: 24px;
+
+            &:hover {
+                color: white;
+            }
         }
 
         &-activated {
-            color: $primary-color;
+            background-color: $primary-color;
+
+            .icon-font {
+                color: white;
+            }
         }
     }
 }

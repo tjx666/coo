@@ -1,4 +1,5 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import { Form, Icon, Input, Button, message } from 'antd';
 import { FormComponentProps, WrappedFormUtils } from 'antd/lib/form/Form';
 
@@ -25,6 +26,7 @@ const InputsStyle: React.CSSProperties = {
 const RegisterForm = forwardRef<Ref, RegisterFormProps>(({ form }: RegisterFormProps, ref) => {
     useImperativeHandle(ref, () => ({ form }));
 
+    const history = useHistory();
     const { getFieldDecorator } = form;
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -48,6 +50,7 @@ const RegisterForm = forwardRef<Ref, RegisterFormProps>(({ form }: RegisterFormP
                 if (code === 0) {
                     message.success('注册成功！');
                     localStorage.setItem('jwt', data);
+                    history.push('/message');
                 } else {
                     console.error(msg);
                     message.error(msg);
@@ -74,9 +77,10 @@ const RegisterForm = forwardRef<Ref, RegisterFormProps>(({ form }: RegisterFormP
             <FormItem>{nameInput}</FormItem>
             <FormItem>{passwordInput}</FormItem>
             <FormItem>
-                <Button type="primary" htmlType="submit">
+                <Button className="register-btn" type="primary" htmlType="submit">
                     注册
                 </Button>
+                <Link to="/login">登入</Link>
             </FormItem>
         </Form>
     );

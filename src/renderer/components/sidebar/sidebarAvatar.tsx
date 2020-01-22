@@ -14,8 +14,10 @@ export default function SidebarAvatar({ onClick }: SidebarAvatarProps) {
     };
 
     return (
-        <Link className="sidebar-avatar" to="/login" onClick={handleClick}>
-            <Avatar src={avatarPath} size={34} />
+        <Link className="sidebar-avatar-link" to="/login" onClick={handleClick}>
+            <div className="avatar-wrapper">
+                <Avatar className="sidebar-avatar" src={avatarPath} size={34} />
+            </div>
         </Link>
     );
 }

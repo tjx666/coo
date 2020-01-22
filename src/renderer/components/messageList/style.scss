@@ -1,4 +1,41 @@
+@import '~styles/theme.scss';
+
 .message-list {
-    width: 200px;
-    height: 100vh;
+    overflow: auto;
+    user-select: none;
+
+    .message-item {
+        display: flex;
+        align-items: center;
+        height: 60px;
+        cursor: pointer;
+
+        &-current {
+            background-color: rgb(239, 240, 241);
+            border-left: 3px solid $primary-color;
+        }
+
+        &:hover {
+            background-color: rgb(222, 224, 227);
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .avatar {
+            margin: 0 10px;
+        }
+
+        .item-right {
+            display: flex;
+            flex-direction: column;
+
+            .name {
+                color: black;
+            }
+
+            .digest {
+                color: gray;
+                font-size: 12px;
+            }
+        }
+    }
 }
