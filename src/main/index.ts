@@ -6,6 +6,7 @@ import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-insta
 
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
 debug();
+app.commandLine.appendSwitch('proxy-server', '127.0.0.1:12121');
 
 let win: BrowserWindow | null;
 function createWindow() {
