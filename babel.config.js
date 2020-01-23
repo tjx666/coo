@@ -3,7 +3,8 @@ const envPreset = [
     {
         useBuiltIns: 'usage',
         targets: {
-            electron: '7.1.9',
+            // eslint-disable-next-line global-require
+            electron: require('electron/package.json').version,
         },
         corejs: 3,
     },
@@ -32,6 +33,7 @@ module.exports = api => {
             production: {
                 presets: ['@babel/preset-react'],
                 plugins: [
+                    'babel-plugin-dev-expression',
                     '@babel/plugin-transform-react-constant-elements',
                     '@babel/plugin-transform-react-inline-elements',
                 ],

@@ -17,7 +17,7 @@
         "ecmaVersion": 2020,
         "sourceType": "module"
     },
-    "plugins": ["@typescript-eslint", "react"],
+    "plugins": ["@typescript-eslint", "react", "markdown"],
     "settings": {
         "import/resolver": {
             "node": {

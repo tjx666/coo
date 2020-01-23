@@ -5,6 +5,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
+import WebpackBar from 'webpackbar';
 
 const projectRoot = resolve(__dirname, '../../');
 const renderer = resolve(projectRoot, 'src/renderer/');
@@ -48,6 +49,10 @@ const commonConfig: Configuration = {
         },
     },
     plugins: [
+        new WebpackBar({
+            name: 'renderer',
+            color: '#3873fe',
+        }),
         new AntdDayjsWebpackPlugin(),
         new FriendlyErrorsPlugin(),
         new HashedModuleIdsPlugin({
