@@ -1,7 +1,7 @@
 {
     "extends": ["stylelint-config-standard", "stylelint-config-rational-order", "stylelint-prettier/recommended"],
     "plugins": ["stylelint-order", "stylelint-declaration-block-no-ignored-properties"],
-    "ignoreFiles": ["node_modules/**/*"],
+    "ignoreFiles": ["node_modules/**/*", "src/renderer/assets/**/*", "dist/**/*"],
     "rules": {
         "comment-empty-line-before": null,
         "declaration-empty-line-before": null,

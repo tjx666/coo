@@ -1,8 +1,8 @@
-import chalk from 'chalk';
-import { command } from 'execa';
-import { argv } from 'yargs';
+const chalk = require('chalk');
+const { command } = require('execa');
+const { argv } = require('yargs');
 
-async function startMain() {
+(async function startMain() {
     const prefix = chalk.bgRed.black(' NODEMON ');
 
     console.log(`${prefix} Compiling main...`);
@@ -10,6 +10,4 @@ async function startMain() {
 
     console.log(`${prefix} Starting main in ${chalk.yellow('development')} mode...`);
     await command(`npx cross-env NODE_ENV=development electron ${argv._}`);
-}
-
-startMain();
+})();

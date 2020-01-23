@@ -17,7 +17,7 @@
         "ecmaVersion": 2020,
         "sourceType": "module"
     },
-    "plugins": ["@typescript-eslint", "react", "markdown"],
+    "plugins": ["@typescript-eslint", "react"],
     "settings": {
         "import/resolver": {
             "node": {
@@ -58,9 +58,15 @@
     },
     "overrides": [
         {
-            "files": ["scripts/**/*.ts"],
+            "files": ["scripts/**/*.{ts,js}"],
             "rules": {
                 "import/no-extraneous-dependencies": "off"
+            }
+        },
+        {
+            "files": ["scripts/**/*.js"],
+            "rules": {
+                "@typescript-eslint/no-var-requires": "off"
             }
         }
     ]

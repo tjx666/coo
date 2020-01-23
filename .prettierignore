@@ -1,1 +1,4 @@
+node_modules
 src/renderer/assets
+dist
+out

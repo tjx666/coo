@@ -1,18 +1,21 @@
 import { resolve } from 'path';
-import { Configuration, HashedModuleIdsPlugin } from 'webpack';
+import WebpackBar from 'webpackbar';
+import { HashedModuleIdsPlugin, BannerPlugin, Configuration } from 'webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import CircularDependencyPlugin from 'circular-dependency-plugin';
+import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
+import CircularDependencyPlugin from 'circular-dependency-plugin';
+import HardSourceWebpackPlugin from 'hard-source-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
-import WebpackBar from 'webpackbar';
 
 const projectRoot = resolve(__dirname, '../../');
 const renderer = resolve(projectRoot, 'src/renderer/');
 
 function getCSSLoaders(importLoaders: number) {
     return [
-        'style-loader',
+        process.env.NODE_ENV === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
         {
             loader: 'css-loader',
             options: {
@@ -49,17 +52,6 @@ const commonConfig: Configuration = {
         },
     },
     plugins: [
-        new WebpackBar({
-            name: 'renderer',
-            color: '#3873fe',
-        }),
-        new AntdDayjsWebpackPlugin(),
-        new FriendlyErrorsPlugin(),
-        new HashedModuleIdsPlugin({
-            hashFunction: 'sha256',
-            hashDigest: 'hex',
-            hashDigestLength: 20,
-        }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             filename: 'index.html',
@@ -68,12 +60,28 @@ const commonConfig: Configuration = {
             inject: 'body',
             cache: true,
         }),
+        new BannerPlugin('This coo project is develop by YuTengjing under MIT license'),
+        new WebpackBar({
+            name: 'renderer',
+            color: '#3873fe',
+        }),
+        new FriendlyErrorsPlugin(),
+        new HashedModuleIdsPlugin({
+            hashFunction: 'sha256',
+            hashDigest: 'hex',
+            hashDigestLength: 20,
+        }),
+        new CaseSensitivePathsPlugin(),
         new CircularDependencyPlugin({
             exclude: /node_modules/,
             failOnError: true,
             allowAsyncCycles: false,
             cwd: process.cwd(),
         }),
+        new HardSourceWebpackPlugin({
+            info: { mode: 'none', level: 'error' },
+        }),
+        new AntdDayjsWebpackPlugin(),
     ],
     module: {
         rules: [
@@ -112,16 +120,26 @@ const commonConfig: Configuration = {
                 ],
             },
             {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: 'file-loader',
-            },
-            {
-                test: /\.(svg|png|jpe?g|gif)$/i,
+                test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
                 use: [
                     {
                         loader: 'url-loader',
                         options: {
-                            limit: 1024,
+                            limit: 8192,
+                            name: '[name].[contenthash].[ext]',
+                            outputPath: 'images',
+                        },
+                    },
+                ],
+            },
+            {
+                test: /\.(ttf|woff|woff2|eot|otf)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            name: '[name]-[contenthash].[ext]',
+                            outputPath: 'fonts',
                         },
                     },
                 ],
