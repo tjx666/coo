@@ -39,7 +39,7 @@ const mergedConfig = merge(commonConfig, {
                     },
                 },
             }),
-            new OptimizeCSSAssetsPlugin({}),
+            new OptimizeCSSAssetsPlugin(),
         ],
     },
 });

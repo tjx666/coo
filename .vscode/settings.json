@@ -12,5 +12,13 @@
         "out": true,
         "dist": true,
         "yarn.lock": true
+    },
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/*/**": true,
+        "out": true,
+        "dist": true,
+        "yarn.lock": true
     }
 }

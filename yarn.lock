@@ -2901,11 +2901,6 @@ clone@^2.1.1, clone@^2.1.2:
   resolved "https://registry.npm.taobao.org/clone/download/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
   integrity sha1-G39Ln1kfHo+DZwQBYANFoCiHQ18=
 
-cnbuilder@^1.1.7:
-  version "1.1.7"
-  resolved "https://registry.npm.taobao.org/cnbuilder/download/cnbuilder-1.1.7.tgz#04ef08d278efd69bc65a95b087328455a85a2eef"
-  integrity sha1-BO8I0njv1pvGWpWwhzKEVahaLu8=
-
 coa@^2.0.2:
   version "2.0.2"
   resolved "https://registry.npm.taobao.org/coa/download/coa-2.0.2.tgz#43f6c21151b4ef2bf57187db0d73de229e3e7ec3"
@@ -9426,14 +9421,6 @@ react-dom@^16.12.0:
     prop-types "^15.6.2"
     scheduler "^0.18.0"
 
-react-draggable@^3.3.2:
-  version "3.3.2"
-  resolved "https://registry.npm.taobao.org/react-draggable/download/react-draggable-3.3.2.tgz#966ef1d90f2387af3c2d8bd3516f601ea42ca359"
-  integrity sha1-lm7x2Q8jh688LYvTUW9gHqQso1k=
-  dependencies:
-    classnames "^2.2.5"
-    prop-types "^15.6.0"
-
 react-fast-compare@^2.0.4:
   version "2.0.4"
   resolved "https://registry.npm.taobao.org/react-fast-compare/download/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
@@ -9501,15 +9488,6 @@ react-router@5.1.2:
     react-is "^16.6.0"
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
-
-react-scrollbars-custom@^4.0.21:
-  version "4.0.21"
-  resolved "https://registry.npm.taobao.org/react-scrollbars-custom/download/react-scrollbars-custom-4.0.21.tgz#daab3104b9707033a5be29fdc5b7408dee41a5ad"
-  integrity sha1-2qsxBLlwcDOlvin9xbdAje5Bpa0=
-  dependencies:
-    cnbuilder "^1.1.7"
-    react-draggable "^3.3.2"
-    zoom-level "^1.2.4"
 
 react-slick@~0.25.2:
   version "0.25.2"
@@ -12513,8 +12491,3 @@ yn@3.1.1:
   version "3.1.1"
   resolved "https://registry.npm.taobao.org/yn/download/yn-3.1.1.tgz#1e87401a09d767c1d5eab26a6e4c185182d2eb50"
   integrity sha1-HodAGgnXZ8HV6rJqbkwYUYLS61A=
-
-zoom-level@^1.2.4:
-  version "1.2.4"
-  resolved "https://registry.npm.taobao.org/zoom-level/download/zoom-level-1.2.4.tgz#52bc5ae3af945cac82f9f685e8707fa2c9b962e2"
-  integrity sha1-Urxa46+UXKyC+faF6HB/osm5YuI=

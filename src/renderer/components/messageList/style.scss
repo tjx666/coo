@@ -1,8 +1,24 @@
 @import '~styles/theme.scss';
 
 .message-list {
+    box-sizing: content-box;
+    width: 290px;
     overflow: auto;
+    border-right: 1px solid rgb(222, 224, 227);
     user-select: none;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+
+        &-thumb {
+            background-color: rgb(221, 223, 225);
+            border-radius: 5px;
+
+            &:hover {
+                background-color: rgb(187, 191, 196);
+            }
+        }
+    }
 
     .message-item {
         display: flex;
