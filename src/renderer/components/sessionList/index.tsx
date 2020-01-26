@@ -2,10 +2,13 @@ import * as React from 'react';
 import { List } from 'antd';
 import faker from 'faker';
 
-import MessageItem from './messageItem';
+import SessionItem from './sessionItem';
 import './style.scss';
 
-export default function MessageList() {
+/**
+ * 显示所有会话信息的列表组件
+ */
+export default function SessionList() {
     const fakerData = [...Array(16)].map((_, index) => ({
         current: index === 2,
         avatarSrc: faker.image.avatar(),
@@ -14,8 +17,8 @@ export default function MessageList() {
     }));
 
     const renderItem = (item: any) => {
-        return <MessageItem {...item} />;
+        return <SessionItem {...item} />;
     };
 
-    return <List className="message-list" dataSource={fakerData} renderItem={renderItem} />;
+    return <List className="session-list" dataSource={fakerData} renderItem={renderItem} />;
 }

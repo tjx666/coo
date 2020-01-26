@@ -9,8 +9,11 @@ interface MessageItemProps {
     digest: string;
 }
 
-export default function MessageItem({ current, avatarSrc, name, digest }: MessageItemProps) {
-    const className = classNames('message-item', { 'message-item-current': current });
+/**
+ * 会话项组件
+ */
+export default function SessionItem({ current, avatarSrc, name, digest }: MessageItemProps) {
+    const className = classNames('session-item', { 'session-item-current': current });
 
     return (
         <div className={className}>

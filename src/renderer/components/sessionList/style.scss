@@ -1,10 +1,10 @@
 @import '~styles/theme.scss';
 
-.message-list {
+.session-list {
     box-sizing: content-box;
     width: 290px;
     overflow: auto;
-    border-right: 1px solid rgb(222, 224, 227);
+    border-right: 1px solid $line-frame-gray;
     user-select: none;
 
     &::-webkit-scrollbar {
@@ -20,7 +20,7 @@
         }
     }
 
-    .message-item {
+    .session-item {
         display: flex;
         align-items: center;
         height: 60px;

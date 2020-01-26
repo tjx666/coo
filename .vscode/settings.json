@@ -7,8 +7,7 @@
         "components": "${workspaceRoot}/src/renderer/components"
     },
     "search.exclude": {
-        ".git": true,
-        "node_modules": true,
+        "**/node_modules": true,
         "out": true,
         "dist": true,
         "yarn.lock": true

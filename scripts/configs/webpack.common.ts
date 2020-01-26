@@ -76,7 +76,7 @@ const commonConfig: Configuration = {
             exclude: /node_modules/,
             failOnError: true,
             allowAsyncCycles: false,
-            cwd: process.cwd(),
+            cwd: projectRoot,
         }),
         new HardSourceWebpackPlugin({
             info: { mode: 'none', level: 'error' },

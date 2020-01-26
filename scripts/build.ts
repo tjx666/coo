@@ -16,9 +16,10 @@ compiler.run((error, stats) => {
         return;
     }
 
-    console.log(
-        stats.toString({
-            colors: true,
-        })
-    );
+    const prodStatsOpts = {
+        preset: 'normal',
+        colors: true,
+    };
+
+    console.log(stats.toString(prodStatsOpts));
 });

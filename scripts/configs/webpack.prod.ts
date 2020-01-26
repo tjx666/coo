@@ -1,4 +1,5 @@
 import { resolve } from 'path';
+import { argv } from 'yargs';
 import merge from 'webpack-merge';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import SpeedMeasurePlugin from 'speed-measure-webpack-plugin';
@@ -23,7 +24,6 @@ const mergedConfig = merge(commonConfig, {
             ignoreOrder: false,
         }),
         new SizePlugin({ writeFile: false }),
-        new BundleAnalyzerPlugin({ openAnalyzer: false }),
     ],
     optimization: {
         minimize: true,
@@ -31,11 +31,10 @@ const mergedConfig = merge(commonConfig, {
             new TerserPlugin({
                 cache: true,
                 parallel: true,
-                sourceMap: true,
                 extractComments: false,
                 terserOptions: {
                     output: {
-                        comments: false,
+                        comments: /^! This coo project is developed by YuTengjing under MIT license $/,
                     },
                 },
             }),
@@ -43,6 +42,8 @@ const mergedConfig = merge(commonConfig, {
         ],
     },
 });
+
+argv.analyze && mergedConfig.plugins!.push(new BundleAnalyzerPlugin());
 
 const smp = new SpeedMeasurePlugin();
 const prodConfig = smp.wrap(mergedConfig);
