@@ -60,7 +60,10 @@ const commonConfig: Configuration = {
             inject: 'body',
             cache: true,
         }),
-        new BannerPlugin('This coo project is develop by YuTengjing under MIT license'),
+        new BannerPlugin({
+            banner: `/** @preserve This coo project is develop by YuTengjing under MIT license */`,
+            raw: true,
+        }),
         new WebpackBar({
             name: 'renderer',
             color: '#3873fe',

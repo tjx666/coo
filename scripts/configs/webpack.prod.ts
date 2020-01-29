@@ -19,8 +19,8 @@ const mergedConfig = merge(commonConfig, {
             tsconfig: resolve(__dirname, '../../src/renderer/tsconfig.json'),
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].[contenthash].css',
-            chunkFilename: '[id].[contenthash].css',
+            filename: 'css/[name].[contenthash].css',
+            chunkFilename: 'css/[id].[contenthash].css',
             ignoreOrder: false,
         }),
         new SizePlugin({ writeFile: false }),
@@ -32,11 +32,6 @@ const mergedConfig = merge(commonConfig, {
                 cache: true,
                 parallel: true,
                 extractComments: false,
-                terserOptions: {
-                    output: {
-                        comments: /^! This coo project is developed by YuTengjing under MIT license $/,
-                    },
-                },
             }),
             new OptimizeCSSAssetsPlugin(),
         ],
