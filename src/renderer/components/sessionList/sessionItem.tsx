@@ -18,7 +18,7 @@ export default function SessionItem({ current, avatarSrc, name, digest }: Messag
     return (
         <div className={className}>
             <Avatar className="avatar" src={avatarSrc} />
-            <div className="item-right">
+            <div className="session-item-main">
                 <span className="name">{name}</span>
                 <span className="digest">{digest}</span>
             </div>

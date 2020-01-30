@@ -1,15 +1,16 @@
 import * as React from 'react';
-import { Sidebar, SessionList, MessageInput } from 'components';
+import { Navbar, SessionList, MessageList, MessageEditor } from 'components';
 
 import './style.scss';
 
 export default function MessagePage() {
     return (
         <div className="message">
-            <Sidebar />
+            <Navbar />
             <SessionList />
             <main>
-                <MessageInput />
+                <MessageList />
+                <MessageEditor />
             </main>
         </div>
     );

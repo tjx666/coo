@@ -2,14 +2,14 @@ import * as React from 'react';
 import classNames from 'classnames';
 import { IconFont } from 'lib';
 
-interface MenuItemProps {
+interface NavItemProps {
     activated: boolean;
     iconType: string;
     onClick: (activated: boolean) => void;
 }
 
-function MenuItem({ iconType, activated, onClick }: MenuItemProps) {
-    const className = classNames('menu-item', { 'menu-item-activated': activated });
+function NavItem({ iconType, activated, onClick }: NavItemProps) {
+    const className = classNames('nav-item', { 'nav-item-activated': activated });
     const handleClick = () => onClick(activated);
 
     return (
@@ -19,4 +19,4 @@ function MenuItem({ iconType, activated, onClick }: MenuItemProps) {
     );
 }
 
-export default MenuItem;
+export default NavItem;

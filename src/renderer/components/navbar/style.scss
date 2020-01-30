@@ -1,6 +1,6 @@
 @import '~styles/theme.scss';
 
-.sidebar {
+.navbar {
     display: flex;
     flex-basis: 60px;
     flex-direction: column;
@@ -9,7 +9,7 @@
     height: 100vh;
     background-image: linear-gradient(rgb(83, 96, 128), rgb(47, 56, 78));
 
-    .sidebar-avatar-link {
+    .navbar-avatar-link {
         margin: 20px 0 30px;
 
         .avatar-wrapper {
@@ -18,7 +18,7 @@
         }
     }
 
-    .menu-item {
+    .nav-item {
         display: flex;
         align-items: center;
         justify-content: center;

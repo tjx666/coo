@@ -4,19 +4,19 @@ import { Avatar } from 'antd';
 
 import avatarPath from 'assets/images/avatar.jpg';
 
-interface SidebarAvatarProps {
+interface NavbarAvatarProps {
     onClick: (event?: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
 }
 
-export default function SidebarAvatar({ onClick }: SidebarAvatarProps) {
+export default function NavbarAvatar({ onClick }: NavbarAvatarProps) {
     const handleClick = () => {
         onClick();
     };
 
     return (
-        <Link className="sidebar-avatar-link" to="/login" onClick={handleClick}>
+        <Link className="navbar-avatar-link" to="/login" onClick={handleClick}>
             <div className="avatar-wrapper">
-                <Avatar className="sidebar-avatar" src={avatarPath} size={34} />
+                <Avatar className="navbar-avatar" src={avatarPath} size={34} />
             </div>
         </Link>
     );

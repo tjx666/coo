@@ -1,0 +1,50 @@
+@import '~styles/theme.scss';
+
+.message-editor-container {
+    min-height: 44px;
+    max-height: 200px;
+    margin: 0 20px;
+    margin-bottom: 20px;
+    padding: 8px 10px;
+    overflow: auto;
+    border: 1px solid $line-frame-gray;
+    border-radius: 4px;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+
+        &-thumb {
+            background-color: rgb(221, 223, 225);
+            border-radius: 5px;
+
+            &:hover {
+                background-color: rgb(187, 191, 196);
+            }
+        }
+    }
+
+    .message-editor {
+        display: inline-block;
+        width: auto;
+        min-width: calc(100% - 48px);
+        max-width: 100%;
+        padding: 4px 0;
+        color: black;
+        word-break: break-all;
+        outline: none;
+    }
+
+    .toolbar {
+        float: right;
+        width: 48px;
+        margin-top: 4px;
+
+        &-item {
+            font-size: 20px;
+
+            &:not(:last-child) {
+                margin: 0 4px;
+            }
+        }
+    }
+}

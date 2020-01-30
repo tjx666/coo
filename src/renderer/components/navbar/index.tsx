@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { IconFont } from 'lib';
 
-import SidebarAvatar from './sidebarAvatar';
-import MenuItem from './menuItem';
+import NavbarAvatar from './navbarAvatar';
+import NavItem from './navItem';
 import './style.scss';
 
-export default function Sidebar() {
+export default function Navbar() {
     const [activatedMenuItemIndex, setActivatedMenuItemIndex] = React.useState(-1);
 
     const handleClickAvatar = () => {
@@ -21,11 +21,11 @@ export default function Sidebar() {
     };
 
     return (
-        <aside className="sidebar">
-            <SidebarAvatar onClick={handleClickAvatar} />
+        <aside className="navbar">
+            <NavbarAvatar onClick={handleClickAvatar} />
             <IconFont type="message1" />
-            <MenuItem activated={activatedMenuItemIndex === 0} iconType="icon-message-" onClick={handleClickMessage} />
-            <MenuItem
+            <NavItem activated={activatedMenuItemIndex === 0} iconType="icon-message-" onClick={handleClickMessage} />
+            <NavItem
                 activated={activatedMenuItemIndex === 1}
                 iconType="icon-contacts-fill"
                 onClick={handleClickContacts}

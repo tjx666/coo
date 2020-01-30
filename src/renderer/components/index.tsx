@@ -1,3 +1,4 @@
-export { default as Sidebar } from './sidebar';
+export { default as Navbar } from './navbar';
 export { default as SessionList } from './sessionList';
-export { default as MessageInput } from './messageInput';
+export { default as MessageEditor } from './messageEditor';
+export { default as MessageList } from './messageList';
