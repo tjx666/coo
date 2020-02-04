@@ -7,7 +7,7 @@ import detect from 'detect-port';
 
 import devConfig from './configs/webpack.dev';
 
-(async function startDevServer() {
+async function startDevServer() {
     const HOSTNAME = 'localhost';
     const PORT = 3600;
     const port = await detect(PORT);
@@ -36,11 +36,13 @@ import devConfig from './configs/webpack.dev';
     server.listen(PORT, HOSTNAME, () => {
         const infoPrefix = chalk.bgYellow.black(' INFO ');
         console.log(
-            `${infoPrefix} DevServer is running at ${chalk.magenta.bold.underline(address)} ${logSymbols.success}`
+            `${infoPrefix} DevServer is running at ${chalk.magenta.bold.underline(address)} ${logSymbols.success}`,
         );
     });
     process.on('exit', () => server.close());
-})();
+}
+
+startDevServer();
 
 process.on('unhandledRejection', err => {
     console.error('You may have promise forgot to catch!');

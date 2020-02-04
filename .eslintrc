@@ -4,7 +4,7 @@
         "es6": true,
         "node": true
     },
-    "extends": ["airbnb", "airbnb/hooks", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+    "extends": ["airbnb", "airbnb/hooks", "plugin:@typescript-eslint/recommended", "prettier"],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -29,8 +29,6 @@
         }
     },
     "rules": {
-        "prettier/prettier": "off",
-
         "import/extensions": "off",
 
         "react/prop-types": "off",
@@ -44,6 +42,7 @@
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-useless-constructor": "error",
 
         "jsx-a11y/click-events-have-key-events": "off",
         "jsx-a11y/label-has-associated-control": "off",
@@ -54,9 +53,18 @@
         "no-empty": "warn",
         "no-param-reassign": "off",
         "no-unused-expressions": "off",
-        "no-unused-vars": "warn"
+        "no-unused-vars": "warn",
+        "no-useless-constructor": "off",
+        "lines-between-class-members": "off"
     },
     "overrides": [
+        {
+            "files": ["**/*.d.ts"],
+            "rules": {
+                "max-classes-per-file": "off",
+                "import/no-duplicates": "off"
+            }
+        },
         {
             "files": ["scripts/**/*.{ts,js}"],
             "rules": {
