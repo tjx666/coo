@@ -4,7 +4,7 @@ import './style.scss';
 
 export default function LoginPage() {
     return (
-        <main className="login">
+        <main className="login-page">
             <span className="title">登入</span>
             <LoginForm />
         </main>

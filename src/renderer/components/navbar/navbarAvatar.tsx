@@ -14,7 +14,7 @@ export default function NavbarAvatar({ onClick }: NavbarAvatarProps) {
     };
 
     return (
-        <Link className="navbar-avatar-link" to="/login" onClick={handleClick}>
+        <Link className="navbar-avatar-link" to="/profile" onClick={handleClick}>
             <div className="avatar-wrapper">
                 <Avatar className="navbar-avatar" src={avatarPath} size={34} />
             </div>

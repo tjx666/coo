@@ -5,7 +5,7 @@ import './style.scss';
 
 export default function MessagePage() {
     return (
-        <div className="message">
+        <div className="message-page">
             <Navbar />
             <SessionList />
             <main>
