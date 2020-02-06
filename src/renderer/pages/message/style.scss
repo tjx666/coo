@@ -1,10 +1,11 @@
 .message-page {
     display: flex;
-    width: 100vw;
+    flex: 1;
     height: 100vh;
 
-    main {
+    &-main {
         display: flex;
+        flex: 1;
         flex-direction: column;
         justify-content: space-between;
     }

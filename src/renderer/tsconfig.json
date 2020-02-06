@@ -24,6 +24,7 @@
             "styles/*": ["styles/*"],
             "lib/*": ["lib/*"],
             "pages/*": ["pages/*"],
+            "layouts/*": ["layouts/*"],
             "components/*": ["components/*"]
         },
         "allowSyntheticDefaultImports": true,

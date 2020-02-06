@@ -8,10 +8,6 @@ import './style.scss';
 export default function Navbar() {
     const [activatedMenuItemIndex, setActivatedMenuItemIndex] = React.useState(-1);
 
-    const handleClickAvatar = () => {
-        setActivatedMenuItemIndex(-1);
-    };
-
     const handleClickMessage = () => {
         setActivatedMenuItemIndex(0);
     };
@@ -22,7 +18,7 @@ export default function Navbar() {
 
     return (
         <aside className="navbar">
-            <NavbarAvatar onClick={handleClickAvatar} />
+            <NavbarAvatar />
             <IconFont type="message1" />
             <NavItem activated={activatedMenuItemIndex === 0} iconType="icon-message-" onClick={handleClickMessage} />
             <NavItem

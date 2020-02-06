@@ -1,14 +1,9 @@
 .profile-page {
     display: flex;
-    width: 100vw;
+    flex: 1;
+    justify-content: center;
 
-    .profile {
-        display: flex;
-        flex: 1;
-        justify-content: center;
-
-        &-avatar {
-            margin-top: 40px;
-        }
+    &-avatar {
+        margin-top: 40px;
     }
 }
