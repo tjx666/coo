@@ -9,6 +9,10 @@ const requestConfigs: Record<string, AxiosRequestConfig> = {
         method: 'POST',
         url: '/users/login',
     },
+    getUser: {
+        method: 'GET',
+        url: '/users/:id',
+    },
 };
 
 export default requestConfigs;

@@ -72,7 +72,7 @@ const RegisterForm = forwardRef<Ref, RegisterFormProps>(({ form }: RegisterFormP
     })(<Input type="password" prefix={<Icon type="lock" style={InputsStyle} />} placeholder="密码" />);
 
     return (
-        <Form id="register-form" onSubmit={handleSubmit}>
+        <Form className="register-form" onSubmit={handleSubmit}>
             <FormItem>{emailInput}</FormItem>
             <FormItem>{nameInput}</FormItem>
             <FormItem>{passwordInput}</FormItem>

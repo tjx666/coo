@@ -7,3 +7,7 @@ declare module '*.jpg' {
     const imagePath: string;
     export default imagePath;
 }
+
+interface Window {
+    j: (path: string) => void | undefined;
+}

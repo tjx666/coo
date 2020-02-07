@@ -1,18 +1,39 @@
-import { AxiosRequestConfig, AxiosPromise } from 'axios';
+import { AxiosPromise } from 'axios';
 import { merge } from 'lodash';
+
+import { RequestConfig } from '../typings/coo';
 
 import request from '../utils/request';
 import userRequestsConfigs from './user';
 
-const requestConfigs: Record<string, AxiosRequestConfig> = {
+const requestConfigs: Record<string, RequestConfig> = {
     ...userRequestsConfigs,
 };
 
 export * from 'axios';
-export default async function api<T>(id: string, requestConfig?: AxiosRequestConfig) {
-    const preDefinedConfig = requestConfigs[id];
 
+function parserPathParams(url: string, params: Record<string, string> | undefined): string {
+    const PATH_PARAMETER_RE = /:(\w+)/g;
+    let match = PATH_PARAMETER_RE.exec(url);
+    while (match) {
+        const [sourceArg, argKey] = match;
+        if (!params || !params[argKey]) {
+            throw new TypeError(`Your request config lost path parameter ${argKey}!`);
+        }
+        url.replace(sourceArg, params[argKey]);
+        match = PATH_PARAMETER_RE.exec(url);
+    }
+    return url;
+}
+
+export default async function api<T>(id: string, requestConfig?: RequestConfig) {
+    const preDefinedConfig = requestConfigs[id];
     if (preDefinedConfig === undefined) throw new Error(`Can't find a api id match ${id}!`);
+
+    const { url } = preDefinedConfig;
+    if (url && requestConfig) {
+        preDefinedConfig.url = parserPathParams(url, requestConfig.pathParams);
+    }
 
     return request(merge(preDefinedConfig, requestConfig)) as AxiosPromise<T>;
 }

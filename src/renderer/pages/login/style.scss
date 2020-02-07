@@ -1,4 +1,6 @@
 .login-page {
+    width: 100vw;
+    height: 100vh;
     text-align: center;
 
     .title {
@@ -8,7 +10,7 @@
         font-size: 24px;
     }
 
-    #login-form {
+    .login-form {
         max-width: 300px;
         margin: 20px auto 0;
         text-align: center;

@@ -1,9 +1,21 @@
 .profile-page {
     display: flex;
     flex: 1;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
-    &-avatar {
+    .profile-avatar {
         margin-top: 40px;
+    }
+
+    .profile-form {
+        width: -webkit-fill-available;
+        max-width: 400px;
+        margin-top: 40px;
+
+        .save-btn {
+            display: block;
+            margin: 0 auto;
+        }
     }
 }

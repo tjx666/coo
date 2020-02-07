@@ -49,13 +49,14 @@
         "jsx-a11y/no-static-element-interactions": "off",
 
         "func-names": "off",
+        "lines-between-class-members": "off",
         "no-console": "off",
         "no-empty": "warn",
         "no-param-reassign": "off",
+        "no-underscore-dangle": "off",
         "no-unused-expressions": "off",
         "no-unused-vars": "warn",
-        "no-useless-constructor": "off",
-        "lines-between-class-members": "off"
+        "no-useless-constructor": "off"
     },
     "overrides": [
         {

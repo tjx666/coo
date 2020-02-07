@@ -14,7 +14,7 @@ function App() {
                 <Route path="/login" component={LoginPage} />
                 <Route path="/message" component={ContainerWithNavbar} />
                 <Route path="/profile" component={ContainerWithNavbar} />
-                <Redirect to="/message" />
+                <Redirect to="/profile" />
             </Switch>
         </div>
     );

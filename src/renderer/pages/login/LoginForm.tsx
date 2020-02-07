@@ -48,10 +48,15 @@ const LoginForm = forwardRef<Ref, LoginFormProps>(({ form }: LoginFormProps, ref
                     return;
                 }
 
-                const { code, msg, data: jwt } = resp.data;
+                const {
+                    code,
+                    msg,
+                    data: { user, token },
+                } = resp.data;
                 if (code === 0) {
                     message.success('登入成功！');
-                    localStorage.setItem('jwt', jwt);
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('id', user._id);
                     history.push('/message');
                 } else {
                     console.error(msg);
@@ -70,7 +75,7 @@ const LoginForm = forwardRef<Ref, LoginFormProps>(({ form }: LoginFormProps, ref
     })(<Input type="password" prefix={<Icon type="lock" style={InputsStyle} />} placeholder="密码" />);
 
     return (
-        <Form id="login-form" onSubmit={handleSubmit}>
+        <Form className="login-form" onSubmit={handleSubmit}>
             <FormItem>{emailInput}</FormItem>
             <FormItem>{passwordInput}</FormItem>
             <FormItem>

@@ -6,11 +6,11 @@ const request = axios.create({
 
 request.interceptors.request.use(config => {
     const { url } = config;
-    const permittedUrls = ['/users/register', 'users/login'];
+    const permittedUrls = ['/users/register', '/users/login'];
     console.log({ url });
 
     if (!url || !permittedUrls.includes(url)) {
-        const AUTH_TOKEN = localStorage.getItem('jwt');
+        const AUTH_TOKEN = localStorage.getItem('token');
 
         if (!AUTH_TOKEN) {
             window.location.href = '/login';
