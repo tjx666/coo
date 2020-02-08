@@ -13,6 +13,10 @@ const requestConfigs: Record<string, AxiosRequestConfig> = {
         method: 'GET',
         url: '/users/:id',
     },
+    updateProfile: {
+        method: 'PUT',
+        url: '/users/:id',
+    },
 };
 
 export default requestConfigs;

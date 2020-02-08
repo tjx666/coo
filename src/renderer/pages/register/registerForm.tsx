@@ -46,10 +46,14 @@ const RegisterForm = forwardRef<Ref, RegisterFormProps>(({ form }: RegisterFormP
                     return;
                 }
 
-                const { code, msg, data } = resp.data;
+                const {
+                    code,
+                    msg,
+                    data: { token },
+                } = resp.data;
                 if (code === 0) {
                     message.success('注册成功！');
-                    localStorage.setItem('jwt', data);
+                    localStorage.setItem('jwt', token);
                     history.push('/message');
                 } else {
                     console.error(msg);

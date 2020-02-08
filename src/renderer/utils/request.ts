@@ -7,7 +7,6 @@ const request = axios.create({
 request.interceptors.request.use(config => {
     const { url } = config;
     const permittedUrls = ['/users/register', '/users/login'];
-    console.log({ url });
 
     if (!url || !permittedUrls.includes(url)) {
         const AUTH_TOKEN = localStorage.getItem('token');

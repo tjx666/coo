@@ -19,3 +19,22 @@
         }
     }
 }
+
+.profile-modal {
+    .modal-title {
+        text-align: center;
+
+        .title {
+            font-weight: bold;
+        }
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: center;
+
+        button:not(:last-child) {
+            margin-right: 20px;
+        }
+    }
+}

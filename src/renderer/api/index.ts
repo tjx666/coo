@@ -20,7 +20,7 @@ function parserPathParams(url: string, params: Record<string, string> | undefine
         if (!params || !params[argKey]) {
             throw new TypeError(`Your request config lost path parameter ${argKey}!`);
         }
-        url.replace(sourceArg, params[argKey]);
+        url = url.replace(sourceArg, params[argKey]);
         match = PATH_PARAMETER_RE.exec(url);
     }
     return url;

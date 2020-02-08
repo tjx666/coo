@@ -6,12 +6,15 @@ interface UserModel {
     name?: string;
 }
 
-export type RegisterResponse = CommonResponse<string>;
-
-interface LoginResponseData {
+interface RegisterResponseData {
     user: Required<UserModel>;
+
     token: string;
 }
-export type LoginResponse = CommonResponse<LoginResponseData>;
+export type RegisterResponse = CommonResponse<RegisterResponseData>;
 
-export type GetUserResponse = Required<UserModel>;
+export type LoginResponse = CommonResponse<RegisterResponseData>;
+
+export type GetUserResponse = CommonResponse<Required<UserModel>>;
+
+export type UpdateProfileResponse = CommonResponse;

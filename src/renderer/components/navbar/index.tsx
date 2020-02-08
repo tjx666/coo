@@ -20,8 +20,14 @@ export default function Navbar() {
         <aside className="navbar">
             <NavbarAvatar />
             <IconFont type="message1" />
-            <NavItem activated={activatedMenuItemIndex === 0} iconType="icon-message-" onClick={handleClickMessage} />
             <NavItem
+                to="/message"
+                activated={activatedMenuItemIndex === 0}
+                iconType="icon-message-"
+                onClick={handleClickMessage}
+            />
+            <NavItem
+                to="/contacts"
                 activated={activatedMenuItemIndex === 1}
                 iconType="icon-contacts-fill"
                 onClick={handleClickContacts}
