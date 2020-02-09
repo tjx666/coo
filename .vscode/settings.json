@@ -3,6 +3,7 @@
         "assets": "${workspaceRoot}/src/renderer/assets",
         "styles": "${workspaceRoot}/src/renderer/styles",
         "lib": "${workspaceRoot}/src/renderer/lib",
+        "utils": "${workspaceRoot}/src/renderer/utils",
         "pages": "${workspaceRoot}/src/renderer/pages",
         "layouts": "${workspaceRoot}/src/renderer/layouts",
         "components": "${workspaceRoot}/src/renderer/components"

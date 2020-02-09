@@ -1,9 +1,8 @@
 import { AxiosPromise } from 'axios';
 import { merge } from 'lodash';
+import request from 'utils/request';
 
 import { RequestConfig } from '../typings/coo';
-
-import request from '../utils/request';
 import userRequestsConfigs from './user';
 
 const requestConfigs: Record<string, RequestConfig> = {

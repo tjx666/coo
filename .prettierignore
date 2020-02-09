@@ -2,3 +2,4 @@
 src/renderer/assets
 dist
 out
+storage.json

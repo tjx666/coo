@@ -36,7 +36,7 @@
     },
     "lint-staged": {
         "*.{ts,tsx,js}": [
-            "eslint -c .eslintrc"
+            "eslint -c .eslintrc.js"
         ],
         "*.scss": [
             "stylelint --config .stylelintrc.json"
@@ -53,6 +53,7 @@
         "classnames": "^2.2.6",
         "dayjs": "^1.8.20",
         "electron": "^8.0.0",
+        "electron-store": "^5.1.0",
         "electron-window-state": "^5.0.3",
         "faker": "^4.1.0",
         "lodash": "^4.17.15",

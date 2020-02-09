@@ -23,6 +23,7 @@
             "assets/*": ["assets/*"],
             "styles/*": ["styles/*"],
             "lib/*": ["lib/*"],
+            "utils/*": ["utils/*"],
             "pages/*": ["pages/*"],
             "layouts/*": ["layouts/*"],
             "components/*": ["components/*"]

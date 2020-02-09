@@ -2,6 +2,7 @@ import React, { forwardRef, useImperativeHandle } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { Form, Icon, Input, Button, message } from 'antd';
 import { FormComponentProps, WrappedFormUtils } from 'antd/lib/form/Form';
+import store from 'utils/store';
 
 import api, { AxiosResponse } from '../../api';
 import { RegisterResponse } from '../../dto';
@@ -53,7 +54,7 @@ const RegisterForm = forwardRef<Ref, RegisterFormProps>(({ form }: RegisterFormP
                 } = resp.data;
                 if (code === 0) {
                     message.success('注册成功！');
-                    localStorage.setItem('jwt', token);
+                    store.set('token', token);
                     history.push('/message');
                 } else {
                     console.error(msg);

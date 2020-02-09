@@ -47,6 +47,7 @@ const commonConfig: Configuration = {
             assets: resolve(renderer, 'assets/'),
             styles: resolve(renderer, 'styles'),
             lib: resolve(renderer, 'lib'),
+            utils: resolve(renderer, 'utils'),
             pages: resolve(renderer, 'pages'),
             layouts: resolve(renderer, 'layouts'),
             components: resolve(renderer, 'components'),

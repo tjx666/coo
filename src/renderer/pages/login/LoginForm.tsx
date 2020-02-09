@@ -2,6 +2,7 @@ import React, { forwardRef, useImperativeHandle } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { Form, Icon, Input, Button, message } from 'antd';
 import { FormComponentProps, WrappedFormUtils } from 'antd/lib/form/Form';
+import store from 'utils/store';
 
 import api, { AxiosResponse } from '../../api';
 import { LoginResponse } from '../../dto';
@@ -55,8 +56,8 @@ const LoginForm = forwardRef<Ref, LoginFormProps>(({ form }: LoginFormProps, ref
                 } = resp.data;
                 if (code === 0) {
                     message.success('登入成功！');
-                    localStorage.setItem('token', token);
-                    localStorage.setItem('id', user._id);
+                    store.set('token', token);
+                    store.set('id', user._id);
                     history.push('/message');
                 } else {
                     console.error(msg);

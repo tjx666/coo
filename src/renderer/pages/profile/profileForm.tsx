@@ -1,7 +1,8 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Form, Input, Button, message, Modal, Icon } from 'antd';
+import { Form, Input, Button, message, Modal } from 'antd';
 import { FormComponentProps, WrappedFormUtils } from 'antd/lib/form/Form';
+import store from 'utils/store';
 
 import api, { AxiosResponse } from '../../api';
 import { GetUserResponse, UpdateProfileResponse } from '../../dto';
@@ -29,7 +30,7 @@ const ProfileForm = forwardRef<Ref, ProfileFormProps>(({ form }: ProfileFormProp
         (async function syncProfile() {
             let resp: AxiosResponse<GetUserResponse> | undefined;
             try {
-                resp = await api<GetUserResponse>('getUser', { pathParams: { id: localStorage.getItem('id')! } });
+                resp = await api<GetUserResponse>('getUser', { pathParams: { id: store.get('id')! } });
             } catch (err) {
                 console.error(err);
                 message.error('获取用户信息出错！');
@@ -50,7 +51,7 @@ const ProfileForm = forwardRef<Ref, ProfileFormProps>(({ form }: ProfileFormProp
 
         try {
             await api<UpdateProfileResponse>('updateProfile', {
-                pathParams: { id: localStorage.getItem('id')! },
+                pathParams: { id: store.get('id')! },
                 data: newProfile,
             });
         } catch (err) {
@@ -92,7 +93,7 @@ const ProfileForm = forwardRef<Ref, ProfileFormProps>(({ form }: ProfileFormProp
 
         const modifyPasswordSuccess = await updateProfile();
         if (modifyPasswordSuccess) {
-            localStorage.removeItem('token');
+            store.delete('token');
             history.push('/login');
         }
     };
