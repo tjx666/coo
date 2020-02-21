@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
-        "target": "ESNext",
+        /* Basic Options */
+        "target": "ES2020",
         "module": "commonjs",
-        "isolatedModules": true,
 
+        /* Strict Type-Checking Options */
         "strict": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
@@ -12,17 +13,18 @@
         "strictPropertyInitialization": true,
         "noImplicitThis": true,
         "alwaysStrict": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
 
+        /* Module Resolution Options */
         "moduleResolution": "node",
-        "baseUrl": "./",
-        "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
+        "resolveJsonModule": true,
 
+        /* Experimental Options */
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
 
-        "forceConsistentCasingInFileNames": true
+        /* Advanced Options */
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true
     }
 }

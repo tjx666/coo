@@ -15,7 +15,7 @@ const mergedConfig = merge(commonConfig, {
     mode: 'production',
     plugins: [
         new ForkTsCheckerWebpackPlugin({
-            memoryLimit: 2048,
+            memoryLimit: 1024 * 2,
             tsconfig: resolve(__dirname, '../../src/renderer/tsconfig.json'),
         }),
         new MiniCssExtractPlugin({
@@ -38,7 +38,7 @@ const mergedConfig = merge(commonConfig, {
     },
 });
 
-argv.analyze && mergedConfig.plugins!.push(new BundleAnalyzerPlugin());
+if (argv.analyze) mergedConfig.plugins!.push(new BundleAnalyzerPlugin());
 
 const smp = new SpeedMeasurePlugin();
 const prodConfig = smp.wrap(mergedConfig);

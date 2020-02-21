@@ -130,7 +130,7 @@ const commonConfig: Configuration = {
                     {
                         loader: 'url-loader',
                         options: {
-                            limit: 8192,
+                            limit: 10 * 1024,
                             name: '[name].[contenthash].[ext]',
                             outputPath: 'images',
                         },

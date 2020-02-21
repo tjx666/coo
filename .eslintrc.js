@@ -7,7 +7,16 @@ module.exports = {
         es6: true,
         node: true,
     },
-    extends: ['airbnb', 'airbnb/hooks', 'plugin:@typescript-eslint/recommended', 'prettier'],
+    extends: [
+        'airbnb',
+        'airbnb/hooks',
+        'plugin:import/typescript',
+        'plugin:react/recommended',
+        'plugin:@typescript-eslint/recommended',
+        'prettier',
+        'prettier/react',
+        'prettier/@typescript-eslint',
+    ],
     globals: {
         Atomics: 'readonly',
         SharedArrayBuffer: 'readonly',
@@ -27,7 +36,11 @@ module.exports = {
                 extensions: ['.ts', '.tsx', '.js', '.json'],
             },
             typescript: {
-                directory: ['scripts/tsconfig.json', 'src/main/tsconfig.json', 'src/renderer/tsconfig.json'],
+                directory: [
+                    'scripts/tsconfig.json',
+                    'src/main/tsconfig.json',
+                    'src/renderer/tsconfig.json',
+                ],
             },
         },
     },
@@ -56,6 +69,7 @@ module.exports = {
 
         'func-names': OFF,
         'lines-between-class-members': OFF,
+        'max-classes-per-file': OFF,
         'no-console': OFF,
         'no-empty': OFF,
         'no-param-reassign': OFF,
@@ -68,7 +82,6 @@ module.exports = {
         {
             files: ['**/*.d.ts'],
             rules: {
-                'max-classes-per-file': OFF,
                 'import/no-duplicates': OFF,
             },
         },

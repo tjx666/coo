@@ -1,11 +1,10 @@
 {
     "compilerOptions": {
-        "target": "ESNext",
-        "module": "ESNext",
+        /* Basic Options */
         "jsx": "react",
-        "sourceMap": true,
         "isolatedModules": true,
 
+        /* Strict Type-Checking Options */
         "strict": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
@@ -14,10 +13,11 @@
         "strictPropertyInitialization": true,
         "noImplicitThis": true,
         "alwaysStrict": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
 
+        /* Module Resolution Options */
         "moduleResolution": "node",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
         "baseUrl": "./",
         "paths": {
             "assets/*": ["assets/*"],
@@ -28,13 +28,14 @@
             "layouts/*": ["layouts/*"],
             "components/*": ["components/*"]
         },
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
 
+        /* Experimental Options */
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
 
-        "forceConsistentCasingInFileNames": true
+        /* Advanced Options */
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true
     },
     "exclude": ["node_modules", "assets"]
 }

@@ -1,13 +1,5 @@
 {
-    "path-intellisense.mappings": {
-        "assets": "${workspaceRoot}/src/renderer/assets",
-        "styles": "${workspaceRoot}/src/renderer/styles",
-        "lib": "${workspaceRoot}/src/renderer/lib",
-        "utils": "${workspaceRoot}/src/renderer/utils",
-        "pages": "${workspaceRoot}/src/renderer/pages",
-        "layouts": "${workspaceRoot}/src/renderer/layouts",
-        "components": "${workspaceRoot}/src/renderer/components"
-    },
+    "typescript.tsdk": "./node_modules/typescript/lib",
     "search.exclude": {
         "**/node_modules": true,
         "out": true,
@@ -21,5 +13,38 @@
         "out": true,
         "dist": true,
         "yarn.lock": true
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[less]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }

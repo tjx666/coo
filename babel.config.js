@@ -24,7 +24,7 @@ module.exports = api => {
 
     return {
         presets: ['@babel/preset-typescript', envPreset],
-        plugins: ['@babel/plugin-transform-runtime', '@babel/plugin-proposal-optional-chaining', importPlugin],
+        plugins: ['@babel/plugin-transform-runtime', importPlugin],
         env: {
             development: {
                 presets: [['@babel/preset-react', { development: true }]],
@@ -39,7 +39,5 @@ module.exports = api => {
                 ],
             },
         },
-        sourceMaps: true,
-        retainLines: true,
     };
 };
