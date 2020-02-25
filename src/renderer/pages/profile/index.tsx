@@ -9,7 +9,11 @@ import './style.scss';
 export default function ProfilePage() {
     return (
         <div className="profile-page">
-            <Avatar className="profile-avatar" src={avatarPath} size={60} />
+            <h2 className="title">个人信息</h2>
+            <div className="avatar-container">
+                <Avatar className="avatar" src={avatarPath} size={60} />
+                <div className="edit-overlay">修改</div>
+            </div>
             <EnhancedProfileForm />
         </div>
     );
