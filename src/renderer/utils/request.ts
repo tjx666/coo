@@ -1,8 +1,11 @@
 import axios from 'axios';
 import store from 'utils/store';
+import { message } from 'antd';
+
+import { API_PREFIX } from './constants';
 
 const request = axios.create({
-    baseURL: 'http://localhost:8888/api/v1/',
+    baseURL: API_PREFIX,
 });
 
 request.interceptors.request.use(config => {
@@ -22,5 +25,29 @@ request.interceptors.request.use(config => {
 
     return config;
 });
+
+request.interceptors.response.use(
+    res => res,
+    error => {
+        console.error(error);
+        console.log(error.response.config);
+        const { errorMessage } = error.response.config;
+        if (typeof errorMessage === 'string') {
+            message.error(errorMessage);
+        } else if (typeof errorMessage === 'function') {
+            message.error(errorMessage(error));
+        } else if (errorMessage === true) {
+            message.error(error.response.data.msg);
+        }
+
+        if (error.response.config.url !== '/users/login' && error.response.status === 401) {
+            message.error('您需要先登入！', 3, () => {
+                window.location.href = '/login';
+            });
+        }
+
+        return Promise.reject(error);
+    },
+);
 
 export default request;

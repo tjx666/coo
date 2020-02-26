@@ -25,7 +25,7 @@ function createWindow() {
         },
     });
     win.removeMenu();
-    win.loadURL('http://127.0.0.1:3600');
+    win.loadURL('http://127.0.0.1:3000');
     mainWindowState.manage(win);
 
     win.on('closed', () => {

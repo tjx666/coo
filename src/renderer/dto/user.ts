@@ -4,6 +4,7 @@ interface UserModel {
     _id?: string;
     email?: string;
     name?: string;
+    avatar?: string;
 }
 
 interface RegisterResponseData {

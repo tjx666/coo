@@ -23,6 +23,7 @@ const InputsStyle: React.CSSProperties = {
     color: 'rgba(0,0,0,.25)',
 };
 
+// eslint-disable-next-line react/display-name
 const LoginForm = forwardRef<Ref, LoginFormProps>(({ form }: LoginFormProps, ref) => {
     useImperativeHandle(ref, () => ({ form }));
 
@@ -44,7 +45,6 @@ const LoginForm = forwardRef<Ref, LoginFormProps>(({ form }: LoginFormProps, ref
                         },
                     });
                 } catch (err) {
-                    console.error(err);
                     message.error('登入失败！');
                     return;
                 }
@@ -73,7 +73,13 @@ const LoginForm = forwardRef<Ref, LoginFormProps>(({ form }: LoginFormProps, ref
 
     const passwordInput = getFieldDecorator('password', {
         rules: [{ required: true, message: '请输入您的密码！' }],
-    })(<Input type="password" prefix={<Icon type="lock" style={InputsStyle} />} placeholder="密码" />);
+    })(
+        <Input
+            type="password"
+            prefix={<Icon type="lock" style={InputsStyle} />}
+            placeholder="密码"
+        />,
+    );
 
     return (
         <Form className="login-form" onSubmit={handleSubmit}>

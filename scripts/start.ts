@@ -9,8 +9,8 @@ import devConfig from './configs/webpack.dev';
 
 (async function startDevServer() {
     const host = '127.0.0.1';
-    const port = await getPort({ host, port: 3600 });
-    if (port !== 3600) {
+    const port = await getPort({ host, port: 3000 });
+    if (port !== 3000) {
         console.log(`port: ${port} was occupied, please kill that application first!`);
         process.exit(1);
     }

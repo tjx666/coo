@@ -24,6 +24,7 @@ const InputsStyle: React.CSSProperties = {
     color: 'rgba(0,0,0,.25)',
 };
 
+// eslint-disable-next-line react/display-name
 const RegisterForm = forwardRef<Ref, RegisterFormProps>(({ form }: RegisterFormProps, ref) => {
     useImperativeHandle(ref, () => ({ form }));
 
@@ -42,7 +43,6 @@ const RegisterForm = forwardRef<Ref, RegisterFormProps>(({ form }: RegisterFormP
                         data: { email, name, password },
                     });
                 } catch (err) {
-                    console.error(err);
                     message.error('注册失败！');
                     return;
                 }
@@ -74,7 +74,13 @@ const RegisterForm = forwardRef<Ref, RegisterFormProps>(({ form }: RegisterFormP
 
     const passwordInput = getFieldDecorator('password', {
         rules: [{ required: true, message: '请输入您的密码！' }],
-    })(<Input type="password" prefix={<Icon type="lock" style={InputsStyle} />} placeholder="密码" />);
+    })(
+        <Input
+            type="password"
+            prefix={<Icon type="lock" style={InputsStyle} />}
+            placeholder="密码"
+        />,
+    );
 
     return (
         <Form className="register-form" onSubmit={handleSubmit}>

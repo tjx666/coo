@@ -1,9 +1,11 @@
 import React, { forwardRef, useImperativeHandle } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Form, Input, Button, message, Modal } from 'antd';
+import { Form, Input, Button, Modal, Avatar, Icon, Upload, message } from 'antd';
+import { UploadChangeParam } from 'antd/lib/upload/interface';
 import { FormComponentProps, WrappedFormUtils } from 'antd/lib/form/Form';
 import store from 'utils/store';
 
+import { BASE_URL, API_PREFIX } from 'utils/constants';
 import api, { AxiosResponse } from '../../api';
 import { GetUserResponse, UpdateProfileResponse } from '../../dto';
 
@@ -20,30 +22,57 @@ interface ProfileFormProps extends FormComponentProps {
     form: WrappedFormUtils<FormFields>;
 }
 
+// const avatarSrc = `${BASE_URL}/public/images/avatar/${userId}`;
+
+// eslint-disable-next-line react/display-name
 const ProfileForm = forwardRef<Ref, ProfileFormProps>(({ form }: ProfileFormProps, ref) => {
     useImperativeHandle(ref, () => ({ form }));
     const history = useHistory();
     const { getFieldDecorator, setFieldsValue } = form;
 
     const [modalVisible, setVisible] = React.useState(false);
-    React.useEffect(() => {
-        (async function syncProfile() {
-            let resp: AxiosResponse<GetUserResponse> | undefined;
-            try {
-                resp = await api<GetUserResponse>('getUser', { pathParams: { id: store.get('id')! } });
-            } catch (err) {
-                console.error(err);
-                message.error('获取用户信息出错！');
-                return;
-            }
-            setFieldsValue({ name: resp.data.data.name });
-        })();
+    const [avatarSrc, setAvatarSrc] = React.useState('');
+
+    const syncProfile = React.useCallback(async () => {
+        let resp: AxiosResponse<GetUserResponse> | undefined;
+        try {
+            resp = await api<GetUserResponse>('getUser', {
+                pathParams: { id: store.get('id')! },
+            });
+        } catch (err) {
+            message.error('获取用户信息出错！');
+            return;
+        }
+        setFieldsValue({ name: resp.data.data.name });
+        const newAvatarSrc = `${BASE_URL}/public/images/avatar/${resp.data.data.avatar}`;
+        setAvatarSrc(newAvatarSrc);
     }, [setFieldsValue]);
 
+    React.useEffect(() => {
+        syncProfile();
+    }, [syncProfile]);
+
+    const uploadProps = {
+        name: 'avatar',
+        action: `${API_PREFIX}users/${store.get('id')}/avatar`,
+        headers: {
+            Authorization: store.get('token'),
+        },
+        onChange(info: UploadChangeParam) {
+            if (info.file.status === 'done') {
+                syncProfile();
+                message.success('上传头像成功！');
+            } else if (info.file.status === 'error') {
+                message.error(`上传头像失败！`);
+            }
+        },
+        showUploadList: false,
+    };
+
     const updateProfile = async () => {
-        const newProfile = (Object.entries(form.getFieldsValue()) as Array<[keyof FormFields, string]>).reduce<
-            Partial<FormFields>
-        >((pre, current) => {
+        const newProfile = (Object.entries(form.getFieldsValue()) as Array<
+            [keyof FormFields, string]
+        >).reduce<Partial<FormFields>>((pre, current) => {
             const value = current[1];
             pre[current[0]] = value === undefined ? '' : value.trim();
             return pre;
@@ -55,12 +84,11 @@ const ProfileForm = forwardRef<Ref, ProfileFormProps>(({ form }: ProfileFormProp
                 data: newProfile,
             });
         } catch (err) {
-            console.error(err);
             message.error('修改用户信息出错！');
             return false;
         }
 
-        message.success('修改成功！');
+        message.success('修改成功，请重新登入');
         return true;
     };
 
@@ -107,7 +135,9 @@ const ProfileForm = forwardRef<Ref, ProfileFormProps>(({ form }: ProfileFormProp
         rules: [{ required: true, message: '昵称不能为空！' }],
     })(<Input placeholder="输入新的昵称" />);
 
-    const passwordInput = getFieldDecorator('password')(<Input.Password placeholder="输入新的密码" />);
+    const passwordInput = getFieldDecorator('password')(
+        <Input.Password placeholder="输入新的密码" />,
+    );
 
     const modalTitle = (
         <div className="modal-title">
@@ -146,6 +176,14 @@ const ProfileForm = forwardRef<Ref, ProfileFormProps>(({ form }: ProfileFormProp
                 <br /> 请确保你已经记住新密码！！！
                 <br /> 请确保你已经记住新密码！！！
             </Modal>
+            <div className="avatar-container">
+                <Avatar className="avatar" src={avatarSrc} size={60} />
+                <div className="edit-overlay">
+                    <Upload {...uploadProps}>
+                        <Icon className="pen" theme="filled" type="edit" />
+                    </Upload>
+                </div>
+            </div>
             <FormItem label="昵称">{nameInput}</FormItem>
             <FormItem label="密码">{passwordInput}</FormItem>
             <Button className="save-btn" type="primary" htmlType="submit">
@@ -156,5 +194,4 @@ const ProfileForm = forwardRef<Ref, ProfileFormProps>(({ form }: ProfileFormProp
 });
 
 const EnhancedProfileForm = Form.create<ProfileFormProps>()(ProfileForm);
-
 export default EnhancedProfileForm;
