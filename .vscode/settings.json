@@ -4,15 +4,16 @@
         "**/node_modules": true,
         "out": true,
         "dist": true,
-        "yarn.lock": true
+        "yarn.lock": true,
+        "yarn-error.log*": true,
+        "LICENSE": true
     },
     "files.watcherExclude": {
         "**/.git/objects/**": true,
         "**/.git/subtree-cache/**": true,
-        "**/node_modules/*/**": true,
-        "out": true,
-        "dist": true,
-        "yarn.lock": true
+        "**/node_modules/**": true,
+        "**/out/**": true,
+        "**/dist/**": true
     },
     "[javascript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
