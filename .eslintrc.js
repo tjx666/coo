@@ -14,10 +14,12 @@ module.exports = {
         'plugin:react/recommended',
         'plugin:@typescript-eslint/recommended',
         'plugin:unicorn/recommended',
+        'plugin:promise/recommended',
         'prettier',
         'prettier/react',
         'prettier/@typescript-eslint',
     ],
+    plugins: ['@typescript-eslint', 'react', 'unicorn', 'promise'],
     globals: {
         Atomics: 'readonly',
         SharedArrayBuffer: 'readonly',
@@ -30,7 +32,6 @@ module.exports = {
         ecmaVersion: 2020,
         sourceType: 'module',
     },
-    plugins: ['@typescript-eslint', 'react', 'unicorn'],
     settings: {
         'import/resolver': {
             node: {
