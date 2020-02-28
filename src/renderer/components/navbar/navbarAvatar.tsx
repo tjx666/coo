@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar } from 'antd';
-
 import avatarPath from 'assets/images/avatar.jpg';
 
 export default function NavbarAvatar() {

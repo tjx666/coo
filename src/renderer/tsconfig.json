@@ -19,13 +19,15 @@
         "resolveJsonModule": true,
         "baseUrl": "./",
         "paths": {
+            "api/*": ["api/*"],
             "assets/*": ["assets/*"],
-            "styles/*": ["styles/*"],
-            "lib/*": ["lib/*"],
-            "utils/*": ["utils/*"],
-            "pages/*": ["pages/*"],
+            "components/*": ["components/*"],
+            "dto/*": ["dto/*"],
             "layouts/*": ["layouts/*"],
-            "components/*": ["components/*"]
+            "lib/*": ["lib/*"],
+            "pages/*": ["pages/*"],
+            "styles/*": ["styles/*"],
+            "utils/*": ["utils/*"]
         },
 
         /* Experimental Options */

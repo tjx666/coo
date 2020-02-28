@@ -1,34 +1,19 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Form, Input, Button, Modal, Avatar, Icon, Upload, message } from 'antd';
+import { Form, Input, Button, Modal, Avatar, Upload, message } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 import { UploadChangeParam } from 'antd/lib/upload/interface';
-import { FormComponentProps, WrappedFormUtils } from 'antd/lib/form/Form';
 import store from 'utils/store';
 
 import { BASE_URL, API_PREFIX } from 'utils/constants';
-import api, { AxiosResponse } from '../../api';
-import { GetUserResponse, UpdateProfileResponse } from '../../dto';
+import api, { AxiosResponse } from 'api';
+import { GetUserResponse, UpdateProfileResponse } from 'dto';
 
 const { Item: FormItem } = Form;
 
-type Ref = FormComponentProps;
-
-interface FormFields {
-    name: string;
-    password: string;
-}
-
-interface ProfileFormProps extends FormComponentProps {
-    form: WrappedFormUtils<FormFields>;
-}
-
-// const avatarSrc = `${BASE_URL}/public/images/avatar/${userId}`;
-
-// eslint-disable-next-line react/display-name
-const ProfileForm = forwardRef<Ref, ProfileFormProps>(({ form }: ProfileFormProps, ref) => {
-    useImperativeHandle(ref, () => ({ form }));
+export default function ProfileForm() {
     const history = useHistory();
-    const { getFieldDecorator, setFieldsValue } = form;
+    const [form] = Form.useForm();
 
     const [modalVisible, setVisible] = React.useState(false);
     const [avatarSrc, setAvatarSrc] = React.useState('');
@@ -36,17 +21,15 @@ const ProfileForm = forwardRef<Ref, ProfileFormProps>(({ form }: ProfileFormProp
     const syncProfile = React.useCallback(async () => {
         let resp: AxiosResponse<GetUserResponse> | undefined;
         try {
-            resp = await api<GetUserResponse>('getUser', {
-                pathParams: { id: store.get('id')! },
-            });
-        } catch (err) {
+            resp = await api<GetUserResponse>('getUser', { pathParams: { id: store.get('id')! } });
+        } catch (error) {
             message.error('获取用户信息出错！');
             return;
         }
-        setFieldsValue({ name: resp.data.data.name });
+        form.setFieldsValue({ name: resp.data.data.name });
         const newAvatarSrc = `${BASE_URL}/public/images/avatar/${resp.data.data.avatar}`;
         setAvatarSrc(newAvatarSrc);
-    }, [setFieldsValue]);
+    }, [form]);
 
     React.useEffect(() => {
         syncProfile();
@@ -70,9 +53,7 @@ const ProfileForm = forwardRef<Ref, ProfileFormProps>(({ form }: ProfileFormProp
     };
 
     const updateProfile = async () => {
-        const newProfile = (Object.entries(form.getFieldsValue()) as Array<
-            [keyof FormFields, string]
-        >).reduce<Partial<FormFields>>((pre, current) => {
+        const newProfile = Object.entries(form.getFieldsValue()).reduce((pre: any, current) => {
             const value = current[1];
             pre[current[0]] = value === undefined ? '' : value.trim();
             return pre;
@@ -83,7 +64,7 @@ const ProfileForm = forwardRef<Ref, ProfileFormProps>(({ form }: ProfileFormProp
                 pathParams: { id: store.get('id')! },
                 data: newProfile,
             });
-        } catch (err) {
+        } catch (error) {
             message.error('修改用户信息出错！');
             return false;
         }
@@ -92,28 +73,15 @@ const ProfileForm = forwardRef<Ref, ProfileFormProps>(({ form }: ProfileFormProp
         return true;
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        form.validateFields(async (validateError, values) => {
-            if (!validateError) {
-                const { password } = values;
-                const isFilledPassword = password && password.trim() !== '';
-                if (isFilledPassword) {
-                    setVisible(true);
-                } else {
-                    updateProfile();
-                }
-            }
-        });
-    };
+    const handleSubmit = (values: any) => {
+        const { password } = values;
+        const isFilledPassword = password && password.trim() !== '';
 
-    const formLayout = {
-        labelCol: {
-            span: 6,
-        },
-        wrapperCol: {
-            span: 18,
-        },
+        if (isFilledPassword) {
+            setVisible(true);
+        } else {
+            updateProfile();
+        }
     };
 
     const handleModifyPwd = async () => {
@@ -128,16 +96,17 @@ const ProfileForm = forwardRef<Ref, ProfileFormProps>(({ form }: ProfileFormProp
 
     const handleResetPwd = () => {
         setVisible(false);
-        setFieldsValue({ password: '' });
+        form.setFieldsValue({ password: '' });
     };
 
-    const nameInput = getFieldDecorator('name', {
-        rules: [{ required: true, message: '昵称不能为空！' }],
-    })(<Input placeholder="输入新的昵称" />);
-
-    const passwordInput = getFieldDecorator('password')(
-        <Input.Password placeholder="输入新的密码" />,
-    );
+    const formLayout = {
+        labelCol: {
+            span: 6,
+        },
+        wrapperCol: {
+            span: 18,
+        },
+    };
 
     const modalTitle = (
         <div className="modal-title">
@@ -160,7 +129,7 @@ const ProfileForm = forwardRef<Ref, ProfileFormProps>(({ form }: ProfileFormProp
     );
 
     return (
-        <Form className="profile-form" onSubmit={handleSubmit} {...formLayout}>
+        <Form className="profile-form" form={form} onFinish={handleSubmit} {...formLayout}>
             <Modal
                 className="profile-modal"
                 visible={modalVisible}
@@ -180,18 +149,23 @@ const ProfileForm = forwardRef<Ref, ProfileFormProps>(({ form }: ProfileFormProp
                 <Avatar className="avatar" src={avatarSrc} size={60} />
                 <div className="edit-overlay">
                     <Upload {...uploadProps}>
-                        <Icon className="pen" theme="filled" type="edit" />
+                        <EditOutlined className="pen" />
                     </Upload>
                 </div>
             </div>
-            <FormItem label="昵称">{nameInput}</FormItem>
-            <FormItem label="密码">{passwordInput}</FormItem>
+            <FormItem
+                label="昵称"
+                name="name"
+                rules={[{ required: true, message: '昵称不能为空！' }]}
+            >
+                <Input placeholder="输入新的昵称" />
+            </FormItem>
+            <FormItem label="密码" name="password">
+                <Input.Password placeholder="输入新的密码" />
+            </FormItem>
             <Button className="save-btn" type="primary" htmlType="submit">
                 保存
             </Button>
         </Form>
     );
-});
-
-const EnhancedProfileForm = Form.create<ProfileFormProps>()(ProfileForm);
-export default EnhancedProfileForm;
+}

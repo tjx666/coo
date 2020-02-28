@@ -13,6 +13,7 @@ module.exports = {
         'plugin:import/typescript',
         'plugin:react/recommended',
         'plugin:@typescript-eslint/recommended',
+        'plugin:unicorn/recommended',
         'prettier',
         'prettier/react',
         'prettier/@typescript-eslint',
@@ -29,7 +30,7 @@ module.exports = {
         ecmaVersion: 2020,
         sourceType: 'module',
     },
-    plugins: ['@typescript-eslint', 'react'],
+    plugins: ['@typescript-eslint', 'react', 'unicorn'],
     settings: {
         'import/resolver': {
             node: {
@@ -49,6 +50,28 @@ module.exports = {
 
         'react/prop-types': OFF,
 
+        'unicorn/prevent-abbreviations': OFF,
+        'unicorn/filename-case': [
+            'error',
+            {
+                cases: {
+                    camelCase: true,
+                    pascalCase: true,
+                },
+            },
+        ],
+        'unicorn/no-process-exit': OFF,
+
+        'jsx-a11y/click-events-have-key-events': OFF,
+        'jsx-a11y/label-has-associated-control': OFF,
+        'jsx-a11y/no-static-element-interactions': OFF,
+
+        '@typescript-eslint/explicit-function-return-type': OFF,
+        '@typescript-eslint/no-explicit-any': OFF,
+        '@typescript-eslint/no-non-null-assertion': OFF,
+        '@typescript-eslint/no-useless-constructor': ERROR,
+        '@typescript-eslint/no-var-requires': OFF,
+
         'react/jsx-filename-extension': [ERROR, { extensions: ['.ts', '.tsx', '.json', '.js'] }],
         'react/jsx-first-prop-new-line': OFF,
         'react/jsx-indent-props': [ERROR, 4],
@@ -57,15 +80,6 @@ module.exports = {
         'react/jsx-one-expression-per-line': OFF,
         'react/jsx-props-no-spreading': OFF,
         'react/jsx-wrap-multilines': OFF,
-
-        '@typescript-eslint/explicit-function-return-type': OFF,
-        '@typescript-eslint/no-explicit-any': OFF,
-        '@typescript-eslint/no-non-null-assertion': OFF,
-        '@typescript-eslint/no-useless-constructor': ERROR,
-
-        'jsx-a11y/click-events-have-key-events': OFF,
-        'jsx-a11y/label-has-associated-control': OFF,
-        'jsx-a11y/no-static-element-interactions': OFF,
 
         'func-names': OFF,
         'lines-between-class-members': OFF,

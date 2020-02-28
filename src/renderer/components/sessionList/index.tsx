@@ -9,7 +9,7 @@ import './style.scss';
  * 显示所有会话信息的列表组件
  */
 export default function SessionList() {
-    const fakerData = [...Array(16)].map((_, index) => ({
+    const fakerData = [...new Array(16)].map((_, index) => ({
         current: index === 2,
         avatarSrc: faker.image.avatar(),
         name: faker.name.findName(),
