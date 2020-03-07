@@ -3,9 +3,9 @@ import { useHistory, Link } from 'react-router-dom';
 import { Form, Input, Button, message } from 'antd';
 import { MailOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
 
-import store from 'utils/store';
+import storage from '@/utils/storage';
 import api, { AxiosResponse } from 'api';
-import { RegisterResponse } from 'dto';
+import { RegisterResponse } from 'api/user';
 
 const { Item: FormItem } = Form;
 
@@ -32,7 +32,7 @@ export default function RegisterForm() {
         } = resp.data;
         if (code === 0) {
             message.success('注册成功！');
-            store.set('token', token);
+            storage.set('token', token);
             history.push('/message');
         } else {
             console.error(msg);

@@ -1,13 +1,21 @@
-import * as React from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Avatar } from 'antd';
-import avatarPath from 'assets/images/avatar.jpg';
 
-export default function NavbarAvatar() {
+import { RootState } from 'reducers';
+
+interface NavbarAvatarProps {
+    onClick: () => void;
+}
+
+export default function NavbarAvatar({ onClick }: NavbarAvatarProps) {
+    const avatar = useSelector((state: RootState) => state.user.avatar);
+
     return (
-        <Link className="navbar-avatar-link" to="/profile">
+        <Link className="navbar-avatar-link" to="/profile" onClick={onClick}>
             <div className="avatar-wrapper">
-                <Avatar className="navbar-avatar" src={avatarPath} size={34} />
+                <Avatar className="navbar-avatar" src={avatar} size={34} />
             </div>
         </Link>
     );

@@ -2,10 +2,10 @@ import React from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { Form, Input, Button, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
-import store from 'utils/store';
+import storage from '@/utils/storage';
 
 import api, { AxiosResponse } from 'api';
-import { LoginResponse } from 'dto';
+import { LoginResponse } from 'api/user';
 
 const { Item: FormItem } = Form;
 
@@ -35,8 +35,8 @@ export default function LoginForm() {
         } = resp.data;
         if (code === 0) {
             message.success('登入成功！');
-            store.set('token', token);
-            store.set('id', user._id);
+            storage.set('token', token);
+            storage.set('id', user._id);
             history.push('/message');
         } else {
             console.error(msg);

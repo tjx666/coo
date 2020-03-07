@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 import { IconFont } from 'lib';
 
@@ -11,14 +11,17 @@ interface NavItemProps {
 }
 
 function NavItem({ iconType, activated, onClick, to }: NavItemProps) {
+    const history = useHistory();
     const className = classNames('nav-item', { 'nav-item-activated': activated });
-    const handleClick = () => onClick(activated);
+
+    const handleClick = () => {
+        onClick(activated);
+        history.push(to);
+    };
 
     return (
         <div className={className} onClick={handleClick}>
-            <Link to={to}>
-                <IconFont className="icon-font" type={iconType} />
-            </Link>
+            <IconFont className="icon-font" type={iconType} />
         </div>
     );
 }

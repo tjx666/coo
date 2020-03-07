@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { IconFont } from 'lib';
 
 import NavbarAvatar from './navbarAvatar';
@@ -7,6 +7,10 @@ import './style.scss';
 
 export default function Navbar() {
     const [activatedMenuItemIndex, setActivatedMenuItemIndex] = React.useState(-1);
+
+    const handleClickAvatar = () => {
+        setActivatedMenuItemIndex(-1);
+    };
 
     const handleClickMessage = () => {
         setActivatedMenuItemIndex(0);
@@ -18,7 +22,7 @@ export default function Navbar() {
 
     return (
         <aside className="navbar">
-            <NavbarAvatar />
+            <NavbarAvatar onClick={handleClickAvatar} />
             <IconFont type="message1" />
             <NavItem
                 to="/message"

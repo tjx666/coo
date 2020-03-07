@@ -5,11 +5,11 @@ import request from 'utils/request';
 import { RequestConfig } from '../typings/coo';
 import userRequestsConfigs from './user';
 
+export * from 'axios';
+
 const requestConfigs: Record<string, RequestConfig> = {
     ...userRequestsConfigs,
 };
-
-export * from 'axios';
 
 function parserPathParams(url: string, params: Record<string, string> | undefined): string {
     const PATH_PARAMETER_RE = /:(\w+)/g;
@@ -36,3 +36,4 @@ export default async function api<T>(id: string, requestConfig?: RequestConfig) 
 
     return request(merge(preDefinedConfig, requestConfig)) as AxiosPromise<T>;
 }
+

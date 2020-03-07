@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { List } from 'antd';
 import faker from 'faker';
 
@@ -9,8 +9,8 @@ import './style.scss';
  * 显示所有会话信息的列表组件
  */
 export default function SessionList() {
-    const fakerData = [...new Array(16)].map((_, index) => ({
-        current: index === 2,
+    const fakerData = [...new Array(2)].map((_, index) => ({
+        current: index === 0,
         avatarSrc: faker.image.avatar(),
         name: faker.name.findName(),
         digest: '在吗？',

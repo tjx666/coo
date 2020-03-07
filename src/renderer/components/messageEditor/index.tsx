@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { IconFont } from 'lib';
 
 import './style.scss';

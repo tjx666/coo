@@ -1,19 +1,29 @@
-import 'electron';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-import App from './App';
+import store from './store';
 
-if (process.env.NODE_ENV === 'development') {
+function render() {
+    // eslint-disable-next-line global-require
+    const App = require('./app').default;
+
+    ReactDOM.render(
+        <Provider store={store}>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </Provider>,
+        document.querySelector('#root'),
+    );
+}
+render();
+
+if (process.env.NODE_ENV === 'development' && module.hot) {
     window.j = (path = '/message') => {
         window.location.href = path;
     };
-}
 
-ReactDOM.render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>,
-    document.querySelector('#root'),
-);
+    module.hot.accept('./app', render);
+}

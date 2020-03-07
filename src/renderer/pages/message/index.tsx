@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { SessionList, MessageList, MessageEditor } from 'components';
 
 import './style.scss';

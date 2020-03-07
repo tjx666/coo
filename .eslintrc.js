@@ -98,6 +98,7 @@ module.exports = {
             files: ['**/*.d.ts'],
             rules: {
                 'import/no-duplicates': OFF,
+                'spaced-comment': OFF
             },
         },
         {

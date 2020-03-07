@@ -2,7 +2,10 @@
 import { app, BrowserWindow } from 'electron';
 import windowStateKeeper from 'electron-window-state';
 import debug from 'electron-debug';
-import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
+import installExtension, {
+    REACT_DEVELOPER_TOOLS,
+    REDUX_DEVTOOLS,
+} from 'electron-devtools-installer';
 
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
 debug();
@@ -35,7 +38,7 @@ function createWindow() {
 
 app.on('ready', () => {
     createWindow();
-    installExtension(REACT_DEVELOPER_TOOLS)
+    installExtension([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS])
         .then(name => console.log(`Added Extension:  ${name}`))
         .catch(error => console.log('An error occurred:', error));
 });

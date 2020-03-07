@@ -1,45 +1,48 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Button, Modal, Avatar, Upload, message } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import { UploadChangeParam } from 'antd/lib/upload/interface';
-import store from 'utils/store';
 
-import { BASE_URL, API_PREFIX } from 'utils/constants';
+import { RootState } from '@/store';
+import { updateUser } from 'reducers/user';
+import storage from '@/utils/storage';
+import { API_PREFIX } from 'utils/constants';
 import api, { AxiosResponse } from 'api';
-import { GetUserResponse, UpdateProfileResponse } from 'dto';
+import { GetUserResponse, UpdateProfileResponse } from 'api/user';
 
 const { Item: FormItem } = Form;
 
 export default function ProfileForm() {
     const history = useHistory();
+    const dispatch = useDispatch();
     const [form] = Form.useForm();
 
     const [modalVisible, setVisible] = React.useState(false);
-    const [avatarSrc, setAvatarSrc] = React.useState('');
+    const avatar = useSelector((state: RootState) => state.user.avatar);
 
     const syncProfile = React.useCallback(async () => {
         let resp: AxiosResponse<GetUserResponse> | undefined;
         try {
-            resp = await api<GetUserResponse>('getUser', { pathParams: { id: store.get('id')! } });
+            resp = await api<GetUserResponse>('getUser', {
+                pathParams: { id: storage.get('id')! },
+            });
         } catch (error) {
             message.error('获取用户信息出错！');
             return;
         }
-        form.setFieldsValue({ name: resp.data.data.name });
-        const newAvatarSrc = `${BASE_URL}/public/images/avatar/${resp.data.data.avatar}`;
-        setAvatarSrc(newAvatarSrc);
-    }, [form]);
 
-    React.useEffect(() => {
-        syncProfile();
-    }, [syncProfile]);
+        const { name, avatar: newAvatar } = resp.data.data;
+        form.setFieldsValue({ name });
+        dispatch(updateUser({ avatar: newAvatar }));
+    }, [form, dispatch]);
 
     const uploadProps = {
         name: 'avatar',
-        action: `${API_PREFIX}users/${store.get('id')}/avatar`,
+        action: `${API_PREFIX}users/${storage.get('id')}/avatar`,
         headers: {
-            Authorization: store.get('token'),
+            Authorization: storage.get('token'),
         },
         onChange(info: UploadChangeParam) {
             if (info.file.status === 'done') {
@@ -61,7 +64,7 @@ export default function ProfileForm() {
 
         try {
             await api<UpdateProfileResponse>('updateProfile', {
-                pathParams: { id: store.get('id')! },
+                pathParams: { id: storage.get('id')! },
                 data: newProfile,
             });
         } catch (error) {
@@ -69,7 +72,6 @@ export default function ProfileForm() {
             return false;
         }
 
-        message.success('修改成功，请重新登入');
         return true;
     };
 
@@ -81,6 +83,7 @@ export default function ProfileForm() {
             setVisible(true);
         } else {
             updateProfile();
+            message.success('修改成功！');
         }
     };
 
@@ -89,7 +92,8 @@ export default function ProfileForm() {
 
         const modifyPasswordSuccess = await updateProfile();
         if (modifyPasswordSuccess) {
-            store.delete('token');
+            message.success('修改成功，请重新登入');
+            storage.delete('token');
             history.push('/login');
         }
     };
@@ -146,7 +150,7 @@ export default function ProfileForm() {
                 <br /> 请确保你已经记住新密码！！！
             </Modal>
             <div className="avatar-container">
-                <Avatar className="avatar" src={avatarSrc} size={60} />
+                <Avatar className="avatar" src={avatar} size={60} />
                 <div className="edit-overlay">
                     <Upload {...uploadProps}>
                         <EditOutlined className="pen" />

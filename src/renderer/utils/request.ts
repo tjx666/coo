@@ -1,5 +1,5 @@
 import axios from 'axios';
-import store from 'utils/store';
+import storage from '@/utils/storage';
 import { message } from 'antd';
 
 import { API_PREFIX } from './constants';
@@ -13,7 +13,7 @@ request.interceptors.request.use(config => {
     const permittedUrls = ['/users/register', '/users/login'];
 
     if (!url || !permittedUrls.includes(url)) {
-        const AUTH_TOKEN = store.get('token');
+        const AUTH_TOKEN = storage.get('token');
 
         if (!AUTH_TOKEN) {
             window.location.href = '/login';
