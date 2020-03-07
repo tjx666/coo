@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Button, Modal, Avatar, Upload, message } from 'antd';
@@ -6,11 +6,11 @@ import { EditOutlined } from '@ant-design/icons';
 import { UploadChangeParam } from 'antd/lib/upload/interface';
 
 import { RootState } from '@/store';
-import { updateUser } from 'reducers/user';
-import storage from '@/utils/storage';
+import { fetchUserInfo } from 'reducers/user';
+import storage from 'utils/storage';
 import { API_PREFIX } from 'utils/constants';
-import api, { AxiosResponse } from 'api';
-import { GetUserResponse, UpdateProfileResponse } from 'api/user';
+import api from 'api';
+import { UpdateProfileResponse } from 'api/user';
 
 const { Item: FormItem } = Form;
 
@@ -19,24 +19,16 @@ export default function ProfileForm() {
     const dispatch = useDispatch();
     const [form] = Form.useForm();
 
-    const [modalVisible, setVisible] = React.useState(false);
-    const avatar = useSelector((state: RootState) => state.user.avatar);
+    const [modalVisible, setVisible] = useState(false);
+    const { name, avatar } = useSelector((state: RootState) => state.user);
 
-    const syncProfile = React.useCallback(async () => {
-        let resp: AxiosResponse<GetUserResponse> | undefined;
-        try {
-            resp = await api<GetUserResponse>('getUser', {
-                pathParams: { id: storage.get('id')! },
-            });
-        } catch (error) {
-            message.error('获取用户信息出错！');
-            return;
-        }
-
-        const { name, avatar: newAvatar } = resp.data.data;
+    useEffect(() => {
         form.setFieldsValue({ name });
-        dispatch(updateUser({ avatar: newAvatar }));
-    }, [form, dispatch]);
+    });
+
+    const syncProfile = useCallback(async () => {
+        dispatch(fetchUserInfo());
+    }, [dispatch]);
 
     const uploadProps = {
         name: 'avatar',

@@ -1,48 +1,23 @@
 import { hot } from 'react-hot-loader/root';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { message } from 'antd';
-import omit from 'lodash/omit';
 
 import { RegisterPage, LoginPage } from 'pages';
-import { ContainerWithNavbar } from '@/layouts';
+import { ContainerWithNavbar } from 'layouts';
+import { fetchUserInfo } from 'reducers/user';
 
-import { GetUserResponse } from './api/user';
-import api, { AxiosResponse } from './api';
-import { updateUser } from './reducers/user';
-import storage from './utils/storage';
 import './app.scss';
 
 function App() {
     const dispatch = useDispatch();
 
-    const syncProfile = React.useCallback(async () => {
-        let resp: AxiosResponse<GetUserResponse> | undefined;
-        try {
-            resp = await api<GetUserResponse>('getUser', {
-                pathParams: { id: storage.get('id')! },
-            });
-        } catch (error) {
-            message.error('获取用户信息出错！');
-            return;
-        }
-
-        const userInfo = resp.data.data;
-        dispatch(
-            updateUser({
-                id: userInfo._id,
-                ...omit(userInfo, ['_id']),
-            }),
-        );
-    }, [dispatch]);
-
-    React.useEffect(() => {
+    useEffect(() => {
         const { href } = window.location;
         if (!href.endsWith('/login') && !href.endsWith('/register')) {
-            syncProfile();
+            dispatch(fetchUserInfo());
         }
-    }, [syncProfile]);
+    }, [dispatch]);
 
     return (
         <div className="app">

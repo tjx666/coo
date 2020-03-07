@@ -1,16 +1,20 @@
 import React from 'react';
 import { useHistory, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Form, Input, Button, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
-import storage from '@/utils/storage';
+import { omit } from 'lodash';
 
 import api, { AxiosResponse } from 'api';
 import { LoginResponse } from 'api/user';
+import { updateUser } from 'reducers/user';
+import storage from 'utils/storage';
 
 const { Item: FormItem } = Form;
 
 export default function LoginForm() {
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const handleSubmit = async (values: any) => {
         const { email, password } = values;
@@ -35,6 +39,12 @@ export default function LoginForm() {
         } = resp.data;
         if (code === 0) {
             message.success('登入成功！');
+            dispatch(
+                updateUser({
+                    id: user._id,
+                    ...omit(user, ['_id']),
+                }),
+            );
             storage.set('token', token);
             storage.set('id', user._id);
             history.push('/message');

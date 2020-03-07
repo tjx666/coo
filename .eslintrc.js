@@ -51,6 +51,8 @@ module.exports = {
 
         'react/prop-types': OFF,
 
+        'unicorn/consistent-function-scoping': OFF,
+        'unicorn/no-process-exit': OFF,
         'unicorn/prevent-abbreviations': OFF,
         'unicorn/filename-case': [
             'error',
@@ -61,7 +63,6 @@ module.exports = {
                 },
             },
         ],
-        'unicorn/no-process-exit': OFF,
 
         'jsx-a11y/click-events-have-key-events': OFF,
         'jsx-a11y/label-has-associated-control': OFF,
@@ -95,10 +96,16 @@ module.exports = {
     },
     overrides: [
         {
+            files: ['src/renderer/reducers/*', 'src/renderer/store.ts'],
+            rules: {
+                'import/no-cycle': OFF,
+            },
+        },
+        {
             files: ['**/*.d.ts'],
             rules: {
                 'import/no-duplicates': OFF,
-                'spaced-comment': OFF
+                'spaced-comment': OFF,
             },
         },
         {

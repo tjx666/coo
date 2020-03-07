@@ -3408,7 +3408,7 @@ crypto-browserify@^3.11.0:
 
 crypto-random-string@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.npm.taobao.org/crypto-random-string/download/crypto-random-string-1.0.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcrypto-random-string%2Fdownload%2Fcrypto-random-string-1.0.0.tgz#a230f64f568310e1498009940790ec99545bca7e"
+  resolved "https://registry.npm.taobao.org/crypto-random-string/download/crypto-random-string-1.0.0.tgz#a230f64f568310e1498009940790ec99545bca7e"
   integrity sha1-ojD2T1aDEOFJgAmUB5DsmVRbyn4=
 
 css-animation@1.x, css-animation@^1.3.2, css-animation@^1.5.0:
@@ -6969,7 +6969,7 @@ lodash.zip@^4.2.0:
 
 lodash@^3.10.1:
   version "3.10.1"
-  resolved "https://registry.npm.taobao.org/lodash/download/lodash-3.10.1.tgz?cache=0&sync_timestamp=1571657272199&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Flodash%2Fdownload%2Flodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
+  resolved "https://registry.npm.taobao.org/lodash/download/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
   integrity sha1-W/Rejkm6QYnhfUgnid/RW9FAt7Y=
 
 lodash@^4.0.0, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@~4.17.12:
@@ -9277,7 +9277,7 @@ rc-pagination@~2.0.1:
 
 rc-picker@~1.1.0:
   version "1.1.4"
-  resolved "https://registry.npm.taobao.org/rc-picker/download/rc-picker-1.1.4.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Frc-picker%2Fdownload%2Frc-picker-1.1.4.tgz#088d3ad6f1d10414ec2d60f70735c749dc2825d9"
+  resolved "https://registry.npm.taobao.org/rc-picker/download/rc-picker-1.1.4.tgz#088d3ad6f1d10414ec2d60f70735c749dc2825d9"
   integrity sha1-CI061vHRBBTsLWD3BzXHSdwoJdk=
   dependencies:
     classnames "^2.2.1"
@@ -9371,7 +9371,7 @@ rc-switch@~1.9.0:
 
 rc-table@~7.1.0:
   version "7.1.2"
-  resolved "https://registry.npm.taobao.org/rc-table/download/rc-table-7.1.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Frc-table%2Fdownload%2Frc-table-7.1.2.tgz#ffd24afbdf0875de5a0381cf8e3d61c6ed450390"
+  resolved "https://registry.npm.taobao.org/rc-table/download/rc-table-7.1.2.tgz?cache=0&sync_timestamp=1583572206397&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Frc-table%2Fdownload%2Frc-table-7.1.2.tgz#ffd24afbdf0875de5a0381cf8e3d61c6ed450390"
   integrity sha1-/9JK+98Idd5aA4HPjj1hxu1FA5A=
   dependencies:
     classnames "^2.2.5"
