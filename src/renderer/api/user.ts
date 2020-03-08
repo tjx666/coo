@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 
-import { CommonResponse } from '../typings/coo';
+import { CommonResponse } from 'typings/coo';
 
 const requestConfigs: Record<string, AxiosRequestConfig> = {
     register: {
@@ -20,6 +20,7 @@ const requestConfigs: Record<string, AxiosRequestConfig> = {
         url: '/users/:id',
     },
 };
+export default requestConfigs;
 
 export interface UserModel {
     _id?: string;
@@ -30,7 +31,6 @@ export interface UserModel {
 
 interface RegisterResponseData {
     user: Required<UserModel>;
-
     token: string;
 }
 
@@ -38,5 +38,3 @@ export type RegisterResponse = CommonResponse<RegisterResponseData>;
 export type LoginResponse = CommonResponse<RegisterResponseData>;
 export type GetUserResponse = CommonResponse<Required<UserModel>>;
 export type UpdateProfileResponse = CommonResponse;
-
-export default requestConfigs;

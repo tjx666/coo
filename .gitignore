@@ -1,4 +1,6 @@
 # custom
+public/vendor
+
 size-plugin.json
 storage.json
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import storage from '@/utils/storage';
 import { message } from 'antd';
 
+import storage from './storage';
 import { API_PREFIX } from './constants';
 
 const request = axios.create({

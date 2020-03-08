@@ -20,6 +20,7 @@
         "baseUrl": "./",
         "paths": {
             "@/*": ["./*"],
+            "typings/*": ["typings/*"],
             "api/*": ["api/*"],
             "reducers/*": ["reducers/*"],
             "hooks/*": ["hooks/*"],

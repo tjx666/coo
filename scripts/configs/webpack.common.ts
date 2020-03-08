@@ -1,24 +1,24 @@
 import { resolve } from 'path';
 import WebpackBar from 'webpackbar';
-import { HashedModuleIdsPlugin, BannerPlugin, Configuration } from 'webpack';
+import { HashedModuleIdsPlugin, Configuration } from 'webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
-import HardSourceWebpackPlugin from 'hard-source-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
+import { Options as HtmlMinifierOptions } from 'html-minifier';
 
-const projectRoot = resolve(__dirname, '../../');
-const renderer = resolve(projectRoot, 'src/renderer/');
+import { __DEV__, PROJECT_ROOT } from '../constants';
 
 function getCSSLoaders(importLoaders: number) {
     return [
-        process.env.NODE_ENV === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
+        __DEV__ ? 'style-loader' : MiniCssExtractPlugin.loader,
         {
             loader: 'css-loader',
             options: {
+                modules: false,
                 sourceMap: true,
                 importLoaders,
             },
@@ -26,25 +26,40 @@ function getCSSLoaders(importLoaders: number) {
     ];
 }
 
+const renderer = resolve(PROJECT_ROOT, 'src/renderer/');
+const htmlMinifyOptions: HtmlMinifierOptions = {
+    collapseWhitespace: true,
+    collapseBooleanAttributes: true,
+    collapseInlineTagWhitespace: true,
+    removeComments: true,
+    removeRedundantAttributes: true,
+    removeScriptTypeAttributes: true,
+    removeStyleLinkTypeAttributes: true,
+    minifyCSS: true,
+    minifyJS: true,
+    minifyURLs: true,
+    useShortDoctype: true,
+};
 const commonConfig: Configuration = {
     cache: true,
     target: 'electron-renderer',
-    context: projectRoot,
+    context: PROJECT_ROOT,
     entry: ['react-hot-loader/patch', './src/renderer'],
     output: {
         publicPath: '/',
-        path: resolve(projectRoot, './dist'),
+        path: resolve(PROJECT_ROOT, './dist'),
         filename: 'js/[name].js',
     },
     watchOptions: {
         ignored: [/node_modules/, /dist/, /out/, /test/, /src\/main/],
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.json', '.js'],
+        extensions: ['.js', '.ts', '.tsx'],
         alias: {
-            'normalize.css$': resolve(projectRoot, './node_modules/normalize.css/normalize.css'),
+            'normalize.css$': resolve(PROJECT_ROOT, './node_modules/normalize.css/normalize.css'),
             'react-dom': '@hot-loader/react-dom',
             '@': renderer,
+            typings: resolve(renderer, 'typings'),
             api: resolve(renderer, 'api'),
             reducers: resolve(renderer, 'reducers'),
             hooks: resolve(renderer, 'hooks'),
@@ -60,15 +75,8 @@ const commonConfig: Configuration = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            filename: 'index.html',
-            title: 'coo',
-            template: resolve(projectRoot, 'public/index.html'),
-            inject: 'body',
-            cache: true,
-        }),
-        new BannerPlugin({
-            banner: `/** @preserve This coo project is develop by YuTengjing under MIT license */`,
-            raw: true,
+            template: resolve(PROJECT_ROOT, 'public/index.html'),
+            minify: __DEV__ ? false : htmlMinifyOptions,
         }),
         new WebpackBar({
             name: 'renderer',
@@ -80,22 +88,19 @@ const commonConfig: Configuration = {
             hashDigest: 'hex',
             hashDigestLength: 20,
         }),
-        new CaseSensitivePathsPlugin(),
         new CircularDependencyPlugin({
             exclude: /node_modules/,
             failOnError: true,
             allowAsyncCycles: false,
-            cwd: projectRoot,
-        }),
-        new HardSourceWebpackPlugin({
-            info: { mode: 'none', level: 'error' },
+            cwd: PROJECT_ROOT,
         }),
         new AntdDayjsWebpackPlugin(),
+        new LodashModuleReplacementPlugin(),
     ],
     module: {
         rules: [
             {
-                test: /\.(ts|js)x?$/,
+                test: /\.(js|ts|tsx)$/,
                 loader: 'babel-loader',
                 options: { cacheDirectory: true },
                 exclude: /node_modules/,
@@ -129,7 +134,7 @@ const commonConfig: Configuration = {
                 ],
             },
             {
-                test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+                test: [/\.gif$/, /\.jpe?g$/, /\.png$/],
                 use: [
                     {
                         loader: 'url-loader',

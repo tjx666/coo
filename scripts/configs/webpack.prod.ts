@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 import { argv } from 'yargs';
 import merge from 'webpack-merge';
+import { BannerPlugin } from 'webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import SpeedMeasurePlugin from 'speed-measure-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
@@ -14,6 +15,10 @@ import commonConfig from './webpack.common';
 const mergedConfig = merge(commonConfig, {
     mode: 'production',
     plugins: [
+        new BannerPlugin({
+            banner: `/** @preserve This coo project is develop by YuTengjing under MIT license */`,
+            raw: true,
+        }),
         new ForkTsCheckerWebpackPlugin({
             memoryLimit: 1024 * 2,
             tsconfig: resolve(__dirname, '../../src/renderer/tsconfig.json'),

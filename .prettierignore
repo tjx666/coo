@@ -2,4 +2,4 @@
 src/renderer/assets
 dist
 out
-storage.json
+public/vendor
