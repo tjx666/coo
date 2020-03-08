@@ -21,7 +21,7 @@ const devConfig = merge(commonConfig, {
             context: PROJECT_ROOT,
             manifest: resolve(PROJECT_ROOT, 'public/vendor/vendors-manifest.json'),
         }),
-        new AddAssetHtmlPlugin({ filepath: resolve(PROJECT_ROOT, 'public/vendor/vendors.dll.js') }),
+        new AddAssetHtmlPlugin({ filepath: resolve(PROJECT_ROOT, 'public/vendor/*.dll.js') }),
     ],
 });
 

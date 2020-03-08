@@ -7,7 +7,6 @@ import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
-import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
 import { Options as HtmlMinifierOptions } from 'html-minifier';
 
 import { __DEV__, PROJECT_ROOT } from '../constants';
@@ -95,7 +94,6 @@ const commonConfig: Configuration = {
             cwd: PROJECT_ROOT,
         }),
         new AntdDayjsWebpackPlugin(),
-        new LodashModuleReplacementPlugin(),
     ],
     module: {
         rules: [

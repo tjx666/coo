@@ -9,6 +9,7 @@ import SizePlugin from 'size-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
 
 import commonConfig from './webpack.common';
 
@@ -29,6 +30,7 @@ const mergedConfig = merge(commonConfig, {
             ignoreOrder: false,
         }),
         new SizePlugin({ writeFile: false }),
+        new LodashModuleReplacementPlugin(),
     ],
     optimization: {
         minimize: true,
@@ -43,7 +45,9 @@ const mergedConfig = merge(commonConfig, {
     },
 });
 
-if (argv.analyze) mergedConfig.plugins!.push(new BundleAnalyzerPlugin());
+if (argv.analyze) {
+    mergedConfig.plugins!.push(new BundleAnalyzerPlugin());
+}
 
 const smp = new SpeedMeasurePlugin();
 const prodConfig = smp.wrap(mergedConfig);

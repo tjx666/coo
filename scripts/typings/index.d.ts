@@ -43,3 +43,5 @@ declare module 'antd-dayjs-webpack-plugin' {
 
     export = WebpackDayjsPlugin;
 }
+
+declare module 'thread-loader';

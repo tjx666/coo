@@ -24,7 +24,7 @@ module.exports = api => {
 
     return {
         presets: ['@babel/preset-typescript', envPreset],
-        plugins: ['@babel/plugin-transform-runtime', importPlugin, 'lodash'],
+        plugins: ['@babel/plugin-transform-runtime'],
         env: {
             development: {
                 presets: [['@babel/preset-react', { development: true }]],
@@ -36,6 +36,8 @@ module.exports = api => {
                     'babel-plugin-dev-expression',
                     '@babel/plugin-transform-react-constant-elements',
                     '@babel/plugin-transform-react-inline-elements',
+                    'lodash',
+                    importPlugin,
                 ],
             },
         },

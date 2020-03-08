@@ -24,6 +24,6 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
     window.j = (path = '/message') => {
         window.location.href = path;
     };
-    require('devtron').install();
+    // require('devtron').install();
     module.hot.accept('./app', render);
 }
