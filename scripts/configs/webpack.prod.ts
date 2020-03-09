@@ -1,19 +1,16 @@
 import { resolve } from 'path';
-import { argv } from 'yargs';
 import merge from 'webpack-merge';
 import { BannerPlugin } from 'webpack';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import SpeedMeasurePlugin from 'speed-measure-webpack-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import SizePlugin from 'size-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
+import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
 
 import commonConfig from './webpack.common';
 
-const mergedConfig = merge(commonConfig, {
+const prodConfig = merge(commonConfig, {
     mode: 'production',
     plugins: [
         new BannerPlugin({
@@ -29,14 +26,13 @@ const mergedConfig = merge(commonConfig, {
             chunkFilename: 'css/[id].[contenthash].css',
             ignoreOrder: false,
         }),
-        new SizePlugin({ writeFile: false }),
         new LodashModuleReplacementPlugin(),
+        new AntdDayjsWebpackPlugin(),
     ],
     optimization: {
         minimize: true,
         minimizer: [
             new TerserPlugin({
-                cache: true,
                 parallel: true,
                 extractComments: false,
             }),
@@ -44,12 +40,5 @@ const mergedConfig = merge(commonConfig, {
         ],
     },
 });
-
-if (argv.analyze) {
-    mergedConfig.plugins!.push(new BundleAnalyzerPlugin());
-}
-
-const smp = new SpeedMeasurePlugin();
-const prodConfig = smp.wrap(mergedConfig);
 
 export default prodConfig;

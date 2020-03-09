@@ -5,7 +5,7 @@ import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import getPort from 'get-port';
 
-import devConfig from './configs/webpack.dev';
+import devConfig from './configs/webpack.index';
 
 (async function startDevServer() {
     const host = '127.0.0.1';

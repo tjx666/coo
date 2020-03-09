@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import { argv } from 'yargs';
 
 import dllConfig from './configs/webpack.dll';
-import prodConfig from './configs/webpack.prod';
+import prodConfig from './configs/webpack.index';
 
 const compiler = webpack(argv.dll ? dllConfig : prodConfig);
 compiler.run((error, stats) => {
@@ -11,10 +11,12 @@ compiler.run((error, stats) => {
         return;
     }
 
-    const prodStatsOpts = {
-        preset: 'normal',
-        colors: true,
-    };
+    const prodStatsOpts = argv.analyze
+        ? 'minimal'
+        : {
+              preset: 'normal',
+              colors: true,
+          };
 
     console.log(stats.toString(prodStatsOpts));
 });

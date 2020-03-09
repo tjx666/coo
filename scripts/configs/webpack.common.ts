@@ -6,7 +6,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import AntdDayjsWebpackPlugin from 'antd-dayjs-webpack-plugin';
 import { Options as HtmlMinifierOptions } from 'html-minifier';
 
 import { __DEV__, PROJECT_ROOT } from '../constants';
@@ -93,14 +92,12 @@ const commonConfig: Configuration = {
             allowAsyncCycles: false,
             cwd: PROJECT_ROOT,
         }),
-        new AntdDayjsWebpackPlugin(),
     ],
     module: {
         rules: [
             {
                 test: /\.(js|ts|tsx)$/,
                 loader: 'babel-loader',
-                options: { cacheDirectory: true },
                 exclude: /node_modules/,
             },
             {

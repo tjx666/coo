@@ -4,8 +4,8 @@ import { HotModuleReplacementPlugin, NamedModulesPlugin, DllReferencePlugin } fr
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import AddAssetHtmlPlugin from 'add-asset-html-webpack-plugin';
 
-import commonConfig from './webpack.common';
 import { PROJECT_ROOT } from '../constants';
+import commonConfig from './webpack.common';
 
 const devConfig = merge(commonConfig, {
     mode: 'development',

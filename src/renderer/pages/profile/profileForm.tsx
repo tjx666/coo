@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Button, Modal, Avatar, Upload, message } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
-import { UploadChangeParam } from 'antd/lib/upload/interface';
+import { UploadChangeParam, UploadProps } from 'antd/lib/upload/interface';
 
 import { RootState } from '@/store';
 import { fetchUserInfo } from 'reducers/user';
@@ -30,8 +30,9 @@ export default function ProfileForm() {
         dispatch(fetchUserInfo());
     }, [dispatch]);
 
-    const uploadProps = {
+    const uploadProps: UploadProps = {
         name: 'avatar',
+        method: 'PUT',
         action: `${API_PREFIX}users/${storage.get('id')}/avatar`,
         headers: {
             Authorization: storage.get('token'),

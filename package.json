@@ -25,14 +25,15 @@
         "start": "concurrently -r -i --kill-others-on-fail yarn:clean yarn:start-renderer yarn:start-main",
         "start-main": "wait-on http-get://localhost:3000/ && nodemon",
         "start-renderer": "cross-env-shell NODE_ENV=development ts-node --files -P scripts/tsconfig.json scripts/start",
+        "dev-analyze": "yarn run start-renderer --analyze",
         "build": "cross-env-shell NODE_ENV=production ts-node --files -P scripts/tsconfig.json scripts/build",
-        "build-dll": "cross-env-shell NODE_ENV=production ts-node --files -P scripts/tsconfig.json scripts/build --dll",
-        "build-analyze": "cross-env-shell NODE_ENV=production ts-node --files -P scripts/tsconfig.json scripts/build --analyze",
+        "build-dll": "yarn run build --dll",
+        "build-analyze": "yarn run build --analyze",
         "test": "echo 'skip test...'",
         "lint": "yarn run lint-eslint && yarn run lint-stylelint",
         "lint-eslint": "eslint -c .eslintrc.js --ext .ts,.tsx,.js {src,scripts}/**/*.{ts,tsx,js}",
         "lint-stylelint": "stylelint --config .stylelintrc.json src/renderer/**/*.scss --syntax scss",
-        "clean": "rimraf -rf out dist node_modules/.cache",
+        "clean": "rimraf -rf out dist",
         "upgrade": "yarn upgrade --latest && yarn run build-dll",
         "reinstall": "rimraf -rf node_modules && yarn && yarn run build-dll"
     },
@@ -55,7 +56,7 @@
     "dependencies": {
         "@hot-loader/react-dom": "^16.12.0",
         "@reduxjs/toolkit": "^1.2.5",
-        "antd": "^4.0.1",
+        "antd": "^4.0.2",
         "axios": "^0.19.2",
         "classnames": "^2.2.6",
         "dayjs": "^1.8.22",
@@ -134,7 +135,7 @@
         "eslint-plugin-promise": "^4.2.1",
         "eslint-plugin-react": "^7.19.0",
         "eslint-plugin-react-hooks": "^2.5.0",
-        "eslint-plugin-unicorn": "^17.0.0",
+        "eslint-plugin-unicorn": "^17.0.1",
         "execa": "^4.0.0",
         "fork-ts-checker-webpack-plugin": "^4.0.5",
         "friendly-errors-webpack-plugin": "^1.7.0",
@@ -174,6 +175,6 @@
         "webpack-dev-server": "^3.10.3",
         "webpack-merge": "^4.2.2",
         "webpackbar": "^4.0.0",
-        "yargs": "^15.1.0"
+        "yargs": "^15.3.0"
     }
 }
