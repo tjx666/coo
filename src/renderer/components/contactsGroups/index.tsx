@@ -1,19 +1,24 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Collapse, List } from 'antd';
+import { RootState } from 'reducers';
 
+import FriendItem from './friendItem';
 import './style.scss';
 
 const { Panel } = Collapse;
-const { Item: ListItem } = List;
 
 export default function ContactsGroup() {
+    const { isLoading, friendList } = useSelector((state: RootState) => state.friends);
+
     return (
         <Collapse className="contacts-group">
-            <Panel header="新的联系人" key="1">
+            <Panel header="好友" key="1">
                 <List
-                    dataSource={['一', '二', '三', '四']}
-                    renderItem={item => {
-                        return <ListItem>{item}</ListItem>;
+                    loading={isLoading}
+                    dataSource={friendList}
+                    renderItem={friend => {
+                        return <FriendItem friend={friend} />;
                     }}
                 />
             </Panel>

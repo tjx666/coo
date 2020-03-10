@@ -1,12 +1,15 @@
 import { resolve } from 'path';
+import { argv } from 'yargs';
+import { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
-import { HashedModuleIdsPlugin, Configuration } from 'webpack';
+import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
+import { Options as HtmlMinifierOptions } from 'html-minifier';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import { Options as HtmlMinifierOptions } from 'html-minifier';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import SizePlugin from 'size-plugin';
 
 import { __DEV__, PROJECT_ROOT } from '../constants';
 
@@ -24,7 +27,6 @@ function getCSSLoaders(importLoaders: number) {
     ];
 }
 
-const renderer = resolve(PROJECT_ROOT, 'src/renderer/');
 const htmlMinifyOptions: HtmlMinifierOptions = {
     collapseWhitespace: true,
     collapseBooleanAttributes: true,
@@ -38,14 +40,15 @@ const htmlMinifyOptions: HtmlMinifierOptions = {
     minifyURLs: true,
     useShortDoctype: true,
 };
+const renderer = resolve(PROJECT_ROOT, 'src/renderer/');
 const commonConfig: Configuration = {
     cache: true,
     target: 'electron-renderer',
     context: PROJECT_ROOT,
-    entry: ['react-hot-loader/patch', './src/renderer'],
+    entry: ['react-hot-loader/patch', resolve(PROJECT_ROOT, 'src/renderer/index.tsx')],
     output: {
         publicPath: '/',
-        path: resolve(PROJECT_ROOT, './dist'),
+        path: resolve(PROJECT_ROOT, 'dist'),
         filename: 'js/[name].js',
     },
     watchOptions: {
@@ -54,7 +57,7 @@ const commonConfig: Configuration = {
     resolve: {
         extensions: ['.js', '.ts', '.tsx'],
         alias: {
-            'normalize.css$': resolve(PROJECT_ROOT, './node_modules/normalize.css/normalize.css'),
+            'normalize.css$': resolve(PROJECT_ROOT, 'node_modules/normalize.css/normalize.css'),
             'react-dom': '@hot-loader/react-dom',
             '@': renderer,
             typings: resolve(renderer, 'typings'),
@@ -71,20 +74,15 @@ const commonConfig: Configuration = {
         },
     },
     plugins: [
-        new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            template: resolve(PROJECT_ROOT, 'public/index.html'),
-            minify: __DEV__ ? false : htmlMinifyOptions,
-        }),
         new WebpackBar({
             name: 'renderer',
             color: '#3873fe',
         }),
         new FriendlyErrorsPlugin(),
-        new HashedModuleIdsPlugin({
-            hashFunction: 'sha256',
-            hashDigest: 'hex',
-            hashDigestLength: 20,
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template: resolve(PROJECT_ROOT, 'public/index.html'),
+            minify: __DEV__ ? false : htmlMinifyOptions,
         }),
         new CircularDependencyPlugin({
             exclude: /node_modules/,
@@ -92,6 +90,7 @@ const commonConfig: Configuration = {
             allowAsyncCycles: false,
             cwd: PROJECT_ROOT,
         }),
+        ...(argv.analyze ? [new SizePlugin({ writeFile: false }), new BundleAnalyzerPlugin()] : []),
     ],
     module: {
         rules: [

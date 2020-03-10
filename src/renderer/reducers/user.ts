@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { message } from 'antd';
-import { omit } from 'lodash';
 
 import { AppThunk } from '@/store';
 import api, { AxiosResponse } from 'api';
@@ -38,10 +37,8 @@ const userSlice = createSlice({
         },
         getUserInfoSuccess(state, action: PayloadAction<Required<UserModel>>) {
             const newUserInfo = action.payload;
-            Object.assign(state, {
-                id: newUserInfo._id,
-                ...omit(newUserInfo, ['_id']),
-            });
+            Object.assign(state, newUserInfo);
+            state.fetchError = null;
         },
         getUserInfoFailed: fetchFailed,
     },
@@ -58,6 +55,7 @@ export function fetchUserInfo(): AppThunk {
                 pathParams: { id: storage.get('id')! },
             });
         } catch (error) {
+            console.error(error);
             message.error('获取用户信息出错！');
             dispatch(getUserInfoFailed(error.message || '请求用户信息出错'));
             return;

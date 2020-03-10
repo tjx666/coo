@@ -12,11 +12,11 @@ compiler.run((error, stats) => {
     }
 
     const prodStatsOpts = argv.analyze
-        ? 'minimal'
-        : {
+        ? {
               preset: 'normal',
               colors: true,
-          };
+          }
+        : 'minimal';
 
     console.log(stats.toString(prodStatsOpts));
 });

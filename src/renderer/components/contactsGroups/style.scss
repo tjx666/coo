@@ -1,4 +1,10 @@
 .contacts-group {
     width: 290px;
     height: 100vh;
+
+    .friend-item {
+        &-avatar {
+            margin-right: 10px;
+        }
+    }
 }

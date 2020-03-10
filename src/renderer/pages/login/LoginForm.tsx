@@ -3,7 +3,6 @@ import { useHistory, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Form, Input, Button, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
-import { omit } from 'lodash';
 
 import api, { AxiosResponse } from 'api';
 import { LoginResponse } from 'api/user';
@@ -39,14 +38,9 @@ export default function LoginForm() {
         } = resp.data;
         if (code === 0) {
             message.success('登入成功！');
-            dispatch(
-                updateUser({
-                    id: user._id,
-                    ...omit(user, ['_id']),
-                }),
-            );
+            dispatch(updateUser(user));
             storage.set('token', token);
-            storage.set('id', user._id);
+            storage.set('id', user.id);
             history.push('/message');
         } else {
             console.error(msg);

@@ -24,7 +24,11 @@ module.exports = api => {
 
     return {
         presets: ['@babel/preset-typescript', envPreset],
-        plugins: ['@babel/plugin-transform-runtime', importPlugin],
+        plugins: [
+            '@babel/plugin-transform-runtime',
+            '@babel/plugin-syntax-dynamic-import',
+            importPlugin,
+        ],
         env: {
             development: {
                 presets: [['@babel/preset-react', { development: true }]],

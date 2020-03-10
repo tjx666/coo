@@ -15,6 +15,10 @@ const requestConfigs: Record<string, AxiosRequestConfig> = {
         method: 'GET',
         url: '/users/:id',
     },
+    getFriends: {
+        method: 'GET',
+        url: '/users/:id/friends',
+    },
     updateProfile: {
         method: 'PUT',
         url: '/users/:id',
@@ -23,7 +27,7 @@ const requestConfigs: Record<string, AxiosRequestConfig> = {
 export default requestConfigs;
 
 export interface UserModel {
-    _id?: string;
+    id: string;
     email?: string;
     name?: string;
     avatar?: string;
@@ -37,4 +41,5 @@ interface RegisterResponseData {
 export type RegisterResponse = CommonResponse<RegisterResponseData>;
 export type LoginResponse = CommonResponse<RegisterResponseData>;
 export type GetUserResponse = CommonResponse<Required<UserModel>>;
+export type GetFriendsResponse = CommonResponse<Array<UserModel>>;
 export type UpdateProfileResponse = CommonResponse;
