@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { message } from 'antd';
 
 import { AppThunk } from '@/store';
-import api, { AxiosResponse } from 'api';
+import api, { Response } from 'api';
 import { UserModel, GetFriendsResponse } from 'api/user';
 import storage from '@/utils/storage';
 
@@ -44,7 +44,7 @@ export default friendsSlice.reducer;
 export function fetchFriends(): AppThunk {
     return async dispatch => {
         dispatch(getFriendsStart());
-        let resp: AxiosResponse<GetFriendsResponse> | undefined;
+        let resp: Response<GetFriendsResponse> | undefined;
         try {
             resp = await api<GetFriendsResponse>('getFriends', {
                 pathParams: { id: storage.get('id') },

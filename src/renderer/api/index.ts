@@ -1,11 +1,9 @@
-import { AxiosPromise } from 'axios';
+import { AxiosPromise, AxiosResponse } from 'axios';
 import { merge } from 'lodash';
 import request from 'utils/request';
 
 import { RequestConfig } from '../typings/coo';
 import userRequestsConfigs from './user';
-
-export * from 'axios';
 
 const requestConfigs: Record<string, RequestConfig> = {
     ...userRequestsConfigs,
@@ -37,3 +35,4 @@ export default async function api<T>(id: string, requestConfig?: RequestConfig) 
     return request(merge(preDefinedConfig, requestConfig)) as AxiosPromise<T>;
 }
 
+export type Response<T> = AxiosResponse<T>;

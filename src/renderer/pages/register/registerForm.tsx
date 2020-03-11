@@ -4,7 +4,7 @@ import { Form, Input, Button, message } from 'antd';
 import { MailOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import storage from '@/utils/storage';
-import api, { AxiosResponse } from 'api';
+import api, { Response } from 'api';
 import { RegisterResponse } from 'api/user';
 
 const { Item: FormItem } = Form;
@@ -14,7 +14,7 @@ export default function RegisterForm() {
 
     const handleSubmit = async (values: any) => {
         const { email, name, password } = values;
-        let resp: AxiosResponse<RegisterResponse> | undefined;
+        let resp: Response<RegisterResponse> | undefined;
 
         try {
             resp = await api<RegisterResponse>('register', {

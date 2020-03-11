@@ -5,8 +5,7 @@ export type RequestConfig = AxiosRequestConfig & {
     errorMessage?: boolean | string | Function;
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export interface CommonResponse<T = Object> {
+export interface CommonResponse<T = Record<string, any>> {
     code: number;
     msg: string;
     data: T;

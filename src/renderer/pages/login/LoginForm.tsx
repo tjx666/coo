@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Form, Input, Button, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
-import api, { AxiosResponse } from 'api';
+import api, { Response } from 'api';
 import { LoginResponse } from 'api/user';
 import { updateUser } from 'reducers/user';
 import storage from 'utils/storage';
@@ -17,7 +17,7 @@ export default function LoginForm() {
 
     const handleSubmit = async (values: any) => {
         const { email, password } = values;
-        let resp: AxiosResponse<LoginResponse> | undefined;
+        let resp: Response<LoginResponse> | undefined;
 
         try {
             resp = await api('login', {
@@ -27,6 +27,7 @@ export default function LoginForm() {
                 },
             });
         } catch (error) {
+            console.error(error);
             message.error('登入失败！');
             return;
         }

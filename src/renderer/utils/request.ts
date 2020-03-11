@@ -29,8 +29,10 @@ request.interceptors.request.use(config => {
 request.interceptors.response.use(
     res => res,
     error => {
-        console.error(error);
-        console.log(error.response.config);
+        if (error.response == null) {
+            return Promise.reject(error);
+        }
+
         const { errorMessage } = error.response.config;
         if (typeof errorMessage === 'string') {
             message.error(errorMessage);

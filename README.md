@@ -4,6 +4,22 @@
 
 coo is a cross-platform chat application
 
+项目还在积极开发中，先实现功能，样式后续会慢慢改善，后端项目：[coo-server](https://github.com/tjx666/coo-server)。
+
 ## :hourglass_flowing_sand: Progress
 
-![progress](https://github.com/tjx666/coo/blob/master/screenshots/progress.png?raw=true)
+### login
+
+![login](https://github.com/tjx666/coo/blob/master/screenshots/login.png?raw=true)
+
+### message
+
+![progress](https://github.com/tjx666/coo/blob/master/screenshots/message.png?raw=true)
+
+### profile
+
+![profile](https://github.com/tjx666/coo/blob/master/screenshots/profile.png?raw=true)
+
+### contacts
+
+![contacts](https://github.com/tjx666/coo/blob/master/screenshots/contacts.png?raw=true)

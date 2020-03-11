@@ -1,25 +1,26 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { ContactsGroups } from 'components';
-import { RootState } from 'reducers';
 import { fetchFriends } from 'reducers/friends';
+
+import AddFriendSubPage from '../addFriend';
 import './style.scss';
 
 export default function ContactsPage() {
     const dispatch = useDispatch();
 
-    const { friendList } = useSelector((state: RootState) => state.friends);
-
     useEffect(() => {
-        if (friendList.length === 0) {
-            dispatch(fetchFriends());
-        }
-    }, [friendList, dispatch]);
+        dispatch(fetchFriends());
+    }, [dispatch]);
 
     return (
         <main className="contacts-page">
             <ContactsGroups />
+            <Switch>
+                <Route to="/contacts/addFriend" component={AddFriendSubPage} />
+            </Switch>
         </main>
     );
 }

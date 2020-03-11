@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { message } from 'antd';
 
 import { AppThunk } from '@/store';
-import api, { AxiosResponse } from 'api';
+import api, { Response } from 'api';
 import { GetUserResponse, UserModel } from 'api/user';
 import storage from 'utils/storage';
 
@@ -35,7 +35,7 @@ const userSlice = createSlice({
         updateUser(state, action: PayloadAction<ModifiedUserInfo>) {
             Object.assign(state, action.payload);
         },
-        getUserInfoSuccess(state, action: PayloadAction<Required<UserModel>>) {
+        getUserInfoSuccess(state, action: PayloadAction<UserModel>) {
             const newUserInfo = action.payload;
             Object.assign(state, newUserInfo);
             state.fetchError = null;
@@ -49,7 +49,7 @@ export default userSlice.reducer;
 
 export function fetchUserInfo(): AppThunk {
     return async dispatch => {
-        let resp: AxiosResponse<GetUserResponse> | undefined;
+        let resp: Response<GetUserResponse> | undefined;
         try {
             resp = await api<GetUserResponse>('getUser', {
                 pathParams: { id: storage.get('id')! },
