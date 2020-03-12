@@ -6,7 +6,6 @@ import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { Options as HtmlMinifierOptions } from 'html-minifier';
-import CircularDependencyPlugin from 'circular-dependency-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import SizePlugin from 'size-plugin';
@@ -52,7 +51,7 @@ const commonConfig: Configuration = {
         filename: 'js/[name].js',
     },
     watchOptions: {
-        ignored: [/node_modules/, /dist/, /out/, /test/, /src\/main/],
+        ignored: [/node_modules/, /dist/, /out/, /public/, /src\/main/, /src\/renderer\/assets/],
     },
     resolve: {
         extensions: ['.js', '.ts', '.tsx'],
@@ -74,21 +73,12 @@ const commonConfig: Configuration = {
         },
     },
     plugins: [
-        new WebpackBar({
-            name: 'renderer',
-            color: '#3873fe',
-        }),
+        new WebpackBar({ name: 'renderer', color: '#3873fe' }),
         new FriendlyErrorsPlugin(),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: resolve(PROJECT_ROOT, 'public/index.html'),
             minify: __DEV__ ? false : htmlMinifyOptions,
-        }),
-        new CircularDependencyPlugin({
-            exclude: /node_modules/,
-            failOnError: true,
-            allowAsyncCycles: false,
-            cwd: PROJECT_ROOT,
         }),
         ...(argv.analyze ? [new SizePlugin({ writeFile: false }), new BundleAnalyzerPlugin()] : []),
     ],

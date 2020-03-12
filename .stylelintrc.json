@@ -14,7 +14,8 @@
         "src/renderer/assets/**/*",
         "dist/**/*",
         "**/*.ts",
-        "**/*.tsx"
+        "**/*.tsx",
+        "**/*.js"
     ],
     "rules": {
         "comment-empty-line-before": null,

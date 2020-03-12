@@ -49,11 +49,11 @@ module.exports = {
     rules: {
         'import/extensions': OFF,
 
-        'react/prop-types': OFF,
+        'jsx-a11y/click-events-have-key-events': OFF,
+        'jsx-a11y/label-has-associated-control': OFF,
+        'jsx-a11y/no-static-element-interactions': OFF,
 
         'unicorn/consistent-function-scoping': OFF,
-        'unicorn/no-process-exit': OFF,
-        'unicorn/prevent-abbreviations': OFF,
         'unicorn/filename-case': [
             'error',
             {
@@ -63,10 +63,9 @@ module.exports = {
                 },
             },
         ],
-
-        'jsx-a11y/click-events-have-key-events': OFF,
-        'jsx-a11y/label-has-associated-control': OFF,
-        'jsx-a11y/no-static-element-interactions': OFF,
+        'unicorn/no-abusive-eslint-disable': OFF,
+        'unicorn/no-process-exit': OFF,
+        'unicorn/prevent-abbreviations': OFF,
 
         '@typescript-eslint/ban-types': OFF,
         '@typescript-eslint/explicit-function-return-type': OFF,
@@ -75,7 +74,7 @@ module.exports = {
         '@typescript-eslint/no-useless-constructor': ERROR,
         '@typescript-eslint/no-var-requires': OFF,
 
-        'react/jsx-filename-extension': [ERROR, { extensions: ['.ts', '.tsx', '.json', '.js'] }],
+        'react/jsx-filename-extension': [ERROR, { extensions: ['.ts', '.tsx', '.js', '.json'] }],
         'react/jsx-first-prop-new-line': OFF,
         'react/jsx-indent-props': [ERROR, 4],
         'react/jsx-indent': [ERROR, 4],
@@ -83,6 +82,7 @@ module.exports = {
         'react/jsx-one-expression-per-line': OFF,
         'react/jsx-props-no-spreading': OFF,
         'react/jsx-wrap-multilines': OFF,
+        'react/prop-types': OFF,
 
         'func-names': OFF,
         'lines-between-class-members': OFF,

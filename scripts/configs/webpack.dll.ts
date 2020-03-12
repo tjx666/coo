@@ -18,7 +18,7 @@ const dllConfig: Configuration = {
                 'electron',
                 'electron-window-state',
                 'react-hot-loader',
-                'react-router-dom',
+                'react-dom',
                 'normalize.css',
             ];
             return !excludedPackages.includes(pkg);
