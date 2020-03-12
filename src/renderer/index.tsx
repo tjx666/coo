@@ -24,6 +24,9 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
     window.j = (path = '/message') => {
         window.location.href = path;
     };
+    window.theme = {
+        primaryColor: 'rgb(56, 115, 254)',
+    };
     // require('devtron').install();
     module.hot.accept('./app', render);
 }

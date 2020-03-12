@@ -68,6 +68,7 @@ module.exports = {
         'jsx-a11y/label-has-associated-control': OFF,
         'jsx-a11y/no-static-element-interactions': OFF,
 
+        '@typescript-eslint/ban-types': OFF,
         '@typescript-eslint/explicit-function-return-type': OFF,
         '@typescript-eslint/no-explicit-any': OFF,
         '@typescript-eslint/no-non-null-assertion': OFF,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import { AxiosRequestConfig } from 'axios';
 
 import { CommonResponse } from 'typings/coo';
@@ -27,6 +28,14 @@ const requestConfigs: Record<string, AxiosRequestConfig> = {
         method: 'GET',
         url: '/search/user',
     },
+    applyForFriend: {
+        method: 'POST',
+        url: '/users/:id/friends',
+    },
+    removeFriend: {
+        method: 'DELETE',
+        url: '/users/:id/friends',
+    },
 };
 export default requestConfigs;
 
@@ -48,3 +57,5 @@ export type GetUserResponse = CommonResponse<UserModel>;
 export type GetFriendsResponse = CommonResponse<Array<UserModel>>;
 export type UpdateProfileResponse = CommonResponse;
 export type SearchUserResponse = CommonResponse<UserModel>;
+export type ApplyForFriendResponse = CommonResponse<Object>;
+export type RemoveFriendResponse = CommonResponse<Object>;

@@ -1,9 +1,12 @@
 {
     "typescript.tsdk": "./node_modules/typescript/lib",
+    "scss.validate": false,
     "search.exclude": {
         "**/node_modules": true,
         "out": true,
         "dist": true,
+        "public/vendor": true,
+        "src/renderer/assets": true,
         "yarn.lock": true,
         "yarn-error.log*": true,
         "LICENSE": true
@@ -13,12 +16,11 @@
         "**/.git/subtree-cache/**": true,
         "**/node_modules/**": true,
         "**/out/**": true,
-        "**/dist/**": true
+        "**/dist/**": true,
+        "**/public/vendor/**": true,
+        "**/src/renderer/assets/**": true
     },
     "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[javascriptreact]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[typescript]": {
@@ -34,12 +36,6 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[css]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[less]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[scss]": {

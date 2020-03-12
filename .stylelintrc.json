@@ -13,7 +13,8 @@
         "node_modules/**/*",
         "src/renderer/assets/**/*",
         "dist/**/*",
-        "**/typings/**/*"
+        "**/*.ts",
+        "**/*.tsx"
     ],
     "rules": {
         "comment-empty-line-before": null,
