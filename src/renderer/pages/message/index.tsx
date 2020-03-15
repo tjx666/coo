@@ -1,6 +1,9 @@
 import React from 'react';
-import { SessionList, MessageList, MessageEditor } from 'components';
+import { Switch, Route } from 'react-router-dom';
 
+import { SessionList } from 'components';
+
+import ChatSubPage from '../chat';
 import './style.scss';
 
 export default function MessagePage() {
@@ -8,8 +11,9 @@ export default function MessagePage() {
         <main className="message-page">
             <SessionList />
             <div className="message-page-main">
-                <MessageList />
-                <MessageEditor />
+                <Switch>
+                    <Route path="/message/:id/chat" component={ChatSubPage} />
+                </Switch>
             </div>
         </main>
     );

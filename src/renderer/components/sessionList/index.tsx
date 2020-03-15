@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { List } from 'antd';
-import faker from 'faker';
+
+import { RootState } from 'reducers';
+import { Session } from 'reducers/sessions';
 
 import SessionItem from './sessionItem';
 import './style.scss';
@@ -9,16 +12,18 @@ import './style.scss';
  * 显示所有会话信息的列表组件
  */
 export default function SessionList() {
-    const fakerData = [...new Array(2)].map((_, index) => ({
-        current: index === 0,
-        avatarSrc: faker.image.avatar(),
-        name: faker.name.findName(),
-        digest: '在吗？',
-    }));
+    const sessionList = useSelector((state: RootState) => state.sessions.sessionList);
 
-    const renderItem = (item: any) => {
-        return <SessionItem {...item} />;
-    };
+    const renderItem = useCallback((item: Session) => {
+        return <SessionItem session={item} />;
+    }, []);
 
-    return <List className="session-list" dataSource={fakerData} renderItem={renderItem} />;
+    return (
+        <List
+            className="session-list"
+            dataSource={sessionList.map(item => item[1])}
+            renderItem={renderItem}
+            locale={{ emptyText: '暂时无会话' }}
+        />
+    );
 }

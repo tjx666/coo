@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useLocation } from 'react-use';
+
 import { IconFont } from 'lib';
 
 import NavbarAvatar from './navbarAvatar';
@@ -6,36 +8,28 @@ import NavItem from './navItem';
 import './style.scss';
 
 export default function Navbar() {
-    const [activatedMenuItemIndex, setActivatedMenuItemIndex] = React.useState(-1);
+    const location = useLocation();
 
-    const handleClickAvatar = () => {
-        setActivatedMenuItemIndex(-1);
-    };
+    const activeIndex = useMemo(() => {
+        const pathName = location.pathname;
 
-    const handleClickMessage = () => {
-        setActivatedMenuItemIndex(0);
-    };
+        if (pathName?.startsWith('/message')) {
+            return 0;
+        }
 
-    const handleClickContacts = () => {
-        setActivatedMenuItemIndex(1);
-    };
+        if (pathName?.startsWith('/contacts')) {
+            return 1;
+        }
+
+        return -1;
+    }, [location]);
 
     return (
         <aside className="navbar">
-            <NavbarAvatar onClick={handleClickAvatar} />
+            <NavbarAvatar />
             <IconFont type="message1" />
-            <NavItem
-                to="/message"
-                activated={activatedMenuItemIndex === 0}
-                iconType="icon-message-"
-                onClick={handleClickMessage}
-            />
-            <NavItem
-                to="/contacts"
-                activated={activatedMenuItemIndex === 1}
-                iconType="icon-contacts-fill"
-                onClick={handleClickContacts}
-            />
+            <NavItem to="/message" activated={activeIndex === 0} iconType="icon-message-" />
+            <NavItem to="/contacts" activated={activeIndex === 1} iconType="icon-contacts-fill" />
         </aside>
     );
 }

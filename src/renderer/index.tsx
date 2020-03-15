@@ -1,19 +1,23 @@
-/* eslint-disable global-require */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { Spin } from 'antd';
 
-import store from './store';
+import store, { persistor } from './store';
+import './socket';
 
 function render() {
+    // eslint-disable-next-line global-require
     const App = require('./app').default;
-
     ReactDOM.render(
         <Provider store={store}>
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
+            <PersistGate loading={<Spin />} persistor={persistor}>
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            </PersistGate>
         </Provider>,
         document.querySelector('#root'),
     );
@@ -24,9 +28,11 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
     window.j = (path = '/message') => {
         window.location.href = path;
     };
+
     window.theme = {
         primaryColor: 'rgb(56, 115, 254)',
     };
+
     // require('devtron').install();
     module.hot.accept('./app', render);
 }

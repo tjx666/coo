@@ -1,4 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { persistReducer } from 'redux-persist';
+
+import persistStorage from 'utils/persistStorage';
 
 interface StatusState {
     isFirstEnterContactsPage: boolean;
@@ -23,5 +26,12 @@ const statusSlice = createSlice({
     },
 });
 
+const statusPersistConfig = {
+    key: 'status',
+    storage: persistStorage,
+    blacklist: ['isFirstEnterContactsPage'],
+};
+const statusReducer = persistReducer(statusPersistConfig, statusSlice.reducer);
+
 export const { setIsFirstEnterContactsPage, setActiveGroupInContactsPage } = statusSlice.actions;
-export default statusSlice.reducer;
+export default statusReducer;

@@ -13,8 +13,14 @@ import SizePlugin from 'size-plugin';
 import { __DEV__, PROJECT_ROOT } from '../constants';
 
 function getCSSLoaders(importLoaders: number) {
+    const styleLoader = {
+        loader: 'style-loader',
+        options: {
+            esModule: true,
+        },
+    };
     return [
-        __DEV__ ? 'style-loader' : MiniCssExtractPlugin.loader,
+        __DEV__ ? styleLoader : MiniCssExtractPlugin.loader,
         {
             loader: 'css-loader',
             options: {

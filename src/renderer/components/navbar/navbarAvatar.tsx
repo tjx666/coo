@@ -6,7 +6,7 @@ import { Avatar } from 'antd';
 import { RootState } from 'reducers';
 
 interface NavbarAvatarProps {
-    onClick: () => void;
+    onClick?: () => void;
 }
 
 export default function NavbarAvatar({ onClick }: NavbarAvatarProps) {

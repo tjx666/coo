@@ -1,12 +1,13 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
+
 import { IconFont } from 'lib';
 
 interface NavItemProps {
     activated: boolean;
     iconType: string;
-    onClick: (activated: boolean) => void;
+    onClick?: (activated: boolean) => void;
     to: string;
 }
 
@@ -15,7 +16,7 @@ function NavItem({ iconType, activated, onClick, to }: NavItemProps) {
     const className = classNames('nav-item', { 'nav-item-activated': activated });
 
     const handleClick = () => {
-        onClick(activated);
+        onClick && onClick(activated);
         history.push(to);
     };
 

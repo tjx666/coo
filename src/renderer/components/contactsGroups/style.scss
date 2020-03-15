@@ -5,9 +5,20 @@
     width: 290px;
     height: 100vh;
 
-    .friend-item {
-        &-avatar {
-            margin-right: 10px;
+    .ant-collapse-content-box {
+        padding: 0;
+
+        .friend-item {
+            padding-left: 10px;
+
+            &:hover {
+                background-color: rgb(222, 224, 227);
+                transition: background-color 0.3s ease-in-out;
+            }
+
+            &-avatar {
+                margin-right: 10px;
+            }
         }
     }
 

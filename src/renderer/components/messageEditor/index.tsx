@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { IconFont } from 'lib';
 
 import './style.scss';
