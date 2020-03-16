@@ -21,7 +21,7 @@ export default function SessionList() {
     return (
         <List
             className="session-list"
-            dataSource={sessionList.map(item => item[1])}
+            dataSource={sessionList}
             renderItem={renderItem}
             locale={{ emptyText: '暂时无会话' }}
         />

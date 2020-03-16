@@ -3,6 +3,7 @@
 .session-list {
     box-sizing: content-box;
     width: 290px;
+    min-width: 290px;
     overflow: auto;
     border-right: 1px solid $line-frame-gray;
 

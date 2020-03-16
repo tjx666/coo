@@ -1,7 +1,111 @@
+@import '~styles/theme';
+
 .chat-sub-page {
     position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100vh;
+
+    .chat-header {
+        display: flex;
+        align-items: center;
+        height: 80px;
+        padding-left: 20px;
+        border-bottom: 1px solid $line-frame-gray;
+
+        .name {
+            margin-left: 10px;
+        }
+    }
+
+    .message-list {
+        flex: 1;
+        overflow: auto;
+        overflow-x: hidden;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+
+            &-thumb {
+                background-color: rgb(221, 223, 225);
+                border-radius: 5px;
+
+                &:hover {
+                    background-color: rgb(187, 191, 196);
+                }
+            }
+        }
+
+        .message-item {
+            display: flex;
+            width: 100%;
+            padding: 10px 20px;
+
+            .bubble-container {
+                display: flex;
+                flex: 1;
+                flex-direction: column;
+
+                .bubble {
+                    position: relative;
+                    width: fit-content;
+                    max-width: calc(100% - 100px);
+                    padding: 5px 16px;
+                    word-wrap: break-word;
+                    background-color: rgb(107, 161, 192);
+                    border-radius: 5px;
+                    user-select: text;
+
+                    &::after {
+                        position: absolute;
+                        top: 0;
+                        width: 0;
+                        height: 0;
+                        border-style: solid;
+                        content: '';
+                    }
+                }
+            }
+
+            &-left {
+                justify-content: flex-start;
+
+                .bubble-container {
+                    align-items: flex-start;
+                    margin-left: 10px;
+
+                    .bubble {
+                        border-top-left-radius: 0;
+
+                        &::after {
+                            left: -6px;
+                            border-color: transparent rgb(107, 161, 192) transparent transparent;
+                            border-width: 0 6px 6px 0;
+                        }
+                    }
+                }
+            }
+
+            &-right {
+                justify-content: flex-end;
+
+                .bubble-container {
+                    align-items: flex-end;
+                    margin-right: 10px;
+
+                    .bubble {
+                        text-align: left;
+                        border-top-right-radius: 0;
+
+                        &::after {
+                            right: -6px;
+                            border-color: transparent transparent transparent rgb(107, 161, 192);
+                            border-width: 0 0 6px 6px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

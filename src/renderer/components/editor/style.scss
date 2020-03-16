@@ -1,6 +1,6 @@
 @import '~styles/theme.scss';
 
-.message-editor-container {
+.editor-container {
     min-height: 44px;
     max-height: 200px;
     margin: 0 20px;
@@ -23,7 +23,7 @@
         }
     }
 
-    .message-editor {
+    .editor {
         display: inline-block;
         width: auto;
         min-width: calc(100% - 48px);

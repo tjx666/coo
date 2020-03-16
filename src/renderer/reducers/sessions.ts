@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface Session {
@@ -9,7 +10,7 @@ export interface Session {
 }
 
 interface SessionsState {
-    sessionList: Array<[string, Session]>;
+    sessionList: Array<Session>;
     currentSession: Session | undefined;
 }
 
@@ -24,18 +25,25 @@ const sessionsSlice = createSlice({
     reducers: {
         addSession(sessions: SessionsState, action: PayloadAction<Session>) {
             const newSession = action.payload;
-            const notExists = sessions.sessionList.find(item => item[0] === newSession.id) == null;
-            if (notExists) {
-                sessions.sessionList.unshift([newSession.id, newSession]);
+            const session = sessions.sessionList.find(item => item.id === newSession.id);
+            if (session) {
+                sessions.currentSession = session;
+            } else {
+                sessions.sessionList.unshift(newSession);
                 sessions.currentSession = newSession;
             }
         },
         setCurrentSession(sessions: SessionsState, action: PayloadAction<string>) {
             const id = action.payload;
-            // eslint-disable-next-line prefer-destructuring
-            sessions.currentSession = sessions.sessionList.find(item => item[0] === id)![1];
+            sessions.currentSession = sessions.sessionList.find(item => item.id === id);
+        },
+        stickySession(sessions: SessionsState, action: PayloadAction<string>) {
+            const id = action.payload;
+            const index = sessions.sessionList.findIndex(session => session.id === id);
+            const stickySession = sessions.sessionList.splice(index, 1);
+            sessions.sessionList.unshift(stickySession[0]);
         },
     },
 });
 export default sessionsSlice.reducer;
-export const { addSession, setCurrentSession } = sessionsSlice.actions;
+export const { addSession, setCurrentSession, stickySession } = sessionsSlice.actions;

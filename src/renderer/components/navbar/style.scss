@@ -2,10 +2,10 @@
 
 .navbar {
     display: flex;
-    flex-basis: 60px;
     flex-direction: column;
-    flex-grow: 0;
     align-items: center;
+    width: 60px;
+    min-width: 60px;
     height: 100vh;
     background-image: linear-gradient(rgb(83, 96, 128), rgb(47, 56, 78));
 
