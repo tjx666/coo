@@ -7,6 +7,7 @@ import { fetchFriends } from 'reducers/friends';
 import api, { Response } from 'api';
 import { SearchUserResponse, UserModel } from 'api/user';
 import storage from 'utils/storage';
+import { BASE_URL } from 'utils/constants';
 
 import './style.scss';
 
@@ -82,7 +83,7 @@ export default function AddFriendSubPage() {
                 return (
                     <div className="user-info">
                         <span className="name">{name}</span>
-                        <Avatar size={48} src={avatar} />
+                        <Avatar size={48} src={`${BASE_URL}${avatar}`} />
                         {id !== storage.get('id') &&
                             (isFriend ? (
                                 <span

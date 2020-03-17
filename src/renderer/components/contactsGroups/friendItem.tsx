@@ -5,6 +5,7 @@ import { List, Avatar } from 'antd';
 
 import { UserModel } from 'api/user';
 import { addSession, Session } from 'reducers/sessions';
+import { BASE_URL } from 'utils/constants';
 
 const { Item: ListItem } = List;
 
@@ -30,7 +31,7 @@ export default function FriendItem({ friend: userModel }: ContactItemProps) {
 
     return (
         <ListItem className="friend-item" onClick={jumpToChat}>
-            <Avatar className="friend-item-avatar" src={avatar} />
+            <Avatar className="friend-item-avatar" src={`${BASE_URL}${avatar}`} />
             {name}
         </ListItem>
     );

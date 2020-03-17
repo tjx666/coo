@@ -16,7 +16,6 @@ export default function Editor({ onEnter: onSendTextMessage }: EditorProps) {
             const editorDom = editorRef.current!;
             // eslint-disable-next-line unicorn/prefer-text-content
             const content = editorDom.innerText!.trim();
-            console.log(editorDom.innerHTML);
             if (content !== '' && event.keyCode === 13) {
                 event.preventDefault();
                 editorDom.innerHTML = '';

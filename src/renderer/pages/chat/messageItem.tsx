@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { Avatar } from 'antd';
 
+import { BASE_URL } from 'utils/constants';
+
 interface MessageItemProps {
     name: string;
     avatar?: string;
@@ -26,7 +28,7 @@ export default function MessageItem({ avatar, name, content, right }: MessageIte
                 <span>{name}</span>
                 <div className="bubble">{content}</div>
             </div>
-            {right && <Avatar src={avatar} />}
+            {right && <Avatar src={`${BASE_URL}${avatar}`} />}
         </div>
     );
 }

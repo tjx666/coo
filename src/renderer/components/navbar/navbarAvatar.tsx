@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Avatar } from 'antd';
 
 import { RootState } from 'reducers';
+import { BASE_URL } from 'utils/constants';
 
 interface NavbarAvatarProps {
     onClick?: () => void;
@@ -15,7 +16,7 @@ export default function NavbarAvatar({ onClick }: NavbarAvatarProps) {
     return (
         <Link className="navbar-avatar-link" to="/profile" onClick={onClick}>
             <div className="avatar-wrapper">
-                <Avatar className="navbar-avatar" src={avatar} size={34} />
+                <Avatar className="navbar-avatar" src={`${BASE_URL}${avatar}`} size={34} />
             </div>
         </Link>
     );
