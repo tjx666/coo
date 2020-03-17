@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Button, Modal, Avatar, Upload, message } from 'antd';
@@ -6,11 +6,11 @@ import { EditOutlined } from '@ant-design/icons';
 import { UploadChangeParam, UploadProps } from 'antd/lib/upload/interface';
 
 import { RootState } from '@/store';
-import { fetchUserInfo } from 'reducers/user';
-import storage from 'utils/storage';
-import { API_PREFIX } from 'utils/constants';
 import api from 'api';
 import { UpdateProfileResponse } from 'api/user';
+import { fetchUserInfo } from 'reducers/user';
+import { API_PREFIX } from 'utils/constants';
+import storage from 'utils/storage';
 
 const { Item: FormItem } = Form;
 
@@ -26,20 +26,16 @@ export default function ProfileForm() {
         form.setFieldsValue({ name });
     });
 
-    const syncProfile = useCallback(async () => {
-        dispatch(fetchUserInfo());
-    }, [dispatch]);
-
     const uploadProps: UploadProps = {
         name: 'avatar',
         method: 'PUT',
-        action: `${API_PREFIX}users/${storage.get('id')}/avatar`,
+        action: `${API_PREFIX}/users/${storage.get('id')}/avatar`,
         headers: {
             Authorization: storage.get('token'),
         },
         onChange(info: UploadChangeParam) {
             if (info.file.status === 'done') {
-                syncProfile();
+                dispatch(fetchUserInfo());
                 message.success('上传头像成功！');
             } else if (info.file.status === 'error') {
                 message.error(`上传头像失败！`);
@@ -61,6 +57,7 @@ export default function ProfileForm() {
                 data: newProfile,
             });
         } catch (error) {
+            console.error(error);
             message.error('修改用户信息出错！');
             return false;
         }
@@ -68,7 +65,7 @@ export default function ProfileForm() {
         return true;
     };
 
-    const handleSubmit = (values: any) => {
+    const submit = (values: any) => {
         const { password } = values;
         const isFilledPassword = password && password.trim() !== '';
 
@@ -80,9 +77,8 @@ export default function ProfileForm() {
         }
     };
 
-    const handleModifyPwd = async () => {
+    const modifyPwd = async () => {
         setVisible(false);
-
         const modifyPasswordSuccess = await updateProfile();
         if (modifyPasswordSuccess) {
             message.success('修改成功，请重新登入');
@@ -91,18 +87,9 @@ export default function ProfileForm() {
         }
     };
 
-    const handleResetPwd = () => {
+    const resetPwd = () => {
         setVisible(false);
         form.setFieldsValue({ password: '' });
-    };
-
-    const formLayout = {
-        labelCol: {
-            span: 6,
-        },
-        wrapperCol: {
-            span: 18,
-        },
     };
 
     const modalTitle = (
@@ -116,25 +103,34 @@ export default function ProfileForm() {
             <Button type="ghost" onClick={() => setVisible(false)}>
                 取消修改
             </Button>
-            <Button type="primary" onClick={handleResetPwd}>
+            <Button type="primary" onClick={resetPwd}>
                 清空密码
             </Button>
-            <Button type="danger" onClick={handleModifyPwd}>
+            <Button type="danger" onClick={modifyPwd}>
                 修改密码
             </Button>
         </div>
     );
 
+    const formLayout = {
+        labelCol: {
+            span: 6,
+        },
+        wrapperCol: {
+            span: 18,
+        },
+    };
+
     return (
-        <Form className="profile-form" form={form} onFinish={handleSubmit} {...formLayout}>
+        <Form className="profile-form" form={form} onFinish={submit} {...formLayout}>
             <Modal
                 className="profile-modal"
                 visible={modalVisible}
+                closable={false}
                 title={modalTitle}
                 bodyStyle={{
                     textAlign: 'center',
                 }}
-                closable={false}
                 footer={modalFooter}
             >
                 <p style={{ fontWeight: 'bold' }}>重要的事情说三遍！</p>

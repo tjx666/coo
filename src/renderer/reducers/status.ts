@@ -17,11 +17,11 @@ const statusSlice = createSlice({
     name: 'status',
     initialState,
     reducers: {
-        setIsFirstEnterContactsPage(state: StatusState, action: PayloadAction<boolean>) {
-            state.isFirstEnterContactsPage = action.payload;
+        setIsFirstEnterContactsPage(status, action: PayloadAction<boolean>) {
+            status.isFirstEnterContactsPage = action.payload;
         },
-        setActiveGroupInContactsPage(state: StatusState, action: PayloadAction<string[]>) {
-            state.activeGroupInContactsPage = action.payload;
+        setActiveGroupInContactsPage(status, action: PayloadAction<string[]>) {
+            status.activeGroupInContactsPage = action.payload;
         },
     },
 });

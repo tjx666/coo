@@ -5,6 +5,7 @@ import { Avatar } from 'antd';
 
 import { RootState } from 'reducers';
 import { setCurrentSession, Session } from 'reducers/sessions';
+import { ASSETS_BASE_URL } from 'utils/constants';
 
 interface SessionItemProps {
     session: Session;
@@ -28,7 +29,7 @@ export default function SessionItem({ session }: SessionItemProps) {
 
     return (
         <div className={className} onClick={openSession}>
-            <Avatar className="avatar" src={avatar} />
+            <Avatar className="avatar" src={`${ASSETS_BASE_URL}${avatar}`} />
             <div className="session-item-main">
                 <span className="name">{name}</span>
                 <span className="digest">{digest}</span>

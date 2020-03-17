@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { app, BrowserWindow } from 'electron';
 import windowStateKeeper from 'electron-window-state';
 import debug from 'electron-debug';
@@ -9,7 +8,7 @@ import installExtension, {
 
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true';
 debug();
-app.commandLine.appendSwitch('proxy-server', '127.0.0.1:12121');
+// app.commandLine.appendSwitch('proxy-server', '127.0.0.1:12121');
 
 let win: BrowserWindow | null;
 function createWindow() {

@@ -4,7 +4,7 @@ import { message } from 'antd';
 import { AppThunk } from '@/store';
 import api, { Response } from 'api';
 import { UserModel, GetFriendsResponse } from 'api/user';
-import storage from '@/utils/storage';
+import storage from 'utils/storage';
 
 interface FriendsState {
     friendList: Array<UserModel>;

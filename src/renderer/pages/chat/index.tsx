@@ -25,9 +25,9 @@ export default function ChatSubPage() {
 
     useEffect(() => {
         const handleMessage = async (data: any) => {
-            if (data.formType === 'text') {
-                const { id, from, content } = data;
-                if (sessionList.every(session => session.id !== id)) {
+            if (data.contentType === 'text') {
+                const { from, content } = data;
+                if (sessionList.every(session => session.id !== from)) {
                     let resp: Response<GetUserResponse> | undefined;
                     try {
                         resp = await api<GetUserResponse>('getUser', { pathParams: { id: from } });
@@ -47,12 +47,13 @@ export default function ChatSubPage() {
 
                 dispatch(
                     addPrivateMessage({
-                        id,
+                        id: from,
                         content,
                         self: false,
                         timestamp: Date.now(),
                     }),
                 );
+                dispatch(stickySession(from));
             }
         };
         socket.on('message', handleMessage);

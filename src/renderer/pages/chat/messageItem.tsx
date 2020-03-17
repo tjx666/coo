@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { Avatar } from 'antd';
 
-import { BASE_URL } from 'utils/constants';
+import { ASSETS_BASE_URL } from 'utils/constants';
 
 interface MessageItemProps {
     name: string;
@@ -11,7 +11,12 @@ interface MessageItemProps {
     right?: boolean;
 }
 
-export default function MessageItem({ avatar, name, content, right }: MessageItemProps) {
+export default function MessageItem({
+    avatar: avatarPath,
+    name,
+    content,
+    right,
+}: MessageItemProps) {
     const messageItemClassName = useMemo(
         () =>
             classNames('message-item', {
@@ -20,15 +25,16 @@ export default function MessageItem({ avatar, name, content, right }: MessageIte
             }),
         [right],
     );
+    const avatar = useMemo(() => <Avatar src={`${ASSETS_BASE_URL}${avatarPath}`} />, [avatarPath]);
 
     return (
         <div className={messageItemClassName}>
-            {!right && <Avatar src={avatar} />}
+            {!right && avatar}
             <div className="bubble-container">
                 <span>{name}</span>
                 <div className="bubble">{content}</div>
             </div>
-            {right && <Avatar src={`${BASE_URL}${avatar}`} />}
+            {right && avatar}
         </div>
     );
 }

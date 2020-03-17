@@ -3,8 +3,8 @@ import webpack, { Configuration } from 'webpack';
 import WebpackBar from 'webpackbar';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
-import packageJson from '../../package.json';
 import { PROJECT_ROOT } from '../constants';
+import packageJson from '../../package.json';
 
 const outputPath = resolve(PROJECT_ROOT, 'public/vendor');
 const dllConfig: Configuration = {

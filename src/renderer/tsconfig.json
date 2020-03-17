@@ -19,7 +19,18 @@
         "resolveJsonModule": true,
         "baseUrl": "./",
         "paths": {
-            "@/*": ["./*"]
+            "@/*": ["./*"],
+            "api/*": ["api/*"],
+            "assets/*": ["assets/*"],
+            "components/*": ["components/*"],
+            "hooks/*": ["hooks/*"],
+            "layouts/*": ["layouts/*"],
+            "lib/*": ["lib/*"],
+            "pages/*": ["pages/*"],
+            "reducers/*": ["reducers/*"],
+            "styles/*": ["styles/*"],
+            "typings/*": ["typings/*"],
+            "utils/*": ["utils/*"]
         },
 
         /* Experimental Options */
@@ -30,5 +41,5 @@
         "forceConsistentCasingInFileNames": true,
         "skipLibCheck": true
     },
-    "exclude": ["node_modules", "assets"]
+    "exclude": ["assets", "styles"]
 }

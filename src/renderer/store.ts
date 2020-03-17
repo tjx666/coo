@@ -15,7 +15,6 @@ import {
 
 import persistStorage from 'utils/persistStorage';
 
-// redux 持久化
 const persistConfig: PersistConfig<RootState> = {
     key: 'root',
     storage: persistStorage,

@@ -14,8 +14,6 @@ interface UserState {
     fetchError: string | null;
 }
 
-type ModifiedUserInfo = Partial<UserState>;
-
 const initialState: UserState = {
     id: '',
     email: '',
@@ -32,13 +30,16 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        updateUser(state, action: PayloadAction<ModifiedUserInfo>) {
-            Object.assign(state, action.payload);
+        resetUserInfo(userInfo) {
+            Object.assign(userInfo, initialState);
         },
-        getUserInfoSuccess(state, action: PayloadAction<UserModel>) {
+        updateUser(userInfo, action: PayloadAction<Partial<UserState>>) {
+            Object.assign(userInfo, action.payload);
+        },
+        getUserInfoSuccess(userInfo, action: PayloadAction<UserModel>) {
             const newUserInfo = action.payload;
-            Object.assign(state, newUserInfo);
-            state.fetchError = null;
+            Object.assign(userInfo, newUserInfo);
+            userInfo.fetchError = null;
         },
         getUserInfoFailed: fetchFailed,
     },

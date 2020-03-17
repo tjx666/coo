@@ -33,6 +33,5 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
         primaryColor: 'rgb(56, 115, 254)',
     };
 
-    // require('devtron').install();
     module.hot.accept('./app', render);
 }

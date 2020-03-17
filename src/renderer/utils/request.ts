@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { message } from 'antd';
 
-import storage from './storage';
 import { API_PREFIX } from './constants';
+import storage from './storage';
 
 const request = axios.create({
     baseURL: API_PREFIX,

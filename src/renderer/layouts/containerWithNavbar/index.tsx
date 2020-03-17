@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+
 import { ProfilePage, MessagePage, ContactsPage } from 'pages';
 import { Navbar } from 'components';
 

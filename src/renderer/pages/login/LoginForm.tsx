@@ -17,8 +17,8 @@ export default function LoginForm() {
 
     const handleSubmit = async (values: any) => {
         const { email, password } = values;
-        let resp: Response<LoginResponse> | undefined;
 
+        let resp: Response<LoginResponse> | undefined;
         try {
             resp = await api('login', {
                 data: {
@@ -32,21 +32,12 @@ export default function LoginForm() {
             return;
         }
 
-        const {
-            code,
-            msg,
-            data: { user, token },
-        } = resp.data;
-        if (code === 0) {
-            message.success('登入成功！');
-            dispatch(updateUser(user));
-            storage.set('token', token);
-            storage.set('id', user.id);
-            history.push('/message');
-        } else {
-            console.error(msg);
-            message.error(msg);
-        }
+        const { user, token } = resp.data.data;
+        message.success('登入成功！');
+        dispatch(updateUser(user));
+        storage.set('token', token);
+        storage.set('id', user.id);
+        history.push('/message');
     };
 
     const InputsStyle: React.CSSProperties = {

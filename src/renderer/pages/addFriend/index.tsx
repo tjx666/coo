@@ -7,7 +7,7 @@ import { fetchFriends } from 'reducers/friends';
 import api, { Response } from 'api';
 import { SearchUserResponse, UserModel } from 'api/user';
 import storage from 'utils/storage';
-import { BASE_URL } from 'utils/constants';
+import { ASSETS_BASE_URL } from 'utils/constants';
 
 import './style.scss';
 
@@ -25,9 +25,9 @@ export default function AddFriendSubPage() {
         try {
             resp = await api('searchUser', { params: { email: value } });
         } catch (error) {
+            console.error(error);
             setSearchStatus('error');
             message.error('请求出错！');
-            console.error(error);
             return;
         }
         const user = resp.data.data;
@@ -83,7 +83,7 @@ export default function AddFriendSubPage() {
                 return (
                     <div className="user-info">
                         <span className="name">{name}</span>
-                        <Avatar size={48} src={`${BASE_URL}${avatar}`} />
+                        <Avatar size={48} src={`${ASSETS_BASE_URL}${avatar}`} />
                         {id !== storage.get('id') &&
                             (isFriend ? (
                                 <span

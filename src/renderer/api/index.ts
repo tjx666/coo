@@ -1,8 +1,9 @@
 import { AxiosPromise, AxiosResponse } from 'axios';
 import { merge } from 'lodash';
-import request from 'utils/request';
 
-import { RequestConfig } from '../typings/coo';
+import request from 'utils/request';
+import { RequestConfig } from 'typings/coo';
+
 import userRequestsConfigs from './user';
 import messageRequestsConfigs from './message';
 
