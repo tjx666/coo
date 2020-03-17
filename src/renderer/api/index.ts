@@ -4,9 +4,11 @@ import request from 'utils/request';
 
 import { RequestConfig } from '../typings/coo';
 import userRequestsConfigs from './user';
+import messageRequestsConfigs from './message';
 
 const requestConfigs: Record<string, RequestConfig> = {
     ...userRequestsConfigs,
+    ...messageRequestsConfigs,
 };
 
 function parserPathParams(url: string, params: Record<string, string> | undefined): string {
