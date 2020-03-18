@@ -14,8 +14,7 @@ export default function Editor({ onEnter: onSendTextMessage }: EditorProps) {
     const handlePressEnter = useCallback(
         (event: React.KeyboardEvent<HTMLDivElement>) => {
             const editorDom = editorRef.current!;
-            // eslint-disable-next-line unicorn/prefer-text-content
-            const content = editorDom.innerText!.trim();
+            const content = editorDom.textContent!.trim();
             if (content !== '' && event.keyCode === 13) {
                 event.preventDefault();
                 editorDom.innerHTML = '';
@@ -41,8 +40,8 @@ export default function Editor({ onEnter: onSendTextMessage }: EditorProps) {
                 onPaste={handlePaste}
             />
             <div className="toolbar">
-                <IconFont className="toolbar-item" type="icon-picture" />
-                <IconFont className="toolbar-item" type="icon-video" />
+                <IconFont className="toolbar-item" type="icon-picture" title="选择图片" />
+                <IconFont className="toolbar-item" type="icon-video" title="选择视频" />
             </div>
         </div>
     );

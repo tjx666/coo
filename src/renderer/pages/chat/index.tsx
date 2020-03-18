@@ -6,8 +6,8 @@ import { Editor } from 'components';
 import api, { Response } from 'api';
 import { GetUserResponse } from 'api/user';
 import { RootState } from 'reducers';
-import { addPrivateMessage } from 'reducers/messages';
-import { stickySession, addSession } from 'reducers/sessions';
+import { addPrivateMessage } from 'reducers/message';
+import { stickySession, addSession } from 'reducers/session';
 
 import MessageBoxHeader from './chatHeader';
 import MessageList from './messageList';
@@ -16,11 +16,11 @@ import './style.scss';
 export default function ChatSubPage() {
     const dispatch = useDispatch();
 
-    const { user, sessions } = useSelector((state: RootState) => state);
-    const currentSession = sessions.currentSession!;
-    const { sessionList } = sessions;
+    const { profile, session: sessionState } = useSelector((state: RootState) => state);
+    const currentSession = sessionState.currentSession!;
+    const { sessionList } = sessionState;
     const privateMessages = useSelector(
-        (state: RootState) => state.messages.privateChatMessages[currentSession.id]?.messages || [],
+        (state: RootState) => state.message.privateChat[currentSession.id]?.messages || [],
     );
 
     useEffect(() => {
@@ -67,7 +67,7 @@ export default function ChatSubPage() {
             try {
                 await api('sendPrivateTextMessage', {
                     data: {
-                        from: user.id,
+                        from: profile.id,
                         to: currentSession.id,
                         content: text,
                     },
@@ -92,7 +92,7 @@ export default function ChatSubPage() {
                 list.scrollTop = list.scrollHeight - list.clientHeight;
             });
         },
-        [currentSession, dispatch, user.id],
+        [currentSession, dispatch, profile.id],
     );
 
     return (

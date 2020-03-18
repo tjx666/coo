@@ -11,7 +11,8 @@ import './style.scss';
 
 export default function Navbar() {
     const location = useLocation();
-    const currentSession = useSelector((state: RootState) => state.sessions.currentSession);
+    const { avatar } = useSelector((state: RootState) => state.profile);
+    const currentSession = useSelector((state: RootState) => state.session.currentSession);
 
     const activeIndex = useMemo(() => {
         const pathName = location.pathname;
@@ -27,11 +28,16 @@ export default function Navbar() {
         return -1;
     }, [location]);
 
-    const chatUrl = useMemo(() => `/message/${currentSession?.id}/chat`, [currentSession]);
+    const chatUrl = useMemo(() => {
+        if (currentSession?.id) {
+            return `/message/${currentSession?.id}/chat`;
+        }
+        return '/message';
+    }, [currentSession]);
 
     return (
         <aside className="navbar">
-            <NavbarAvatar />
+            <NavbarAvatar avatar={avatar} />
             <IconFont type="message1" />
             <NavItem to={chatUrl} activated={activeIndex === 0} iconType="icon-message-" />
             <NavItem to="/contacts" activated={activeIndex === 1} iconType="icon-contacts-fill" />

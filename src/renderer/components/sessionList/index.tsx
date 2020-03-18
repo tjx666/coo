@@ -1,27 +1,31 @@
 import React, { useCallback } from 'react';
-import { useSelector } from 'react-redux';
 import { List } from 'antd';
 
-import { RootState } from 'reducers';
-import { Session } from 'reducers/sessions';
+import { Session } from 'reducers/session';
 
 import SessionItem from './sessionItem';
 import './style.scss';
 
+interface SessionListProps {
+    sessions: Session[];
+    activeItemId: string | undefined;
+}
+
 /**
  * 显示所有会话信息的列表组件
  */
-export default function SessionList() {
-    const sessionList = useSelector((state: RootState) => state.sessions.sessionList);
-
-    const renderItem = useCallback((item: Session) => {
-        return <SessionItem session={item} />;
-    }, []);
+export default function SessionList({ sessions, activeItemId }: SessionListProps) {
+    const renderItem = useCallback(
+        (item: Session) => {
+            return <SessionItem session={item} active={item.id === activeItemId} />;
+        },
+        [activeItemId],
+    );
 
     return (
         <List
             className="session-list"
-            dataSource={sessionList}
+            dataSource={sessions}
             renderItem={renderItem}
             locale={{ emptyText: '暂时无会话' }}
         />

@@ -5,7 +5,7 @@ import { Collapse, List } from 'antd';
 import { PlusCircleOutlined, PlusCircleFilled } from '@ant-design/icons';
 
 import { RootState } from 'reducers';
-import { setActiveGroupInContactsPage } from 'reducers/status';
+import { setActiveGroupsInContactsPage } from 'reducers/status';
 import { UserModel } from 'api/user';
 
 import FriendItem from './friendItem';
@@ -16,15 +16,15 @@ const { Panel } = Collapse;
 export default function ContactsGroup() {
     const dispatch = useDispatch();
 
-    const { isLoading, friendList } = useSelector((state: RootState) => state.friends);
+    const { isLoading, friendList } = useSelector((state: RootState) => state.friend);
     const activeGroupInContactsPage = useSelector(
-        (state: RootState) => state.status.activeGroupInContactsPage,
+        (state: RootState) => state.status.activeGroupsInContactsPage,
     );
     const [isHover, setIsHover] = useState(false);
 
     const handleChange = (key: string | string[]) => {
         if (Array.isArray(key)) {
-            dispatch(setActiveGroupInContactsPage(key));
+            dispatch(setActiveGroupsInContactsPage(key));
         }
     };
 

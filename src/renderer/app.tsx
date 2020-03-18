@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import { RegisterPage, LoginPage } from 'pages';
 import { ContainerWithNavbar } from 'layouts';
-import { fetchUserInfo } from 'reducers/user';
+import { fetchProfile } from 'reducers/profile';
 
 import './app.scss';
 
@@ -15,7 +15,7 @@ function App() {
     useEffect(() => {
         const { href } = window.location;
         if (!href.endsWith('/login') && !href.endsWith('/register')) {
-            dispatch(fetchUserInfo());
+            dispatch(fetchProfile());
         }
     }, [dispatch]);
 

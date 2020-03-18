@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { RootState } from 'reducers';
-import { PrivateMessageItem } from 'reducers/messages';
+import { PrivateMessageItem } from 'reducers/message';
 
 import MessageItem from './messageItem';
 import './style.scss';
@@ -13,8 +13,12 @@ interface MessageListProps {
 }
 
 export default function MessageList({ className, messages }: MessageListProps) {
-    const user = useSelector((state: RootState) => state.user);
-    const currentSession = useSelector((state: RootState) => state.sessions.currentSession)!;
+    const { name: loginUserName, avatar: loginUserAvatar } = useSelector(
+        (state: RootState) => state.profile,
+    );
+    const { name: oppositeUserName, avatar: oppositeUserAvatar } = useSelector(
+        (state: RootState) => state.session.currentSession,
+    )!;
 
     const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (event.target === event.currentTarget) {
@@ -29,14 +33,14 @@ export default function MessageList({ className, messages }: MessageListProps) {
                 return (
                     <MessageItem
                         key={message.timestamp}
-                        name={self ? user.name : currentSession.name}
-                        avatar={self ? user.avatar : currentSession.avatar}
+                        name={self ? loginUserName : oppositeUserName}
+                        avatar={self ? loginUserAvatar : oppositeUserAvatar}
                         content={message.content}
                         right={self}
                     />
                 );
             }),
-        [currentSession.avatar, currentSession.name, messages, user.avatar, user.name],
+        [messages, loginUserAvatar, loginUserName, oppositeUserAvatar, oppositeUserName],
     );
 
     return (

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ContactsGroups } from 'components';
 import { RootState } from 'reducers';
-import { fetchFriends } from 'reducers/friends';
+import { fetchFriends } from 'reducers/friend';
 import { setIsFirstEnterContactsPage } from 'reducers/status';
 
 import AddFriendSubPage from '../addFriend';

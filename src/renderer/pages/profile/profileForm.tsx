@@ -8,8 +8,8 @@ import { UploadChangeParam, UploadProps } from 'antd/lib/upload/interface';
 import { RootState } from '@/store';
 import api from 'api';
 import { UpdateProfileResponse } from 'api/user';
-import { fetchUserInfo } from 'reducers/user';
-import { API_PREFIX } from 'utils/constants';
+import { fetchProfile } from 'reducers/profile';
+import { API_PREFIX, ASSETS_BASE_URL } from 'utils/constants';
 import storage from 'utils/storage';
 
 const { Item: FormItem } = Form;
@@ -20,7 +20,7 @@ export default function ProfileForm() {
     const [form] = Form.useForm();
 
     const [modalVisible, setVisible] = useState(false);
-    const { name, avatar } = useSelector((state: RootState) => state.user);
+    const { name, avatar } = useSelector((state: RootState) => state.profile);
 
     useEffect(() => {
         form.setFieldsValue({ name });
@@ -35,7 +35,7 @@ export default function ProfileForm() {
         },
         onChange(info: UploadChangeParam) {
             if (info.file.status === 'done') {
-                dispatch(fetchUserInfo());
+                dispatch(fetchProfile());
                 message.success('上传头像成功！');
             } else if (info.file.status === 'error') {
                 message.error(`上传头像失败！`);
@@ -139,7 +139,7 @@ export default function ProfileForm() {
                 <br /> 请确保你已经记住新密码！！！
             </Modal>
             <div className="avatar-container">
-                <Avatar className="avatar" src={avatar} size={60} />
+                <Avatar className="avatar" src={`${ASSETS_BASE_URL}${avatar}`} size={60} />
                 <div className="edit-overlay">
                     <Upload {...uploadProps}>
                         <EditOutlined className="pen" />

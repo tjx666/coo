@@ -6,40 +6,40 @@ import api, { Response } from 'api';
 import { UserModel, GetFriendsResponse } from 'api/user';
 import storage from 'utils/storage';
 
-interface FriendsState {
+interface FriendState {
     friendList: Array<UserModel>;
     fetchError: string | null;
     isLoading: boolean;
 }
 
-const initialState: FriendsState = {
+const initialState: FriendState = {
     friendList: [],
     fetchError: null,
     isLoading: false,
 };
 
-function startLoading(state: FriendsState) {
+function startLoading(state: FriendState) {
     state.isLoading = true;
 }
 
-const friendsSlice = createSlice({
-    name: 'friends',
+const friendSlice = createSlice({
+    name: 'friend',
     initialState,
     reducers: {
         getFriendsStart: startLoading,
-        getFriendsSuccess(state: FriendsState, action: PayloadAction<Array<UserModel>>) {
-            state.friendList = action.payload;
-            state.isLoading = false;
+        getFriendsSuccess(friendState, action: PayloadAction<Array<UserModel>>) {
+            friendState.friendList = action.payload;
+            friendState.isLoading = false;
         },
-        getFriendsFailed(state: FriendsState, action: PayloadAction<string>) {
-            state.fetchError = action.payload;
-            state.isLoading = false;
+        getFriendsFailed(friendState, action: PayloadAction<string>) {
+            friendState.fetchError = action.payload;
+            friendState.isLoading = false;
         },
     },
 });
 
-export const { getFriendsStart, getFriendsSuccess, getFriendsFailed } = friendsSlice.actions;
-export default friendsSlice.reducer;
+export const { getFriendsStart, getFriendsSuccess, getFriendsFailed } = friendSlice.actions;
+export default friendSlice.reducer;
 
 export function fetchFriends(): AppThunk {
     return async dispatch => {

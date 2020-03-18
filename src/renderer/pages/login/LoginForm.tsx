@@ -6,7 +6,7 @@ import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
 import api, { Response } from 'api';
 import { LoginResponse } from 'api/user';
-import { updateUser } from 'reducers/user';
+import { updateProfile } from 'reducers/profile';
 import storage from 'utils/storage';
 
 const { Item: FormItem } = Form;
@@ -34,7 +34,7 @@ export default function LoginForm() {
 
         const { user, token } = resp.data.data;
         message.success('登入成功！');
-        dispatch(updateUser(user));
+        dispatch(updateProfile(user));
         storage.set('token', token);
         storage.set('id', user.id);
         history.push('/message');

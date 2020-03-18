@@ -5,12 +5,12 @@ import persistStorage from 'utils/persistStorage';
 
 interface StatusState {
     isFirstEnterContactsPage: boolean;
-    activeGroupInContactsPage: string[];
+    activeGroupsInContactsPage: string[];
 }
 
 const initialState: StatusState = {
     isFirstEnterContactsPage: true,
-    activeGroupInContactsPage: [],
+    activeGroupsInContactsPage: [],
 };
 
 const statusSlice = createSlice({
@@ -20,8 +20,8 @@ const statusSlice = createSlice({
         setIsFirstEnterContactsPage(status, action: PayloadAction<boolean>) {
             status.isFirstEnterContactsPage = action.payload;
         },
-        setActiveGroupInContactsPage(status, action: PayloadAction<string[]>) {
-            status.activeGroupInContactsPage = action.payload;
+        setActiveGroupsInContactsPage(status, action: PayloadAction<string[]>) {
+            status.activeGroupsInContactsPage = action.payload;
         },
     },
 });
@@ -33,5 +33,5 @@ const statusPersistConfig = {
 };
 const statusReducer = persistReducer(statusPersistConfig, statusSlice.reducer);
 
-export const { setIsFirstEnterContactsPage, setActiveGroupInContactsPage } = statusSlice.actions;
+export const { setIsFirstEnterContactsPage, setActiveGroupsInContactsPage } = statusSlice.actions;
 export default statusReducer;

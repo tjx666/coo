@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Input, Avatar, message } from 'antd';
 
 import { RootState } from 'reducers';
-import { fetchFriends } from 'reducers/friends';
+import { fetchFriends } from 'reducers/friend';
 import api, { Response } from 'api';
 import { SearchUserResponse, UserModel } from 'api/user';
 import storage from 'utils/storage';
@@ -16,7 +16,7 @@ const { Search } = Input;
 export default function AddFriendSubPage() {
     const dispatch = useDispatch();
 
-    const friends = useSelector((state: RootState) => state.friends.friendList);
+    const friends = useSelector((state: RootState) => state.friend.friendList);
     const [searchStatus, setSearchStatus] = useState<'initial' | 'success' | 'error'>('initial');
     const [searchResult, setSearchResult] = useState<UserModel | Object>({});
 

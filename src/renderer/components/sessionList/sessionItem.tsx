@@ -1,27 +1,24 @@
-import React, { useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { memo, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import { Avatar } from 'antd';
 
-import { RootState } from 'reducers';
-import { setCurrentSession, Session } from 'reducers/sessions';
+import { setCurrentSession, Session } from 'reducers/session';
 import { ASSETS_BASE_URL } from 'utils/constants';
 
 interface SessionItemProps {
     session: Session;
+    active: boolean;
 }
 
 /**
  * 会话项组件
  */
-export default function SessionItem({ session }: SessionItemProps) {
-    const dispatch = useDispatch();
-    const currentSession = useSelector((state: RootState) => state.sessions.currentSession);
-
+const SessionItem = ({ session, active }: SessionItemProps) => {
     const { id, name, avatar, digest } = session;
-    const className = classNames('session-item', {
-        'session-item-current': id === currentSession?.id,
-    });
+    const className = classNames('session-item', { 'session-item-current': active });
+
+    const dispatch = useDispatch();
 
     const openSession = useCallback(() => {
         dispatch(setCurrentSession(id));
@@ -36,4 +33,6 @@ export default function SessionItem({ session }: SessionItemProps) {
             </div>
         </div>
     );
-}
+};
+
+export default memo(SessionItem);

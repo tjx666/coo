@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import classNames from 'classnames';
 import { Avatar } from 'antd';
 
@@ -11,12 +11,7 @@ interface MessageItemProps {
     right?: boolean;
 }
 
-export default function MessageItem({
-    avatar: avatarPath,
-    name,
-    content,
-    right,
-}: MessageItemProps) {
+const MessageItem = ({ avatar: avatarPath, name, content, right }: MessageItemProps) => {
     const messageItemClassName = useMemo(
         () =>
             classNames('message-item', {
@@ -37,4 +32,6 @@ export default function MessageItem({
             {right && avatar}
         </div>
     );
-}
+};
+
+export default memo(MessageItem);

@@ -13,7 +13,7 @@ interface PrivateMessages {
 }
 
 interface MessagesState {
-    privateChatMessages: Record<string, PrivateMessages>;
+    privateChat: Record<string, PrivateMessages>;
 }
 
 interface PrivateMessagePayload {
@@ -24,24 +24,24 @@ interface PrivateMessagePayload {
 }
 
 const initialState: MessagesState = {
-    privateChatMessages: {},
+    privateChat: {},
 };
 
-const messagesSlice = createSlice({
-    name: 'messages',
+const messageSlice = createSlice({
+    name: 'message',
     initialState,
     reducers: {
-        resetPrivateMessages(messages) {
-            messages.privateChatMessages = {};
+        resetPrivateMessages(messageState) {
+            messageState.privateChat = {};
         },
-        addPrivateMessage(messages, action: PayloadAction<PrivateMessagePayload>) {
+        addPrivateMessage(messageState, action: PayloadAction<PrivateMessagePayload>) {
             const privateMessage = action.payload;
             const newMessageItem = omit(privateMessage, ['id']);
-            const privateMessages = messages.privateChatMessages[privateMessage.id];
+            const privateMessages = messageState.privateChat[privateMessage.id];
             if (privateMessages) {
                 privateMessages.messages.push(newMessageItem);
             } else {
-                messages.privateChatMessages[privateMessage.id] = {
+                messageState.privateChat[privateMessage.id] = {
                     id: privateMessage.id,
                     messages: [newMessageItem],
                 };
@@ -50,5 +50,5 @@ const messagesSlice = createSlice({
     },
 });
 
-export default messagesSlice.reducer;
-export const { addPrivateMessage } = messagesSlice.actions;
+export default messageSlice.reducer;
+export const { resetPrivateMessages, addPrivateMessage } = messageSlice.actions;

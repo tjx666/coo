@@ -11,7 +11,7 @@ interface NavItemProps {
     to: string;
 }
 
-function NavItem({ iconType, activated, onClick, to }: NavItemProps) {
+export default function NavItem({ iconType, activated, onClick, to }: NavItemProps) {
     const history = useHistory();
     const className = classNames('nav-item', { 'nav-item-activated': activated });
 
@@ -26,5 +26,3 @@ function NavItem({ iconType, activated, onClick, to }: NavItemProps) {
         </div>
     );
 }
-
-export default NavItem;
