@@ -28,7 +28,14 @@ export default function LoginForm() {
             });
         } catch (error) {
             console.error(error);
-            message.error('登入失败！');
+            const code = error?.response?.data?.code;
+            if (code === 2) {
+                message.error('邮箱不存在！');
+            } else if (code === 3) {
+                message.error('密码错误！');
+            } else {
+                message.error('登入失败！');
+            }
             return;
         }
 

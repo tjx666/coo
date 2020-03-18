@@ -25,7 +25,7 @@ function render() {
 render();
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
-    window.j = (path = '/message') => {
+    window.j = (path = '/login') => {
         window.location.href = path;
     };
 

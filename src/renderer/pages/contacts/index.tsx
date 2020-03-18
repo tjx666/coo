@@ -27,7 +27,7 @@ export default function ContactsPage() {
         <main className="contacts-page">
             <ContactsGroups />
             <Switch>
-                <Route to="/contacts/addFriend" component={AddFriendSubPage} />
+                <Route path="/contacts/addFriend" component={AddFriendSubPage} />
             </Switch>
         </main>
     );

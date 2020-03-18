@@ -3,9 +3,8 @@ import { useHistory, Link } from 'react-router-dom';
 import { Form, Input, Button, message } from 'antd';
 import { MailOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
 
-import api, { Response } from 'api';
+import api from 'api';
 import { RegisterResponse } from 'api/user';
-import storage from 'utils/storage';
 
 const { Item: FormItem } = Form;
 
@@ -19,20 +18,22 @@ export default function RegisterForm() {
     const handleSubmit = useCallback(
         async (values: any) => {
             const { email, name, password } = values;
-            let resp: Response<RegisterResponse> | undefined;
             try {
-                resp = await api<RegisterResponse>('register', {
+                await api<RegisterResponse>('register', {
                     data: { email, name, password },
                 });
             } catch (error) {
-                message.error('注册失败！');
+                console.error(error);
+                if (error?.response?.data?.code === 2) {
+                    message.error(`邮箱 ${email} 已经被注册！`);
+                } else {
+                    message.error('注册失败！');
+                }
                 return;
             }
 
-            const { token } = resp.data.data;
-            storage.set('token', token);
             message.success('注册成功！');
-            history.push('/message');
+            history.push('/login');
         },
         [history],
     );

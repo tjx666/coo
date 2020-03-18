@@ -2,7 +2,7 @@ import React, { memo, useMemo } from 'react';
 import classNames from 'classnames';
 import { Avatar } from 'antd';
 
-import { ASSETS_BASE_URL } from 'utils/constants';
+import { ASSETS_BASE_URL, DEFAULT_AVATAR } from 'utils/constants';
 
 interface MessageItemProps {
     name: string;
@@ -20,7 +20,10 @@ const MessageItem = ({ avatar: avatarPath, name, content, right }: MessageItemPr
             }),
         [right],
     );
-    const avatar = useMemo(() => <Avatar src={`${ASSETS_BASE_URL}${avatarPath}`} />, [avatarPath]);
+    const avatar = useMemo(
+        () => <Avatar src={avatarPath ? `${ASSETS_BASE_URL}${avatarPath}` : DEFAULT_AVATAR} />,
+        [avatarPath],
+    );
 
     return (
         <div className={messageItemClassName}>

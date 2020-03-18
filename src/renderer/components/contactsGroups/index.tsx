@@ -44,7 +44,7 @@ export default function ContactsGroup() {
             </Panel>
             <div className="add-friend-button">
                 <Link
-                    to="/contacts/add"
+                    to="/contacts/addFriend"
                     onMouseEnter={() => setIsHover(true)}
                     onMouseLeave={() => setIsHover(false)}
                 >

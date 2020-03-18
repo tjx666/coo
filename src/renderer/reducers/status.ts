@@ -6,11 +6,13 @@ import persistStorage from 'utils/persistStorage';
 interface StatusState {
     isFirstEnterContactsPage: boolean;
     activeGroupsInContactsPage: string[];
+    latestPathNameInContactsPage: string;
 }
 
 const initialState: StatusState = {
     isFirstEnterContactsPage: true,
     activeGroupsInContactsPage: [],
+    latestPathNameInContactsPage: '/contacts',
 };
 
 const statusSlice = createSlice({
@@ -23,6 +25,9 @@ const statusSlice = createSlice({
         setActiveGroupsInContactsPage(status, action: PayloadAction<string[]>) {
             status.activeGroupsInContactsPage = action.payload;
         },
+        setLatestPathNameInContactsPage(status, action: PayloadAction<string>) {
+            status.latestPathNameInContactsPage = action.payload;
+        },
     },
 });
 
@@ -33,5 +38,9 @@ const statusPersistConfig = {
 };
 const statusReducer = persistReducer(statusPersistConfig, statusSlice.reducer);
 
-export const { setIsFirstEnterContactsPage, setActiveGroupsInContactsPage } = statusSlice.actions;
+export const {
+    setIsFirstEnterContactsPage,
+    setActiveGroupsInContactsPage,
+    setLatestPathNameInContactsPage,
+} = statusSlice.actions;
 export default statusReducer;

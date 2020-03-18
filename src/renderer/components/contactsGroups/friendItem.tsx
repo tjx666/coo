@@ -5,7 +5,7 @@ import { List, Avatar } from 'antd';
 
 import { UserModel } from 'api/user';
 import { addSession, Session } from 'reducers/session';
-import { ASSETS_BASE_URL } from 'utils/constants';
+import { ASSETS_BASE_URL, DEFAULT_AVATAR } from 'utils/constants';
 
 const { Item: ListItem } = List;
 
@@ -20,7 +20,7 @@ export default function FriendItem({ friend: userModel }: ContactItemProps) {
     const dispatch = useDispatch();
 
     const jumpToChat = useCallback(() => {
-        history.push(`/message/${id}/chat`);
+        history.push(`/message/chat`);
         const newSession: Session = {
             id,
             name,
@@ -31,7 +31,10 @@ export default function FriendItem({ friend: userModel }: ContactItemProps) {
 
     return (
         <ListItem className="friend-item" onClick={jumpToChat}>
-            <Avatar className="friend-item-avatar" src={`${ASSETS_BASE_URL}${avatar}`} />
+            <Avatar
+                className="friend-item-avatar"
+                src={avatar ? `${ASSETS_BASE_URL}${avatar}` : DEFAULT_AVATAR}
+            />
             {name}
         </ListItem>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar } from 'antd';
 
-import { ASSETS_BASE_URL } from 'utils/constants';
+import { ASSETS_BASE_URL, DEFAULT_AVATAR } from 'utils/constants';
 
 interface NavbarAvatarProps {
     avatar: string;
@@ -13,7 +13,11 @@ export default function NavbarAvatar({ avatar, onClick }: NavbarAvatarProps) {
     return (
         <Link className="navbar-avatar-link" to="/profile" onClick={onClick}>
             <div className="avatar-wrapper">
-                <Avatar className="navbar-avatar" src={`${ASSETS_BASE_URL}${avatar}`} size={34} />
+                <Avatar
+                    className="navbar-avatar"
+                    src={avatar ? `${ASSETS_BASE_URL}${avatar}` : DEFAULT_AVATAR}
+                    size={34}
+                />
             </div>
         </Link>
     );

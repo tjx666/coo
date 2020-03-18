@@ -5,3 +5,4 @@ const API_PREFIX = `${BASE_URL}/api/v1`;
 const ASSETS_BASE_URL = 'http://localhost:3600';
 
 export { BASE_URL, API_PREFIX, ASSETS_BASE_URL };
+export { default as DEFAULT_AVATAR } from 'assets/images/defaultAvatar.png';

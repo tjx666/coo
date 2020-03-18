@@ -9,7 +9,7 @@ import { RootState } from '@/store';
 import api from 'api';
 import { UpdateProfileResponse } from 'api/user';
 import { fetchProfile } from 'reducers/profile';
-import { API_PREFIX, ASSETS_BASE_URL } from 'utils/constants';
+import { API_PREFIX, ASSETS_BASE_URL, DEFAULT_AVATAR } from 'utils/constants';
 import storage from 'utils/storage';
 
 const { Item: FormItem } = Form;
@@ -139,7 +139,11 @@ export default function ProfileForm() {
                 <br /> 请确保你已经记住新密码！！！
             </Modal>
             <div className="avatar-container">
-                <Avatar className="avatar" src={`${ASSETS_BASE_URL}${avatar}`} size={60} />
+                <Avatar
+                    className="avatar"
+                    src={avatar ? `${ASSETS_BASE_URL}${avatar}` : DEFAULT_AVATAR}
+                    size={60}
+                />
                 <div className="edit-overlay">
                     <Upload {...uploadProps}>
                         <EditOutlined className="pen" />
