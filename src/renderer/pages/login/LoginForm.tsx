@@ -3,6 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Form, Input, Button, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
+import debounce from 'lodash/debounce';
 
 import api, { Response } from 'api';
 import { LoginResponse } from 'api/user';
@@ -52,7 +53,7 @@ export default function LoginForm() {
     };
 
     return (
-        <Form className="login-form" onFinish={handleSubmit}>
+        <Form className="login-form" onFinish={debounce(handleSubmit, 200)}>
             <FormItem name="email" rules={[{ required: true, message: '请输入邮箱！' }]}>
                 <Input
                     type="email"

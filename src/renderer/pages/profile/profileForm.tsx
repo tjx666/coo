@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Button, Modal, Avatar, Upload, message } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import { UploadChangeParam, UploadProps } from 'antd/lib/upload/interface';
+import debounce from 'lodash/debounce';
 
 import { RootState } from '@/store';
 import api from 'api';
@@ -122,7 +123,7 @@ export default function ProfileForm() {
     };
 
     return (
-        <Form className="profile-form" form={form} onFinish={submit} {...formLayout}>
+        <Form className="profile-form" form={form} onFinish={debounce(submit, 200)} {...formLayout}>
             <Modal
                 className="profile-modal"
                 visible={modalVisible}

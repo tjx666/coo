@@ -20,15 +20,18 @@ export default function Navbar() {
 
     useEffect(() => {
         const handleUrlChange = () => {
-            if (location.pathname?.startsWith('/contacts')) {
-                dispatch(setLatestPathNameInContactsPage(location.pathname));
+            const { pathname } = window.location;
+            if (pathname !== latestPathNameInContactsPage && pathname?.startsWith('/contacts')) {
+                dispatch(setLatestPathNameInContactsPage(pathname));
             }
         };
+        // 初次进入页面也触发一次
+        handleUrlChange();
         emitter.on('urlChange', handleUrlChange);
         return () => {
             emitter.off('urlChange', handleUrlChange);
         };
-    }, [dispatch, location.href, location.pathname]);
+    }, [dispatch, latestPathNameInContactsPage]);
 
     const activeIndex = useMemo(() => {
         const pathName = location.pathname;

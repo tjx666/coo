@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, Avatar, message } from 'antd';
+import debounce from 'lodash/debounce';
 
 import { RootState } from 'reducers';
 import { fetchFriends } from 'reducers/friend';
@@ -119,7 +120,7 @@ export default function AddFriendSubPage() {
                 className="search-box"
                 placeholder="请输入用户邮箱"
                 enterButton
-                onSearch={handleSearch}
+                onSearch={debounce(handleSearch, 200)}
             />
             {result}
         </div>

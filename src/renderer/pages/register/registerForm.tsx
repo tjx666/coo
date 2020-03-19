@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { Form, Input, Button, message } from 'antd';
 import { MailOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
+import debounce from 'lodash/debounce';
 
 import api from 'api';
 import { RegisterResponse } from 'api/user';
@@ -39,7 +40,7 @@ export default function RegisterForm() {
     );
 
     return (
-        <Form className="register-form" onFinish={handleSubmit}>
+        <Form className="register-form" onFinish={debounce(handleSubmit, 200)}>
             <FormItem name="email" rules={[{ required: true, message: '请输入邮箱！' }]}>
                 <Input prefix={<MailOutlined style={InputsStyle} />} placeholder="邮箱" />
             </FormItem>
