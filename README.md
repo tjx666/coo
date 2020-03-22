@@ -27,7 +27,7 @@ coo 是一个跨平台的聊天客户端，项目还在积极开发中，时间�
 
 ### 会话界面
 
-开发中，目前仅支持私聊文字信息，其它格式内容以及历史信息等功能正在开发中...
+开发中，目前仅支持私聊文字，图片信息，即将支持其它格式和群聊功能
 
 ![progress](https://github.com/tjx666/coo/blob/master/screenshots/message.png?raw=true)
 
