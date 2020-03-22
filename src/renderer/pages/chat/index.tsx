@@ -25,8 +25,15 @@ export default function ChatSubPage() {
     const imageUploadAddress = `${API_PREFIX}/messages/private/image?${new URLSearchParams({
         from: profile.id,
         to: currentSession.id,
-        toType: 'user',
     })}`;
+
+    // 滚动条滑倒最底部
+    const scrollToBottom = useCallback(() => {
+        setTimeout(() => {
+            const list = document.querySelector<HTMLDivElement>('.chat-message-list')!;
+            list.scrollTop = list.scrollHeight - list.clientHeight;
+        });
+    }, []);
 
     const sendTextMessage = useCallback(
         async (text: string) => {
@@ -56,20 +63,31 @@ export default function ChatSubPage() {
                     }),
                 );
             }
-
+            scrollToBottom();
             dispatch(stickySession({ id: currentSession.id, situation: currentSession.situation }));
-            // 滚动条滑倒最底部
-            setTimeout(() => {
-                const list = document.querySelector<HTMLDivElement>('.chat-message-list')!;
-                list.scrollTop = list.scrollHeight - list.clientHeight;
-            });
         },
-        [currentSession, dispatch, profile.id],
+        [currentSession.id, currentSession.situation, profile.id, dispatch, scrollToBottom],
     );
 
-    const handleSendImage = useCallback((response: any) => {
-        console.log(response);
-    }, []);
+    const handleSendImage = useCallback(
+        (response: any) => {
+            const { imageAddress, createdAt } = response.data;
+            if (currentSession.situation === MessageSituation.PRIVATE) {
+                dispatch(
+                    addPrivateMessage({
+                        id: currentSession.id,
+                        self: true,
+                        content: imageAddress,
+                        contentType: 'image',
+                        createdAt,
+                    }),
+                );
+            }
+            scrollToBottom();
+            dispatch(stickySession({ id: currentSession.id, situation: currentSession.situation }));
+        },
+        [currentSession.id, currentSession.situation, dispatch, scrollToBottom],
+    );
 
     return (
         <div className="chat-sub-page">

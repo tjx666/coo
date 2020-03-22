@@ -32,7 +32,13 @@ const MessageItem = ({ avatar: avatarPath, name, content, type, right }: Message
         }
 
         if (type === 'image') {
-            return <img src="" alt="" />;
+            return (
+                <img
+                    className="message-image"
+                    src={`${ASSETS_BASE_URL}${content}`}
+                    alt="加载图片出错"
+                />
+            );
         }
 
         return '';

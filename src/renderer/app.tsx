@@ -18,8 +18,7 @@ import './app.scss';
 function App() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { session: sessionState } = useSelector((state: RootState) => state);
-    const { sessionList } = sessionState;
+    const { sessionList } = useSelector((state: RootState) => state.session);
 
     // 同步用户信息
     useEffect(() => {

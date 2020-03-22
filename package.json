@@ -33,7 +33,19 @@
     },
     "husky": {
         "hooks": {
+            "pre-commit": "lint-staged"
         }
+    },
+    "lint-staged": {
+        "*.{ts,tsx,js}": [
+            "eslint -c .eslintrc.js"
+        ],
+        "*.scss": [
+            "stylelint --config .stylelintrc.json"
+        ],
+        "*.{ts,tsx,js,json,scss,md}": [
+            "prettier --write"
+        ]
     },
     "dependencies": {
         "@hot-loader/react-dom": "^16.13.0",

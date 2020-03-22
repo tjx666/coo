@@ -17,7 +17,7 @@ export default function Editor({ onEnter, imageUploadAddress, onUploadImageSucce
     const editorRef = useRef<HTMLDivElement | null>(null);
 
     const uploadImageProps: UploadProps = {
-        name: 'picture',
+        name: 'messageImage',
         method: 'POST',
         action: imageUploadAddress,
         headers: {
