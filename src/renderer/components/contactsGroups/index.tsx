@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Collapse, List } from 'antd';
 import { PlusCircleOutlined, PlusCircleFilled } from '@ant-design/icons';
+import { useLocation } from 'react-use';
 
 import { RootState } from 'reducers';
 import { setActiveGroupsInContactsPage } from 'reducers/status';
@@ -15,6 +16,7 @@ const { Panel } = Collapse;
 
 export default function ContactsGroup() {
     const dispatch = useDispatch();
+    const location = useLocation();
 
     const { isLoading, friendList } = useSelector((state: RootState) => state.friend);
     const activeGroupInContactsPage = useSelector(
@@ -44,7 +46,11 @@ export default function ContactsGroup() {
             </Panel>
             <div className="add-friend-button">
                 <Link
-                    to="/contacts/addFriend"
+                    to={
+                        location.pathname === '/contacts/addFriend'
+                            ? '/contacts'
+                            : '/contacts/addFriend'
+                    }
                     onMouseEnter={() => setIsHover(true)}
                     onMouseLeave={() => setIsHover(false)}
                 >

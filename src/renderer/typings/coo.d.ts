@@ -16,7 +16,7 @@ export type RequestConfig = AxiosRequestConfig & {
     errorMessage?: boolean | string | Function;
 };
 
-export interface CommonResponse<T = Record<string, any>> {
+export interface CommonResponse<T = Object> {
     code: number;
     msg: string;
     data: T;

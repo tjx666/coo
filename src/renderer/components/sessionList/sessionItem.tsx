@@ -1,4 +1,5 @@
 import React, { memo, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import { Avatar } from 'antd';
@@ -19,10 +20,12 @@ const SessionItem = ({ session, active }: SessionItemProps) => {
     const className = classNames('session-item', { 'session-item-current': active });
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const openSession = useCallback(() => {
         dispatch(setCurrentSession(id));
-    }, [dispatch, id]);
+        history.push(`/message/chat`);
+    }, [dispatch, history, id]);
 
     return (
         <div className={className} onClick={openSession}>

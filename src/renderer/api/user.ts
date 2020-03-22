@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import { AxiosRequestConfig } from 'axios';
 
 import { CommonResponse } from 'typings/coo';
@@ -46,16 +45,16 @@ export interface UserModel {
     avatar?: string;
 }
 
-interface RegisterResponseData {
+interface LoginResponseData {
     user: Required<UserModel>;
     token: string;
 }
 
-export type RegisterResponse = CommonResponse<RegisterResponseData>;
-export type LoginResponse = CommonResponse<RegisterResponseData>;
+export type RegisterResponse = CommonResponse;
+export type LoginResponse = CommonResponse<LoginResponseData>;
 export type GetUserResponse = CommonResponse<UserModel>;
 export type GetFriendsResponse = CommonResponse<Array<UserModel>>;
 export type UpdateProfileResponse = CommonResponse;
 export type SearchUserResponse = CommonResponse<UserModel>;
-export type ApplyForFriendResponse = CommonResponse<Object>;
-export type RemoveFriendResponse = CommonResponse<Object>;
+export type ApplyForFriendResponse = CommonResponse;
+export type RemoveFriendResponse = CommonResponse;

@@ -1,4 +1,5 @@
 import React, { useCallback, useRef } from 'react';
+import { Upload } from 'antd';
 
 import { IconFont } from 'lib';
 
@@ -40,7 +41,9 @@ export default function Editor({ onEnter: onSendTextMessage }: EditorProps) {
                 onPaste={handlePaste}
             />
             <div className="toolbar">
-                <IconFont className="toolbar-item" type="icon-picture" title="选择图片" />
+                <Upload className="image-upload">
+                    <IconFont className="toolbar-item" type="icon-picture" title="选择图片" />
+                </Upload>
                 <IconFont className="toolbar-item" type="icon-video" title="选择视频" />
             </div>
         </div>

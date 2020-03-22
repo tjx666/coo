@@ -1,6 +1,5 @@
 import { configureStore, getDefaultMiddleware, Action } from '@reduxjs/toolkit';
 import { ThunkAction } from 'redux-thunk';
-import rootReducer, { RootState as TempRootState } from 'reducers';
 import {
     persistStore,
     persistReducer,
@@ -13,6 +12,7 @@ import {
     PersistConfig,
 } from 'redux-persist';
 
+import rootReducer, { RootState as TempRootState } from 'reducers';
 import persistStorage from 'utils/persistStorage';
 
 const persistConfig: PersistConfig<RootState> = {

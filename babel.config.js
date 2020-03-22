@@ -19,7 +19,7 @@ const importPlugin = [
     },
 ];
 
-module.exports = api => {
+module.exports = (api) => {
     api.cache(true);
 
     return {
@@ -27,6 +27,7 @@ module.exports = api => {
         plugins: [
             '@babel/plugin-transform-runtime',
             '@babel/plugin-syntax-dynamic-import',
+            '@babel/plugin-proposal-optional-chaining',
             importPlugin,
         ],
         env: {
