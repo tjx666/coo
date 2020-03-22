@@ -16,4 +16,8 @@ export interface MessageModel {
     content: string;
 }
 
-export type SendPrivateTextMessageResponse = CommonResponse<Object>;
+interface SendPrivateTextMessageResponseData {
+    createdAt: number;
+}
+
+export type SendPrivateTextMessageResponse = CommonResponse<SendPrivateTextMessageResponseData>;

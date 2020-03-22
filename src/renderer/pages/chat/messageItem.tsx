@@ -8,10 +8,11 @@ interface MessageItemProps {
     name: string;
     avatar?: string;
     content: string;
+    type: string;
     right?: boolean;
 }
 
-const MessageItem = ({ avatar: avatarPath, name, content, right }: MessageItemProps) => {
+const MessageItem = ({ avatar: avatarPath, name, content, type, right }: MessageItemProps) => {
     const messageItemClassName = useMemo(
         () =>
             classNames('message-item', {
@@ -25,12 +26,24 @@ const MessageItem = ({ avatar: avatarPath, name, content, right }: MessageItemPr
         [avatarPath],
     );
 
+    const messageContent = useMemo(() => {
+        if (type === 'text') {
+            return <div className="bubble">{content}</div>;
+        }
+
+        if (type === 'image') {
+            return <img src="" alt="" />;
+        }
+
+        return '';
+    }, [content, type]);
+
     return (
         <div className={messageItemClassName}>
             {!right && avatar}
             <div className="bubble-container">
                 <span>{name}</span>
-                <div className="bubble">{content}</div>
+                {messageContent}
             </div>
             {right && avatar}
         </div>

@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import omit from 'lodash/omit';
 
 export interface PrivateMessageItem {
+    id: string;
     self: boolean;
     content: string;
-    timestamp: number;
+    contentType: string;
+    createdAt: number;
 }
 
 interface PrivateMessages {
@@ -14,13 +15,6 @@ interface PrivateMessages {
 
 interface MessagesState {
     privateChat: Record<string, PrivateMessages>;
-}
-
-interface PrivateMessagePayload {
-    id: string;
-    content: string;
-    timestamp: number;
-    self: boolean;
 }
 
 const initialState: MessagesState = {
@@ -34,16 +28,15 @@ const messageSlice = createSlice({
         resetPrivateMessages(messageState) {
             messageState.privateChat = {};
         },
-        addPrivateMessage(messageState, action: PayloadAction<PrivateMessagePayload>) {
+        addPrivateMessage(messageState, action: PayloadAction<PrivateMessageItem>) {
             const privateMessage = action.payload;
-            const newMessageItem = omit(privateMessage, ['id']);
             const privateMessages = messageState.privateChat[privateMessage.id];
             if (privateMessages) {
-                privateMessages.messages.push(newMessageItem);
+                privateMessages.messages.push(privateMessage);
             } else {
                 messageState.privateChat[privateMessage.id] = {
                     id: privateMessage.id,
-                    messages: [newMessageItem],
+                    messages: [privateMessage],
                 };
             }
         },

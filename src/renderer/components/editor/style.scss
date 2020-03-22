@@ -40,7 +40,6 @@
         margin-top: 4px;
 
         &-item {
-            font-size: 20px;
             cursor: pointer;
 
             &:not(:last-child) {
@@ -48,8 +47,12 @@
             }
         }
 
+        .anticon {
+            font-size: 20px;
+        }
+
         .image-upload {
-            display: inline;
+            display: inline-block;
         }
     }
 }

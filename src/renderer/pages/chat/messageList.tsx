@@ -28,14 +28,15 @@ export default function MessageList({ className, messages }: MessageListProps) {
 
     const messageList = useMemo(
         () =>
-            messages.map(message => {
+            messages.map((message) => {
                 const { self } = message;
                 return (
                     <MessageItem
-                        key={message.timestamp}
+                        key={message.createdAt}
                         name={self ? loginUserName : oppositeUserName}
                         avatar={self ? loginUserAvatar : oppositeUserAvatar}
                         content={message.content}
+                        type={message.contentType}
                         right={self}
                     />
                 );

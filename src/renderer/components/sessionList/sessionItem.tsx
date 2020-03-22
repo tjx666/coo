@@ -16,16 +16,16 @@ interface SessionItemProps {
  * 会话项组件
  */
 const SessionItem = ({ session, active }: SessionItemProps) => {
-    const { id, name, avatar, digest } = session;
+    const { id, name, avatar, digest, situation } = session;
     const className = classNames('session-item', { 'session-item-current': active });
 
     const dispatch = useDispatch();
     const history = useHistory();
 
     const openSession = useCallback(() => {
-        dispatch(setCurrentSession(id));
+        dispatch(setCurrentSession({ id, situation }));
         history.push(`/message/chat`);
-    }, [dispatch, history, id]);
+    }, [dispatch, history, id, situation]);
 
     return (
         <div className={className} onClick={openSession}>

@@ -1,16 +1,37 @@
 import React, { useCallback, useRef } from 'react';
-import { Upload } from 'antd';
+import { Upload, message } from 'antd';
+import { UploadChangeParam, UploadProps } from 'antd/lib/upload/interface';
 
 import { IconFont } from 'lib';
+import storage from 'utils/storage';
 
 import './style.scss';
 
 interface EditorProps {
     onEnter: (text: string) => void;
+    onUploadImageSuccess: (response: any) => void;
+    imageUploadAddress: string;
 }
 
-export default function Editor({ onEnter: onSendTextMessage }: EditorProps) {
+export default function Editor({ onEnter, imageUploadAddress, onUploadImageSuccess }: EditorProps) {
     const editorRef = useRef<HTMLDivElement | null>(null);
+
+    const uploadImageProps: UploadProps = {
+        name: 'picture',
+        method: 'POST',
+        action: imageUploadAddress,
+        headers: {
+            Authorization: storage.get('token'),
+        },
+        onChange(info: UploadChangeParam) {
+            if (info.file.status === 'done') {
+                onUploadImageSuccess(info.file.response);
+            } else if (info.file.status === 'error') {
+                message.error('发送图片失败！');
+            }
+        },
+        showUploadList: false,
+    };
 
     const handlePressEnter = useCallback(
         (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -19,10 +40,10 @@ export default function Editor({ onEnter: onSendTextMessage }: EditorProps) {
             if (content !== '' && event.keyCode === 13) {
                 event.preventDefault();
                 editorDom.innerHTML = '';
-                onSendTextMessage(content);
+                onEnter(content);
             }
         },
-        [onSendTextMessage],
+        [onEnter],
     );
 
     const handlePaste = useCallback((event: React.ClipboardEvent<HTMLDivElement>) => {
@@ -41,8 +62,8 @@ export default function Editor({ onEnter: onSendTextMessage }: EditorProps) {
                 onPaste={handlePaste}
             />
             <div className="toolbar">
-                <Upload className="image-upload">
-                    <IconFont className="toolbar-item" type="icon-picture" title="选择图片" />
+                <Upload className="toolbar-item image-upload" {...uploadImageProps}>
+                    <IconFont type="icon-picture" title="选择图片" />
                 </Upload>
                 <IconFont className="toolbar-item" type="icon-video" title="选择视频" />
             </div>
