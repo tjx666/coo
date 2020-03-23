@@ -15,7 +15,11 @@ coo 是一个跨平台的聊天客户端，项目还在积极开发中，时间�
 7. 打包方案: webpack，使用 DllPlugin 等手段优化打包速度
 8. 认证方案：RESTful API 和 socket.io 都是使用 JWT 进行认证
 
-![sendMessage](https://github.com/tjx666/coo/blob/master/screenshots/sendMessage.png?raw=true)
+![sendMessage](https://github.com/tjx666/coo/blob/master/docs/images/sendMessage.png?raw=true)
+
+## 前端交互逻辑
+
+![前端交互逻辑](https://github.com/tjx666/coo/blob/master/docs/images/前端交互逻辑.png?raw=true)
 
 ## :hourglass_flowing_sand: Progress
 
@@ -23,22 +27,22 @@ coo 是一个跨平台的聊天客户端，项目还在积极开发中，时间�
 
 登入和注册功能都已经完成，目前只支持邮箱注册。
 
-![login](https://github.com/tjx666/coo/blob/master/screenshots/login.png?raw=true)
+![login](https://github.com/tjx666/coo/blob/master/docs/images/login.png?raw=true)
 
 ### 会话界面
 
 开发中，目前仅支持私聊文字，图片信息，即将支持其它格式和群聊功能
 
-![progress](https://github.com/tjx666/coo/blob/master/screenshots/message.png?raw=true)
+![progress](https://github.com/tjx666/coo/blob/master/docs/images/message.png?raw=true)
 
 ### 个人中心
 
 点击侧边栏头像进入，支持修改修改头像，昵称，密码。
 
-![profile](https://github.com/tjx666/coo/blob/master/screenshots/profile.png?raw=true)
+![profile](https://github.com/tjx666/coo/blob/master/docs/images/profile.png?raw=true)
 
 ### 好友和群
 
 已支持搜索，添加，删除好友，群功能待开发...
 
-![contacts](https://github.com/tjx666/coo/blob/master/screenshots/contacts.png?raw=true)
+![contacts](https://github.com/tjx666/coo/blob/master/docs/images/contacts.png?raw=true)

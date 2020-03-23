@@ -44,6 +44,7 @@ export default function ContactsGroup() {
                     locale={{ emptyText: '你还没有好友哦，点击最下方的按钮加好友吧！' }}
                 />
             </Panel>
+            <Panel header="群组" key="groups" />
             <div className="add-friend-button">
                 <Link
                     to={
