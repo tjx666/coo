@@ -10,12 +10,6 @@ const requestConfigs: Record<string, AxiosRequestConfig> = {
 };
 export default requestConfigs;
 
-export interface MessageModel {
-    from: string;
-    to: string;
-    content: string;
-}
-
 interface SendPrivateTextMessageResponseData {
     createdAt: number;
 }

@@ -21,3 +21,23 @@ export interface CommonResponse<T = Object> {
     msg: string;
     data: T;
 }
+
+export interface UserModel {
+    id: string;
+    email: string;
+    name: string;
+    avatar?: string;
+}
+
+export interface MessageModel {
+    from: string;
+    to: string;
+    content: string;
+}
+
+export interface GroupModel {
+    id: string;
+    name: string;
+    master: string;
+    avatar?: string;
+}

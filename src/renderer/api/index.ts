@@ -6,10 +6,12 @@ import { RequestConfig } from 'typings/coo';
 
 import userRequestsConfigs from './user';
 import messageRequestsConfigs from './message';
+import groupRequestsConfigs from './group';
 
 const requestConfigs: Record<string, RequestConfig> = {
     ...userRequestsConfigs,
     ...messageRequestsConfigs,
+    ...groupRequestsConfigs,
 };
 
 function parserPathParams(url: string, params: Record<string, string> | undefined): string {

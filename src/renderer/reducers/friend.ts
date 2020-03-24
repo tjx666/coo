@@ -3,8 +3,9 @@ import { message } from 'antd';
 
 import { AppThunk } from '@/store';
 import api, { Response } from 'api';
-import { UserModel, GetFriendsResponse } from 'api/user';
+import { GetFriendsResponse } from 'api/user';
 import storage from 'utils/storage';
+import { UserModel } from 'typings/coo';
 
 interface FriendState {
     friendList: Array<UserModel>;
@@ -42,7 +43,7 @@ export const { getFriendsStart, getFriendsSuccess, getFriendsFailed } = friendSl
 export default friendSlice.reducer;
 
 export function fetchFriends(): AppThunk {
-    return async dispatch => {
+    return async (dispatch) => {
         dispatch(getFriendsStart());
         let resp: Response<GetFriendsResponse> | undefined;
         try {

@@ -3,18 +3,19 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { List, Avatar } from 'antd';
 
-import { UserModel } from 'api/user';
 import { addSession, Session, MessageSituation } from 'reducers/session';
 import { ASSETS_BASE_URL, DEFAULT_AVATAR } from 'utils/constants';
+import { UserModel, GroupModel } from 'typings/coo';
 
 const { Item: ListItem } = List;
 
 interface ContactItemProps {
-    friend: UserModel;
+    contact: UserModel | GroupModel;
+    type: 'friend' | 'group';
 }
 
-export default function FriendItem({ friend: userModel }: ContactItemProps) {
-    const { id, avatar, name } = userModel;
+export default function ContactItem({ contact, type }: ContactItemProps) {
+    const { id, avatar, name } = contact;
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -25,17 +26,17 @@ export default function FriendItem({ friend: userModel }: ContactItemProps) {
             id,
             name,
             avatar,
-            situation: MessageSituation.PRIVATE,
+            situation: type === 'friend' ? MessageSituation.PRIVATE : MessageSituation.GROUP,
             digest: '',
             updatedAt: Date.now(),
         };
         dispatch(addSession(newSession));
-    }, [avatar, dispatch, history, id, name]);
+    }, [avatar, dispatch, history, id, name, type]);
 
     return (
-        <ListItem className="friend-item" onClick={jumpToChat}>
+        <ListItem className="contact-item" onClick={jumpToChat}>
             <Avatar
-                className="friend-item-avatar"
+                className="contact-item-avatar"
                 src={avatar ? `${ASSETS_BASE_URL}${avatar}` : DEFAULT_AVATAR}
             />
             {name}

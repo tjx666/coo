@@ -3,8 +3,9 @@ import { message } from 'antd';
 
 import { AppThunk } from '@/store';
 import api, { Response } from 'api';
-import { GetUserResponse, UserModel } from 'api/user';
+import { GetUserResponse } from 'api/user';
 import storage from 'utils/storage';
+import { UserModel } from 'typings/coo';
 
 interface ProfileState {
     id: string;
@@ -54,7 +55,7 @@ export const {
 export default profileSlice.reducer;
 
 export function fetchProfile(): AppThunk {
-    return async dispatch => {
+    return async (dispatch) => {
         let resp: Response<GetUserResponse> | undefined;
         try {
             resp = await api<GetUserResponse>('getUser', {

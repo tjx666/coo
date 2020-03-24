@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from 'axios';
 
-import { CommonResponse } from 'typings/coo';
+import { CommonResponse, GroupModel, UserModel } from 'typings/coo';
 
 const requestConfigs: Record<string, AxiosRequestConfig> = {
     register: {
@@ -19,12 +19,16 @@ const requestConfigs: Record<string, AxiosRequestConfig> = {
         method: 'GET',
         url: '/users/:id/friends',
     },
+    getGroups: {
+        method: 'GET',
+        url: '/users/:id/groups',
+    },
     updateProfile: {
         method: 'PUT',
         url: '/users/:id',
     },
     searchUser: {
-        method: 'GET',
+        method: 'POST',
         url: '/search/user',
     },
     applyForFriend: {
@@ -38,13 +42,6 @@ const requestConfigs: Record<string, AxiosRequestConfig> = {
 };
 export default requestConfigs;
 
-export interface UserModel {
-    id: string;
-    email: string;
-    name: string;
-    avatar?: string;
-}
-
 interface LoginResponseData {
     user: Required<UserModel>;
     token: string;
@@ -54,6 +51,7 @@ export type RegisterResponse = CommonResponse;
 export type LoginResponse = CommonResponse<LoginResponseData>;
 export type GetUserResponse = CommonResponse<UserModel>;
 export type GetFriendsResponse = CommonResponse<Array<UserModel>>;
+export type GetGroupsResponse = CommonResponse<GroupModel[]>;
 export type UpdateProfileResponse = CommonResponse;
 export type SearchUserResponse = CommonResponse<UserModel>;
 export type ApplyForFriendResponse = CommonResponse;

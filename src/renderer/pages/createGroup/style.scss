@@ -1,0 +1,14 @@
+.create-group-sub-page {
+    flex: 1;
+    height: 100vh;
+
+    .title {
+        margin: 60px 0 20px;
+        text-align: center;
+    }
+
+    .create-group-form {
+        max-width: 360px;
+        margin: 0 auto;
+    }
+}

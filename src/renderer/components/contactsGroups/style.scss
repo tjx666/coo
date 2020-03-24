@@ -8,7 +8,7 @@
     .ant-collapse-content-box {
         padding: 0;
 
-        .friend-item {
+        .contact-item {
             padding-left: 10px;
 
             &:hover {
@@ -22,7 +22,7 @@
         }
     }
 
-    .add-friend-button {
+    .add-contact-button {
         position: absolute;
         bottom: 0;
         display: flex;
@@ -38,6 +38,24 @@
 
             &:active {
                 color: rgba(56, 115, 254, 0.6);
+            }
+        }
+    }
+}
+
+.operations-popover {
+    .ant-popover-inner-content {
+        padding: 0;
+
+        .operations {
+            .operation-item {
+                padding: 10px 20px;
+                cursor: pointer;
+                transition: background-color 0.2s ease-in-out;
+
+                &:hover {
+                    background-color: $line-frame-gray;
+                }
             }
         }
     }

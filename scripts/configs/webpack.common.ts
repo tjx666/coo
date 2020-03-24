@@ -5,6 +5,7 @@ import WebpackBar from 'webpackbar';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+// eslint-disable-next-line import/no-unresolved
 import { Options as HtmlMinifierOptions } from 'html-minifier';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
@@ -47,7 +48,6 @@ const htmlMinifyOptions: HtmlMinifierOptions = {
 };
 const renderer = resolve(PROJECT_ROOT, 'src/renderer/');
 const commonConfig: Configuration = {
-    cache: true,
     target: 'electron-renderer',
     context: PROJECT_ROOT,
     entry: ['react-hot-loader/patch', resolve(PROJECT_ROOT, 'src/renderer/index.tsx')],

@@ -1,17 +1,19 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
 import profileReducer from './profile';
-import friendsReducer from './friend';
+import friendReducer from './friend';
+import groupReducer from './group';
 import statusReducer from './status';
-import sessionsReduce from './session';
-import messagesReducer from './message';
+import sessionReduce from './session';
+import messageReducer from './message';
 
 const rootReducer = combineReducers({
     profile: profileReducer,
-    friend: friendsReducer,
+    friend: friendReducer,
     status: statusReducer,
-    session: sessionsReduce,
-    message: messagesReducer,
+    session: sessionReduce,
+    message: messageReducer,
+    group: groupReducer,
 });
 export default rootReducer;
 export type RootState = ReturnType<typeof rootReducer>;

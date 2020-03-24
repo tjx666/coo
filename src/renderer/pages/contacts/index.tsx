@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ContactsGroups } from 'components';
 import { RootState } from 'reducers';
 import { fetchFriends } from 'reducers/friend';
+import { fetchGroups } from 'reducers/group';
 import { setIsFirstEnterContactsPage } from 'reducers/status';
 
-import AddFriendSubPage from '../addFriend';
+import AddContactsSubPage from '../addContacts';
+import CreateGroupSubPage from '../createGroup';
 import './style.scss';
 
 export default function ContactsPage() {
@@ -19,6 +21,7 @@ export default function ContactsPage() {
     useEffect(() => {
         if (isFirstEnterContactsPage) {
             dispatch(fetchFriends());
+            dispatch(fetchGroups());
             dispatch(setIsFirstEnterContactsPage(false));
         }
     }, [isFirstEnterContactsPage, dispatch]);
@@ -27,7 +30,8 @@ export default function ContactsPage() {
         <main className="contacts-page">
             <ContactsGroups />
             <Switch>
-                <Route path="/contacts/addFriend" component={AddFriendSubPage} />
+                <Route path="/contacts/addContacts" component={AddContactsSubPage} />
+                <Route path="/contacts/createGroup" component={CreateGroupSubPage} />
             </Switch>
         </main>
     );

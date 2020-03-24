@@ -1,25 +1,28 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Input, Avatar, message } from 'antd';
+import { Input, Avatar, message, Select } from 'antd';
 import debounce from 'lodash/debounce';
 
+import api, { Response } from 'api';
+import { SearchUserResponse } from 'api/user';
 import { RootState } from 'reducers';
 import { fetchFriends } from 'reducers/friend';
-import api, { Response } from 'api';
-import { SearchUserResponse, UserModel } from 'api/user';
-import storage from 'utils/storage';
 import { ASSETS_BASE_URL, DEFAULT_AVATAR } from 'utils/constants';
+import storage from 'utils/storage';
+import { UserModel } from 'typings/coo';
 
 import './style.scss';
 
 const { Search } = Input;
+const { Option } = Select;
 
-export default function AddFriendSubPage() {
+export default function AddContactsSubPage() {
     const dispatch = useDispatch();
 
     const friends = useSelector((state: RootState) => state.friend.friendList);
     const [searchStatus, setSearchStatus] = useState<'initial' | 'success' | 'error'>('initial');
     const [searchResult, setSearchResult] = useState<UserModel | Object>({});
+    const [type, setType] = useState<'friend' | 'group'>('friend');
 
     const handleSearch = async (value: string) => {
         let resp: Response<SearchUserResponse> | undefined;
@@ -80,7 +83,7 @@ export default function AddFriendSubPage() {
         if (searchStatus === 'success') {
             if (Reflect.has(searchResult, 'id')) {
                 const { id, name, avatar } = searchResult as UserModel;
-                const isFriend = friends.some(friend => friend.id === id);
+                const isFriend = friends.some((friend) => friend.id === id);
                 return (
                     <div className="user-info">
                         <span className="name">{name}</span>
@@ -115,13 +118,19 @@ export default function AddFriendSubPage() {
     }, [searchStatus, searchResult, friends, removeFriend, applyForFriend]);
 
     return (
-        <div className="add-friend-sub-page">
-            <Search
-                className="search-box"
-                placeholder="请输入用户邮箱"
-                enterButton
-                onSearch={debounce(handleSearch, 200)}
-            />
+        <div className="add-contacts-sub-page">
+            <Input.Group className="search-box" compact>
+                <Select style={{ width: '20%' }} value={type} onChange={(value) => setType(value)}>
+                    <Option value="friend">好友</Option>
+                    <Option value="group">群</Option>
+                </Select>
+                <Search
+                    style={{ width: '80%' }}
+                    placeholder={type === 'friend' ? '请输入用户邮箱' : '请输入群 id'}
+                    enterButton
+                    onSearch={debounce(handleSearch, 200)}
+                />
+            </Input.Group>
             {result}
         </div>
     );
