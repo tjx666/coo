@@ -91,7 +91,11 @@ export default function ChatSubPage() {
 
     return (
         <div className="chat-sub-page">
-            <MessageBoxHeader name={currentSession.name} avatar={currentSession.avatar} />
+            <MessageBoxHeader
+                id={currentSession.id}
+                name={currentSession.name}
+                avatar={currentSession.avatar}
+            />
             <MessageList className="chat-message-list" messages={privateMessages} />
             <Editor
                 imageUploadAddress={imageUploadAddress}

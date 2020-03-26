@@ -39,5 +39,6 @@ export interface GroupModel {
     id: string;
     name: string;
     master: string;
+    count: number;
     avatar?: string;
 }

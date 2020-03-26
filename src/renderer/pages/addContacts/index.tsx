@@ -1,137 +1,109 @@
-import React, { useState, useMemo, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Input, Avatar, message, Select } from 'antd';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Input, message, Select } from 'antd';
 import debounce from 'lodash/debounce';
 
 import api, { Response } from 'api';
-import { SearchUserResponse } from 'api/user';
+import { SearchUserResponse, SearchUserResponseData } from 'api/user';
+import { SearchGroupResponse, SearchGroupResponseData } from 'api/group';
 import { RootState } from 'reducers';
-import { fetchFriends } from 'reducers/friend';
-import { ASSETS_BASE_URL, DEFAULT_AVATAR } from 'utils/constants';
-import storage from 'utils/storage';
-import { UserModel } from 'typings/coo';
 
+import SearchUserResult from './searchUserResult';
+import SearchGroupResult from './searchGroupResult';
 import './style.scss';
 
 const { Search } = Input;
 const { Option } = Select;
 
 export default function AddContactsSubPage() {
-    const dispatch = useDispatch();
-
     const friends = useSelector((state: RootState) => state.friend.friendList);
-    const [searchStatus, setSearchStatus] = useState<'initial' | 'success' | 'error'>('initial');
-    const [searchResult, setSearchResult] = useState<UserModel | Object>({});
-    const [type, setType] = useState<'friend' | 'group'>('friend');
+    const joinedGroups = useSelector((state: RootState) => state.group.groupList);
 
-    const handleSearch = async (value: string) => {
+    const [searchStatus, setSearchStatus] = useState<'initial' | 'success' | 'error'>('initial');
+    const [type, setType] = useState<'friend' | 'group'>('friend');
+    const [searchValue, setSearchValue] = useState<string>('');
+    const [searchUserResult, setSearchUserResult] = useState<SearchUserResponseData>();
+    const [searchGroupResult, setSearchGroupResult] = useState<SearchGroupResponseData>();
+
+    const searchFriend = async (value: string) => {
         let resp: Response<SearchUserResponse> | undefined;
         try {
-            resp = await api('searchUser', { params: { email: value } });
+            resp = await api('searchUser', { data: { email: value } });
         } catch (error) {
             console.error(error);
             setSearchStatus('error');
             message.error('请求出错！');
             return;
         }
-        const user = resp.data.data;
-        setSearchResult(user);
+        const user = resp?.data?.data;
+        setSearchUserResult(user);
         setSearchStatus('success');
     };
 
-    const applyForFriend = useCallback(
-        async (friendId: string) => {
-            try {
-                await api('applyForFriend', {
-                    pathParams: { id: storage.get('id') },
-                    data: {
-                        id: friendId,
-                    },
-                });
-            } catch (error) {
-                message.error('申请好友的请求失败！');
-                console.error(error);
-                return;
-            }
-
-            dispatch(fetchFriends());
-        },
-        [dispatch],
-    );
-
-    const removeFriend = useCallback(
-        async (friendId: string) => {
-            try {
-                await api('removeFriend', {
-                    pathParams: { id: storage.get('id') },
-                    data: {
-                        id: friendId,
-                    },
-                });
-            } catch (error) {
-                message.error('删除好友的请求失败！');
-                console.error(error);
-                return;
-            }
-
-            dispatch(fetchFriends());
-        },
-        [dispatch],
-    );
-
-    const result = useMemo(() => {
-        if (searchStatus === 'success') {
-            if (Reflect.has(searchResult, 'id')) {
-                const { id, name, avatar } = searchResult as UserModel;
-                const isFriend = friends.some((friend) => friend.id === id);
-                return (
-                    <div className="user-info">
-                        <span className="name">{name}</span>
-                        <Avatar
-                            size={48}
-                            src={avatar ? `${ASSETS_BASE_URL}${avatar}` : DEFAULT_AVATAR}
-                        />
-                        {id !== storage.get('id') &&
-                            (isFriend ? (
-                                <span
-                                    className="make-friends"
-                                    style={{ color: 'red' }}
-                                    onClick={() => removeFriend(id)}
-                                >
-                                    删除好友
-                                </span>
-                            ) : (
-                                <span
-                                    className="make-friends"
-                                    style={{ color: window.theme.primaryColor }}
-                                    onClick={() => applyForFriend(id)}
-                                >
-                                    加为好友
-                                </span>
-                            ))}
-                    </div>
-                );
-            }
-            return <span className="search-result-text">未搜索到该用户</span>;
+    const searchGroup = async (value: string) => {
+        let resp: Response<SearchGroupResponse> | undefined;
+        try {
+            resp = await api<SearchGroupResponse>('searchGroup', { data: { master: value } });
+        } catch (error) {
+            console.error(error);
+            setSearchStatus('error');
+            message.error('请求出错！');
+            return;
         }
-        return <span className="search-result-text">{searchStatus === 'error' && '请求出错'}</span>;
-    }, [searchStatus, searchResult, friends, removeFriend, applyForFriend]);
+        const result = resp?.data?.data;
+        setSearchGroupResult(result);
+        setSearchStatus('success');
+    };
+
+    const handleSearch = async (value: string) => {
+        if (type === 'friend') {
+            searchFriend(value);
+        } else {
+            searchGroup(value);
+        }
+    };
 
     return (
         <div className="add-contacts-sub-page">
             <Input.Group className="search-box" compact>
-                <Select style={{ width: '20%' }} value={type} onChange={(value) => setType(value)}>
+                <Select
+                    style={{ width: '20%' }}
+                    value={type}
+                    onChange={(value) => {
+                        setType(value);
+                        setSearchStatus('initial');
+                        setSearchValue('');
+                    }}
+                >
                     <Option value="friend">好友</Option>
                     <Option value="group">群</Option>
                 </Select>
                 <Search
+                    value={searchValue}
                     style={{ width: '80%' }}
                     placeholder={type === 'friend' ? '请输入用户邮箱' : '请输入群 id'}
                     enterButton
+                    onChange={(event) => setSearchValue(event.target.value)}
                     onSearch={debounce(handleSearch, 200)}
                 />
             </Input.Group>
-            {result}
+            {type === 'friend' ? (
+                <SearchUserResult
+                    searchResult={searchUserResult}
+                    searchStatus={searchStatus}
+                    friends={friends}
+                />
+            ) : (
+                <SearchGroupResult
+                    searchStatus={searchStatus}
+                    searchResult={searchGroupResult}
+                    joinedGroups={joinedGroups}
+                    onDisbandGroup={() => {
+                        setSearchStatus('initial');
+                        setSearchGroupResult(undefined);
+                    }}
+                />
+            )}
         </div>
     );
 }

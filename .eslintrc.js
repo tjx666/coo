@@ -87,6 +87,7 @@ module.exports = {
         'func-names': OFF,
         'lines-between-class-members': OFF,
         'max-classes-per-file': OFF,
+        'no-bitwise': OFF,
         'no-console': OFF,
         'no-empty': OFF,
         'no-param-reassign': OFF,

@@ -13,7 +13,7 @@
         margin-bottom: 10px;
     }
 
-    .user-info {
+    .search-result {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -26,10 +26,19 @@
             margin-bottom: 20px;
         }
 
-        .make-friends {
+        .operation {
             margin-top: 10px;
-            color: $primary-color;
             cursor: pointer;
+        }
+    }
+
+    .group-info {
+        .count {
+            &-icon {
+                margin-right: 2px;
+                color: $primary-color;
+                font-size: 16px;
+            }
         }
     }
 }

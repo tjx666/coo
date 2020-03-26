@@ -47,12 +47,17 @@ interface LoginResponseData {
     token: string;
 }
 
+export interface SearchUserResponseData {
+    existed: boolean;
+    user: UserModel | Object;
+}
+
 export type RegisterResponse = CommonResponse;
 export type LoginResponse = CommonResponse<LoginResponseData>;
 export type GetUserResponse = CommonResponse<UserModel>;
 export type GetFriendsResponse = CommonResponse<Array<UserModel>>;
 export type GetGroupsResponse = CommonResponse<GroupModel[]>;
 export type UpdateProfileResponse = CommonResponse;
-export type SearchUserResponse = CommonResponse<UserModel>;
+export type SearchUserResponse = CommonResponse<SearchUserResponseData>;
 export type ApplyForFriendResponse = CommonResponse;
 export type RemoveFriendResponse = CommonResponse;

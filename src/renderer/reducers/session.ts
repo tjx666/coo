@@ -68,7 +68,49 @@ const sessionSlice = createSlice({
                 sessionState.currentSession = newSession;
             }
         },
+        removePrivateSession(sessionState, action: PayloadAction<string>) {
+            const friendId = action.payload;
+            const removedSessionIndex = sessionState.sessionList.findIndex(
+                (session) =>
+                    session.id === friendId && session.situation === MessageSituation.PRIVATE,
+            );
+            if (~removedSessionIndex) {
+                sessionState.sessionList.splice(removedSessionIndex, 1);
+            }
+
+            const currentSession = sessionState.currentSession!;
+            if (
+                friendId === currentSession.id &&
+                currentSession.situation === MessageSituation.PRIVATE
+            ) {
+                sessionState.currentSession = undefined;
+            }
+        },
+        removeGroupSession(sessionState, action: PayloadAction<string>) {
+            const groupId = action.payload;
+            const removedSessionIndex = sessionState.sessionList.findIndex(
+                (session) => session.id === groupId && session.situation === MessageSituation.GROUP,
+            );
+            if (~removedSessionIndex) {
+                sessionState.sessionList.splice(removedSessionIndex, 1);
+            }
+
+            const currentSession = sessionState.currentSession!;
+            if (
+                groupId === currentSession.id &&
+                currentSession.situation === MessageSituation.GROUP
+            ) {
+                sessionState.currentSession = undefined;
+            }
+        },
     },
 });
 export default sessionSlice.reducer;
-export const { resetSessions, stickySession, setCurrentSession, addSession } = sessionSlice.actions;
+export const {
+    resetSessions,
+    stickySession,
+    setCurrentSession,
+    addSession,
+    removePrivateSession,
+    removeGroupSession,
+} = sessionSlice.actions;
