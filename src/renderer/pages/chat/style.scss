@@ -16,6 +16,11 @@
         .info-container {
             padding-left: 10px;
             user-select: text;
+
+            .id {
+                color: #999;
+                font-size: 12px;
+            }
         }
     }
 

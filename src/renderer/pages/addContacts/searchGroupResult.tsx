@@ -1,13 +1,10 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { Avatar, message } from 'antd';
 import { TeamOutlined } from '@ant-design/icons';
 
 import api from 'api';
 import { SearchGroupResponseData, ApplyForGroupResponse } from 'api/group';
 import { GroupModel } from 'typings/coo';
-import { fetchGroups } from 'reducers/group';
-import { removeGroupSession } from 'reducers/session';
 import { ASSETS_BASE_URL, DEFAULT_AVATAR } from 'utils/constants';
 import storage from 'utils/storage';
 
@@ -15,17 +12,19 @@ interface SearchGroupResultProps {
     searchStatus: 'initial' | 'success' | 'error';
     searchResult: SearchGroupResponseData | undefined;
     joinedGroups: GroupModel[];
-    onDisbandGroup: () => void;
+    onDisbandGroupSuccess: (groupId: string) => void;
+    onApplyForGroupSuccess: () => void;
+    onExitGroupSuccess: (groupId: string) => void;
 }
 
 export default function SearchGroupResult({
     searchStatus,
     searchResult,
     joinedGroups,
-    onDisbandGroup,
+    onDisbandGroupSuccess,
+    onApplyForGroupSuccess,
+    onExitGroupSuccess,
 }: SearchGroupResultProps) {
-    const dispatch = useDispatch();
-
     const applyForGroup = async () => {
         try {
             await api<ApplyForGroupResponse>('applyForGroup', {
@@ -39,10 +38,10 @@ export default function SearchGroupResult({
             message.error('申请加群失败！');
         }
 
-        dispatch(fetchGroups());
+        onApplyForGroupSuccess();
     };
 
-    const exitGroup = async () => {
+    const exitGroup = async (groupId: string) => {
         try {
             await api<ApplyForGroupResponse>('exitGroup', {
                 data: {
@@ -55,11 +54,10 @@ export default function SearchGroupResult({
             message.error('退群失败！');
         }
 
-        dispatch(fetchGroups());
+        onExitGroupSuccess(groupId);
     };
 
-    const disbandGroup = async () => {
-        const groupId = (searchResult!.group as GroupModel).id;
+    const disbandGroup = async (groupId: string) => {
         try {
             await api<ApplyForGroupResponse>('disbandGroup', {
                 data: {
@@ -72,9 +70,7 @@ export default function SearchGroupResult({
             message.error('解散失败！');
         }
 
-        onDisbandGroup();
-        dispatch(removeGroupSession(groupId));
-        dispatch(fetchGroups());
+        onDisbandGroupSuccess(groupId);
     };
 
     if (searchStatus === 'success') {
@@ -98,7 +94,7 @@ export default function SearchGroupResult({
                                 <span
                                     className="operation"
                                     style={{ color: 'red' }}
-                                    onClick={disbandGroup}
+                                    onClick={() => disbandGroup(id)}
                                 >
                                     解散该群
                                 </span>
@@ -110,7 +106,7 @@ export default function SearchGroupResult({
                                 <span
                                     className="operation"
                                     style={{ color: 'red' }}
-                                    onClick={exitGroup}
+                                    onClick={() => exitGroup(id)}
                                 >
                                     退出该群
                                 </span>
@@ -121,7 +117,7 @@ export default function SearchGroupResult({
                             <span
                                 className="operation"
                                 style={{ color: window.theme.primaryColor }}
-                                onClick={applyForGroup}
+                                onClick={() => applyForGroup()}
                             >
                                 加入该群
                             </span>

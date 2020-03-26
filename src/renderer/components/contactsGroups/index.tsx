@@ -46,7 +46,7 @@ export default function ContactsGroup() {
                     renderItem={(friend: UserModel) => (
                         <ContactItem contact={friend} type="friend" />
                     )}
-                    locale={{ emptyText: '你还没有好友哦，点击最下方的按钮加好友吧！' }}
+                    locale={{ emptyText: '你还没有好友哦' }}
                 />
             </Panel>
             <Panel header="群组" key="groups">
@@ -54,7 +54,7 @@ export default function ContactsGroup() {
                     loading={isGroupsLoading}
                     dataSource={groupList}
                     renderItem={(group: GroupModel) => <ContactItem contact={group} type="group" />}
-                    locale={{ emptyText: '你还没有加入任何群哦，点击最下方的按好群或者创建群吧！' }}
+                    locale={{ emptyText: '你还没有加入任何群哦' }}
                 />
             </Panel>
             <div className="add-contact-button">

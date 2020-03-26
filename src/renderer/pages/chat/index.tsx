@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Editor } from 'components';
@@ -12,6 +12,14 @@ import { API_PREFIX } from 'utils/constants';
 import MessageBoxHeader from './chatHeader';
 import MessageList from './messageList';
 import './style.scss';
+
+// 滚动条滑倒最底部
+function scrollToBottom() {
+    setTimeout(() => {
+        const list = document.querySelector<HTMLDivElement>('.chat-message-list')!;
+        list.scrollTop = list.scrollHeight - list.clientHeight;
+    });
+}
 
 export default function ChatSubPage() {
     const dispatch = useDispatch();
@@ -27,67 +35,53 @@ export default function ChatSubPage() {
         to: currentSession.id,
     })}`;
 
-    // 滚动条滑倒最底部
-    const scrollToBottom = useCallback(() => {
-        setTimeout(() => {
-            const list = document.querySelector<HTMLDivElement>('.chat-message-list')!;
-            list.scrollTop = list.scrollHeight - list.clientHeight;
-        });
-    }, []);
-
-    const sendTextMessage = useCallback(
-        async (text: string) => {
-            if (currentSession.situation === MessageSituation.PRIVATE) {
-                let response: Response<SendPrivateTextMessageResponse> | undefined;
-                try {
-                    response = await api('sendPrivateTextMessage', {
-                        data: {
-                            from: profile.id,
-                            to: currentSession.id,
-                            content: text,
-                        },
-                    });
-                } catch (error) {
-                    console.error('发送失败！');
-                    console.error(error);
-                    return;
-                }
-
-                dispatch(
-                    addPrivateMessage({
-                        id: currentSession.id,
-                        self: true,
+    const sendTextMessage = async (text: string) => {
+        if (currentSession.situation === MessageSituation.PRIVATE) {
+            let response: Response<SendPrivateTextMessageResponse> | undefined;
+            try {
+                response = await api('sendPrivateTextMessage', {
+                    data: {
+                        from: profile.id,
+                        to: currentSession.id,
                         content: text,
-                        contentType: 'text',
-                        createdAt: response.data.data.createdAt,
-                    }),
-                );
+                    },
+                });
+            } catch (error) {
+                console.error('发送失败！');
+                console.error(error);
+                return;
             }
-            scrollToBottom();
-            dispatch(stickySession({ id: currentSession.id, situation: currentSession.situation }));
-        },
-        [currentSession.id, currentSession.situation, profile.id, dispatch, scrollToBottom],
-    );
 
-    const handleSendImage = useCallback(
-        (response: any) => {
-            const { imageAddress, createdAt } = response.data;
-            if (currentSession.situation === MessageSituation.PRIVATE) {
-                dispatch(
-                    addPrivateMessage({
-                        id: currentSession.id,
-                        self: true,
-                        content: imageAddress,
-                        contentType: 'image',
-                        createdAt,
-                    }),
-                );
-            }
-            scrollToBottom();
-            dispatch(stickySession({ id: currentSession.id, situation: currentSession.situation }));
-        },
-        [currentSession.id, currentSession.situation, dispatch, scrollToBottom],
-    );
+            dispatch(
+                addPrivateMessage({
+                    id: currentSession.id,
+                    self: true,
+                    content: text,
+                    contentType: 'text',
+                    createdAt: response.data.data.createdAt,
+                }),
+            );
+        }
+        scrollToBottom();
+        dispatch(stickySession({ id: currentSession.id, situation: currentSession.situation }));
+    };
+
+    const handleSendImage = (response: any) => {
+        const { imageAddress, createdAt } = response.data;
+        if (currentSession.situation === MessageSituation.PRIVATE) {
+            dispatch(
+                addPrivateMessage({
+                    id: currentSession.id,
+                    self: true,
+                    content: imageAddress,
+                    contentType: 'image',
+                    createdAt,
+                }),
+            );
+        }
+        scrollToBottom();
+        dispatch(stickySession({ id: currentSession.id, situation: currentSession.situation }));
+    };
 
     return (
         <div className="chat-sub-page">

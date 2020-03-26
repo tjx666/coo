@@ -15,7 +15,7 @@ export default function ChatHeader({ id, name, avatar }: MessageBoxHeaderProps) 
             <Avatar src={avatar ? `${ASSETS_BASE_URL}${avatar}` : DEFAULT_AVATAR} size="large" />
             <div className="info-container">
                 <h3 className="name">{name}</h3>
-                <span>{id}</span>
+                <span className="id">{id}</span>
             </div>
         </div>
     );

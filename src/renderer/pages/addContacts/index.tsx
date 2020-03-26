@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Input, message, Select } from 'antd';
 import debounce from 'lodash/debounce';
 
@@ -7,6 +7,10 @@ import api, { Response } from 'api';
 import { SearchUserResponse, SearchUserResponseData } from 'api/user';
 import { SearchGroupResponse, SearchGroupResponseData } from 'api/group';
 import { RootState } from 'reducers';
+import { fetchGroups } from 'reducers/group';
+import { fetchFriends } from 'reducers/friend';
+import { removeGroupSession, removePrivateSession } from 'reducers/session';
+import { GroupModel } from 'typings/coo';
 
 import SearchUserResult from './searchUserResult';
 import SearchGroupResult from './searchGroupResult';
@@ -16,6 +20,8 @@ const { Search } = Input;
 const { Option } = Select;
 
 export default function AddContactsSubPage() {
+    const dispatch = useDispatch();
+
     const friends = useSelector((state: RootState) => state.friend.friendList);
     const joinedGroups = useSelector((state: RootState) => state.group.groupList);
 
@@ -55,13 +61,8 @@ export default function AddContactsSubPage() {
         setSearchStatus('success');
     };
 
-    const handleSearch = async (value: string) => {
-        if (type === 'friend') {
-            searchFriend(value);
-        } else {
-            searchGroup(value);
-        }
-    };
+    const handleSearch = async (value: string) =>
+        type === 'friend' ? searchFriend(value) : searchGroup(value);
 
     return (
         <div className="add-contacts-sub-page">
@@ -92,15 +93,47 @@ export default function AddContactsSubPage() {
                     searchResult={searchUserResult}
                     searchStatus={searchStatus}
                     friends={friends}
+                    onApplyForFriendSuccess={() => {
+                        dispatch(fetchFriends());
+                    }}
+                    onRemoveFriendSuccess={(friendId: string) => {
+                        dispatch(fetchFriends());
+                        dispatch(removePrivateSession(friendId));
+                    }}
                 />
             ) : (
                 <SearchGroupResult
                     searchStatus={searchStatus}
                     searchResult={searchGroupResult}
                     joinedGroups={joinedGroups}
-                    onDisbandGroup={() => {
+                    onDisbandGroupSuccess={(groupId: string) => {
                         setSearchStatus('initial');
                         setSearchGroupResult(undefined);
+                        dispatch(fetchGroups());
+                        dispatch(removeGroupSession(groupId));
+                    }}
+                    onApplyForGroupSuccess={() => {
+                        const result = searchGroupResult as SearchGroupResponseData;
+                        setSearchGroupResult({
+                            ...result,
+                            group: {
+                                ...result.group,
+                                count: (searchGroupResult!.group as GroupModel).count + 1,
+                            },
+                        });
+                        dispatch(fetchGroups());
+                    }}
+                    onExitGroupSuccess={(groupId: string) => {
+                        const result = searchGroupResult as SearchGroupResponseData;
+                        setSearchGroupResult({
+                            ...result,
+                            group: {
+                                ...result.group,
+                                count: (searchGroupResult!.group as GroupModel).count - 1,
+                            },
+                        });
+                        dispatch(fetchGroups());
+                        dispatch(removeGroupSession(groupId));
                     }}
                 />
             )}
