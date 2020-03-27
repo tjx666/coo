@@ -1,18 +1,18 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, memo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { RootState } from 'reducers';
-import { PrivateMessageItem } from 'reducers/message';
+import { PrivateMessageItem, GroupMessageItem } from 'reducers/message';
 
 import MessageItem from './messageItem';
 import './style.scss';
 
 interface MessageListProps {
     className?: string;
-    messages: PrivateMessageItem[];
+    messages: Array<PrivateMessageItem | GroupMessageItem>;
 }
 
-export default function MessageList({ className, messages }: MessageListProps) {
+function MessageList({ className, messages }: MessageListProps) {
     const { name: loginUserName, avatar: loginUserAvatar } = useSelector(
         (state: RootState) => state.profile,
     );
@@ -50,3 +50,5 @@ export default function MessageList({ className, messages }: MessageListProps) {
         </div>
     );
 }
+
+export default memo(MessageList);

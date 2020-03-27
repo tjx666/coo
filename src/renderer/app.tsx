@@ -5,11 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { RegisterPage, LoginPage } from 'pages';
 import { ContainerWithNavbar } from 'layouts';
-import api, { Response } from 'api';
-import { GetUserResponse } from 'api/user';
 import { RootState } from 'reducers';
 import { fetchProfile } from 'reducers/profile';
-import { addPrivateMessage } from 'reducers/message';
+import { addPrivateMessage, addGroupMessage } from 'reducers/message';
 import { addSession, stickySession, MessageSituation } from 'reducers/session';
 
 import socket from './socket';
@@ -19,6 +17,8 @@ function App() {
     const dispatch = useDispatch();
     const history = useHistory();
     const { sessionList } = useSelector((state: RootState) => state.session);
+    const { friendList } = useSelector((state: RootState) => state.friend);
+    const { groupList } = useSelector((state: RootState) => state.group);
 
     // 同步用户信息
     useEffect(() => {
@@ -32,26 +32,18 @@ function App() {
     const handleChatMessage = useCallback(
         async (data: any) => {
             const { from, situation, content, contentType, createdAt } = data;
+            const digest = contentType === 'text' ? content.slice(0, 20) : '图片';
+            const sessionExisted = sessionList.some(
+                (session) => session.id === from && session.situation === MessageSituation.PRIVATE,
+            );
             if (situation === 'private') {
-                const sessionNotExisted = sessionList.every(
-                    (session) =>
-                        session.id !== from || session.situation !== MessageSituation.PRIVATE,
-                );
-                if (sessionNotExisted) {
-                    let resp: Response<GetUserResponse> | undefined;
-                    try {
-                        resp = await api<GetUserResponse>('getUser', { pathParams: { id: from } });
-                    } catch (error) {
-                        console.error(error);
-                        return;
-                    }
-
-                    const friend = resp.data.data;
+                if (!sessionExisted) {
+                    const friend = friendList.find((item) => item.id === from)!;
                     dispatch(
                         addSession({
                             id: from,
                             name: friend.name,
-                            digest: content.slice(0, 20),
+                            digest,
                             situation,
                             updatedAt: createdAt,
                         }),
@@ -67,11 +59,37 @@ function App() {
                         createdAt,
                     }),
                 );
-                history.push('/message/chat');
+            } else if (situation === 'group') {
+                const group = groupList.find((item) => item.id === from)!;
+                if (!sessionExisted) {
+                    dispatch(
+                        addSession({
+                            id: from,
+                            name: group.name,
+                            digest,
+                            situation,
+                            updatedAt: createdAt,
+                        }),
+                    );
+                }
+
+                dispatch(
+                    addGroupMessage({
+                        id: from,
+                        name: group.name,
+                        avatar: group.avatar,
+                        from,
+                        content,
+                        self: false,
+                        contentType,
+                        createdAt,
+                    }),
+                );
             }
             dispatch(stickySession({ id: from, situation }));
+            history.push('/message/chat');
         },
-        [dispatch, history, sessionList],
+        [dispatch, friendList, groupList, history, sessionList],
     );
 
     useEffect(() => {

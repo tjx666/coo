@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Editor } from 'components';
 import api, { Response } from 'api';
-import { SendPrivateTextMessageResponse } from 'api/message';
+import { SendPrivateTextMessageResponse, SendGroupTextMessageResponse } from 'api/message';
 import { RootState } from 'reducers';
-import { addPrivateMessage } from 'reducers/message';
+import { addPrivateMessage, addGroupMessage } from 'reducers/message';
 import { stickySession, MessageSituation } from 'reducers/session';
 import { API_PREFIX } from 'utils/constants';
 
@@ -26,9 +26,15 @@ export default function ChatSubPage() {
 
     const { profile, session: sessionState } = useSelector((state: RootState) => state);
     const currentSession = sessionState.currentSession!;
-    const privateMessages = useSelector(
-        (state: RootState) => state.message.privateChat[currentSession.id]?.messages || [],
-    );
+    const messages = useSelector((state: RootState) => {
+        const messageState = state.message;
+        const { id } = currentSession;
+        return (
+            (currentSession.situation === MessageSituation.PRIVATE
+                ? messageState.privateChat[id]?.messages
+                : messageState.groupChat[id]?.messages) || []
+        );
+    });
 
     const imageUploadAddress = `${API_PREFIX}/messages/private/image?${new URLSearchParams({
         from: profile.id,
@@ -61,6 +67,34 @@ export default function ChatSubPage() {
                     createdAt: response.data.data.createdAt,
                 }),
             );
+        } else if (currentSession.situation === MessageSituation.GROUP) {
+            let response: Response<SendGroupTextMessageResponse> | undefined;
+            try {
+                response = await api('sendPrivateTextMessage', {
+                    data: {
+                        from: profile.id,
+                        to: currentSession.id,
+                        content: text,
+                    },
+                });
+            } catch (error) {
+                console.error('发送失败！');
+                console.error(error);
+                return;
+            }
+
+            dispatch(
+                addGroupMessage({
+                    id: currentSession.id,
+                    name: profile.name,
+                    avatar: profile.avatar,
+                    from: profile.id,
+                    self: true,
+                    content: text,
+                    contentType: 'text',
+                    createdAt: response.data.data.createdAt,
+                }),
+            );
         }
         scrollToBottom();
         dispatch(stickySession({ id: currentSession.id, situation: currentSession.situation }));
@@ -78,6 +112,19 @@ export default function ChatSubPage() {
                     createdAt,
                 }),
             );
+        } else if (currentSession.situation === MessageSituation.GROUP) {
+            dispatch(
+                addGroupMessage({
+                    id: currentSession.id,
+                    name: profile.name,
+                    avatar: profile.avatar,
+                    from: profile.id,
+                    self: true,
+                    content: imageAddress,
+                    contentType: 'image',
+                    createdAt: response.data.data.createdAt,
+                }),
+            );
         }
         scrollToBottom();
         dispatch(stickySession({ id: currentSession.id, situation: currentSession.situation }));
@@ -90,7 +137,7 @@ export default function ChatSubPage() {
                 name={currentSession.name}
                 avatar={currentSession.avatar}
             />
-            <MessageList className="chat-message-list" messages={privateMessages} />
+            <MessageList className="chat-message-list" messages={messages} />
             <Editor
                 imageUploadAddress={imageUploadAddress}
                 onEnter={sendTextMessage}

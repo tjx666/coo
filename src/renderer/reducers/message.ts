@@ -13,20 +13,38 @@ interface PrivateMessages {
     messages: PrivateMessageItem[];
 }
 
+export interface GroupMessageItem {
+    id: string;
+    from: string;
+    name: string;
+    avatar?: string;
+    self: boolean;
+    content: string;
+    contentType: string;
+    createdAt: number;
+}
+
+interface GroupMessages {
+    id: string;
+    messages: GroupMessageItem[];
+}
+
 interface MessagesState {
     privateChat: Record<string, PrivateMessages>;
+    groupChat: Record<string, GroupMessages>;
 }
 
 const initialState: MessagesState = {
     privateChat: {},
+    groupChat: {},
 };
 
 const messageSlice = createSlice({
     name: 'message',
     initialState,
     reducers: {
-        resetPrivateMessages(messageState) {
-            messageState.privateChat = {};
+        resetMessages(messageState) {
+            Object.assign(messageState, initialState);
         },
         addPrivateMessage(messageState, action: PayloadAction<PrivateMessageItem>) {
             const privateMessage = action.payload;
@@ -40,8 +58,20 @@ const messageSlice = createSlice({
                 };
             }
         },
+        addGroupMessage(messageState, action: PayloadAction<GroupMessageItem>) {
+            const groupMessage = action.payload;
+            const groupMessages = messageState.groupChat[groupMessage.id];
+            if (groupMessages) {
+                groupMessages.messages.push(groupMessage);
+            } else {
+                messageState.groupChat[groupMessage.id] = {
+                    id: groupMessage.id,
+                    messages: [groupMessage],
+                };
+            }
+        },
     },
 });
 
 export default messageSlice.reducer;
-export const { resetPrivateMessages, addPrivateMessage } = messageSlice.actions;
+export const { resetMessages, addPrivateMessage, addGroupMessage } = messageSlice.actions;

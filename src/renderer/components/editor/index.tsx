@@ -65,7 +65,6 @@ export default function Editor({ onEnter, imageUploadAddress, onUploadImageSucce
                 <Upload className="toolbar-item image-upload" {...uploadImageProps}>
                     <IconFont type="icon-picture" title="选择图片" />
                 </Upload>
-                <IconFont className="toolbar-item" type="icon-video" title="选择视频" />
             </div>
         </div>
     );

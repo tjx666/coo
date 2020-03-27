@@ -8,11 +8,11 @@ const request = axios.create({
     baseURL: API_PREFIX,
 });
 
-request.interceptors.request.use(config => {
+request.interceptors.request.use((config) => {
     const { url } = config;
-    const permittedUrls = ['/users/register', '/users/login'];
+    const permittedUrls = new Set(['/users/register', '/users/login']);
 
-    if (!url || !permittedUrls.includes(url)) {
+    if (!url || !permittedUrls.has(url)) {
         const AUTH_TOKEN = storage.get('token');
 
         if (!AUTH_TOKEN) {
@@ -27,8 +27,8 @@ request.interceptors.request.use(config => {
 });
 
 request.interceptors.response.use(
-    res => res,
-    error => {
+    (res) => res,
+    (error) => {
         if (error.response == null) {
             return Promise.reject(error);
         }

@@ -55,7 +55,7 @@ module.exports = {
 
         'unicorn/consistent-function-scoping': OFF,
         'unicorn/filename-case': [
-            'error',
+            ERROR,
             {
                 cases: {
                     camelCase: true,
