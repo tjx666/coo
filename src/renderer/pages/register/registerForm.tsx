@@ -48,7 +48,11 @@ export default function RegisterForm() {
                 <Input prefix={<UserOutlined style={InputsStyle} />} placeholder="昵称" />
             </FormItem>
             <FormItem name="password" rules={[{ required: true, message: '请输入您的密码！' }]}>
-                <Input prefix={<LockOutlined style={InputsStyle} />} placeholder="密码" />
+                <Input
+                    type="password"
+                    prefix={<LockOutlined style={InputsStyle} />}
+                    placeholder="密码"
+                />
             </FormItem>
             <FormItem>
                 <Button className="register-btn" type="primary" htmlType="submit">

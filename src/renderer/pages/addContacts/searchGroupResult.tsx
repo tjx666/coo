@@ -116,7 +116,7 @@ export default function SearchGroupResult({
                         return (
                             <span
                                 className="operation"
-                                style={{ color: window.theme.primaryColor }}
+                                style={{ color: window.COO.theme.primaryColor }}
                                 onClick={() => applyForGroup()}
                             >
                                 加入该群

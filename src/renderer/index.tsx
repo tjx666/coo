@@ -25,11 +25,16 @@ function render() {
 render();
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
-    window.j = (path = '/login') => {
-        window.location.href = path;
+    window.COO_DEBUG = {
+        j(path = '/login') {
+            window.location.href = path;
+        },
+        resetMessages() {
+            store.dispatch({ type: 'message/resetMessages' });
+        },
     };
 
-    window.theme = {
+    window.COO.theme = {
         primaryColor: 'rgb(56, 115, 254)',
     };
 

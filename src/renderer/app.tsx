@@ -31,18 +31,21 @@ function App() {
     // 处理服务端推送的消息
     const handleChatMessage = useCallback(
         async (data: any) => {
-            const { from, situation, content, contentType, createdAt } = data;
+            console.log(data);
+            const { from, fromUser, groupId, situation, content, contentType, createdAt } = data;
             const digest = contentType === 'text' ? content.slice(0, 20) : '图片';
-            const sessionExisted = sessionList.some(
-                (session) => session.id === from && session.situation === MessageSituation.PRIVATE,
-            );
             if (situation === 'private') {
+                const sessionExisted = sessionList.some(
+                    (session) =>
+                        session.id === from && session.situation === MessageSituation.PRIVATE,
+                );
                 if (!sessionExisted) {
                     const friend = friendList.find((item) => item.id === from)!;
                     dispatch(
                         addSession({
                             id: from,
                             name: friend.name,
+                            avatar: friend.avatar,
                             digest,
                             situation,
                             updatedAt: createdAt,
@@ -60,12 +63,17 @@ function App() {
                     }),
                 );
             } else if (situation === 'group') {
-                const group = groupList.find((item) => item.id === from)!;
+                const sessionExisted = sessionList.some(
+                    (session) =>
+                        session.id === from && session.situation === MessageSituation.GROUP,
+                );
+                const group = groupList.find((item) => item.id === groupId)!;
                 if (!sessionExisted) {
                     dispatch(
                         addSession({
                             id: from,
                             name: group.name,
+                            avatar: group.avatar,
                             digest,
                             situation,
                             updatedAt: createdAt,
@@ -75,9 +83,9 @@ function App() {
 
                 dispatch(
                     addGroupMessage({
-                        id: from,
-                        name: group.name,
-                        avatar: group.avatar,
+                        id: group.id,
+                        name: fromUser.name,
+                        avatar: fromUser.avatar,
                         from,
                         content,
                         self: false,

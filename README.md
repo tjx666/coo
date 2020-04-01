@@ -78,6 +78,52 @@
 
 4. clientB 接受到服务端推送的上面那条消息，更新前端界面中的消息列表，将 clientA 的会话项置顶
 
+#### 群聊的请求过程
+
+当用户 userA 在群 group 中发送一消息 `hello` 时，请求流程是这样的：
+
+1. 客户端请求群聊消息接口:
+
+   ```bash
+   # 该路由处理私信文本消息
+   POST /messages/group/text
+   # from 表示发送方的用户 id
+   from=userA_id
+   # to 表示群 id
+   to=group_id
+   # content 表示请求内容
+   content="hello"
+   ```
+
+2. 服务器根据请求内容在 `mongoDB` 的 message 集合中插入一条新的 message 数据，根据群 id 查询群表中该群的记录，拿到在这个群的所有用户 id 数组，遍历这个 id 数组，像所有用户推送消息，消息格式：
+
+   ```javascript
+   group.members.forEach((userId) => {
+     const userIdStr = userId.toString();
+     if (userIdStr === from) return;
+     const socket = ctx.sockets.get(userIdStr);
+
+     if (socket) {
+       socket.emit('chat', {
+         // 发送消息的用户id, 也就是 userA 的 id
+         from,
+         // 发送消息的用户信息
+         fromUser: fromUser.toObject(),
+         // 群 id
+         groupId: to,
+         // 场景是群消息
+         situation: 'group',
+         // 发送内容，这里是 'hello'
+         content,
+         // 消息格式是文本格式
+         contentType: 'text',
+         // 消息新建时间，以服务器为准
+         createdAt: newMessage.createdAt,
+       });
+     }
+   });
+   ```
+
 #### 数据库表定义
 
 ##### 用户表

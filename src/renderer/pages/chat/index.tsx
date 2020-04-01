@@ -36,7 +36,9 @@ export default function ChatSubPage() {
         );
     });
 
-    const imageUploadAddress = `${API_PREFIX}/messages/private/image?${new URLSearchParams({
+    const imageUploadAddress = `${API_PREFIX}/messages/${
+        currentSession.situation
+    }/image?${new URLSearchParams({
         from: profile.id,
         to: currentSession.id,
     })}`;
@@ -70,7 +72,7 @@ export default function ChatSubPage() {
         } else if (currentSession.situation === MessageSituation.GROUP) {
             let response: Response<SendGroupTextMessageResponse> | undefined;
             try {
-                response = await api('sendPrivateTextMessage', {
+                response = await api('sendGroupTextMessage', {
                     data: {
                         from: profile.id,
                         to: currentSession.id,
@@ -122,7 +124,7 @@ export default function ChatSubPage() {
                     self: true,
                     content: imageAddress,
                     contentType: 'image',
-                    createdAt: response.data.data.createdAt,
+                    createdAt,
                 }),
             );
         }

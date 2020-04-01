@@ -14,8 +14,11 @@ interface PrivateMessages {
 }
 
 export interface GroupMessageItem {
+    // 群 id
     id: string;
+    // 发送消息的人 id
     from: string;
+    // 发送消息者名称
     name: string;
     avatar?: string;
     self: boolean;
@@ -25,6 +28,7 @@ export interface GroupMessageItem {
 }
 
 interface GroupMessages {
+    // 群 id
     id: string;
     messages: GroupMessageItem[];
 }

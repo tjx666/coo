@@ -79,7 +79,7 @@ export default function SearchFriendResult({
                         ) : (
                             <span
                                 className="operation"
-                                style={{ color: window.theme.primaryColor }}
+                                style={{ color: window.COO.theme.primaryColor }}
                                 onClick={() => applyForFriend(id)}
                             >
                                 加为好友

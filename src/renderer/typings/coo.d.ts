@@ -4,10 +4,19 @@ interface Theme {
     primaryColor: string;
 }
 
+interface CooDebug {
+    j: (path: string) => void | undefined;
+    resetMessages: () => void;
+}
+
+interface Coo {
+    theme: Theme;
+}
+
 declare global {
     interface Window {
-        j: (path: string) => void | undefined;
-        theme: Theme;
+        COO_DEBUG: CooDebug;
+        COO: Coo;
     }
 }
 

@@ -48,6 +48,7 @@ module.exports = {
     },
     rules: {
         'import/extensions': OFF,
+        'import/no-extraneous-dependencies': OFF,
 
         'jsx-a11y/click-events-have-key-events': OFF,
         'jsx-a11y/label-has-associated-control': OFF,
@@ -108,12 +109,6 @@ module.exports = {
             rules: {
                 'import/no-duplicates': OFF,
                 'spaced-comment': OFF,
-            },
-        },
-        {
-            files: ['scripts/**/*.{ts,js}'],
-            rules: {
-                'import/no-extraneous-dependencies': OFF,
             },
         },
         {

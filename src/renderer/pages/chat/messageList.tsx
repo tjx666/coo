@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { RootState } from 'reducers';
 import { PrivateMessageItem, GroupMessageItem } from 'reducers/message';
+import { MessageSituation } from 'reducers/session';
 
 import MessageItem from './messageItem';
 import './style.scss';
@@ -16,9 +17,7 @@ function MessageList({ className, messages }: MessageListProps) {
     const { name: loginUserName, avatar: loginUserAvatar } = useSelector(
         (state: RootState) => state.profile,
     );
-    const { name: oppositeUserName, avatar: oppositeUserAvatar } = useSelector(
-        (state: RootState) => state.session.currentSession,
-    )!;
+    const currentSession = useSelector((state: RootState) => state.session.currentSession!)!;
 
     const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (event.target === event.currentTarget) {
@@ -30,18 +29,40 @@ function MessageList({ className, messages }: MessageListProps) {
         () =>
             messages.map((message) => {
                 const { self } = message;
+                if (currentSession.situation === MessageSituation.PRIVATE) {
+                    const privateMessage = message as PrivateMessageItem;
+                    return (
+                        <MessageItem
+                            key={privateMessage.createdAt}
+                            name={self ? loginUserName : currentSession.name}
+                            avatar={self ? loginUserAvatar : currentSession.avatar}
+                            content={privateMessage.content}
+                            type={privateMessage.contentType}
+                            right={self}
+                        />
+                    );
+                }
+
+                const groupMessage = message as GroupMessageItem;
                 return (
                     <MessageItem
-                        key={message.createdAt}
-                        name={self ? loginUserName : oppositeUserName}
-                        avatar={self ? loginUserAvatar : oppositeUserAvatar}
-                        content={message.content}
-                        type={message.contentType}
+                        key={groupMessage.createdAt}
+                        name={self ? loginUserName : groupMessage.name}
+                        avatar={self ? loginUserAvatar : groupMessage.avatar}
+                        content={groupMessage.content}
+                        type={groupMessage.contentType}
                         right={self}
                     />
                 );
             }),
-        [messages, loginUserAvatar, loginUserName, oppositeUserAvatar, oppositeUserName],
+        [
+            currentSession.avatar,
+            currentSession.name,
+            currentSession.situation,
+            loginUserAvatar,
+            loginUserName,
+            messages,
+        ],
     );
 
     return (
