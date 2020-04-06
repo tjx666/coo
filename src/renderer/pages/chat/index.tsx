@@ -14,7 +14,7 @@ import MessageList from './messageList';
 import './style.scss';
 
 // 滚动条滑倒最底部
-function scrollToBottom() {
+export function scrollToBottom() {
     setTimeout(() => {
         const list = document.querySelector<HTMLDivElement>('.chat-message-list')!;
         list.scrollTop = list.scrollHeight - list.clientHeight;

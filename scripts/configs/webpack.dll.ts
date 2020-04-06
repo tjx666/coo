@@ -13,15 +13,15 @@ const dllConfig: Configuration = {
     context: PROJECT_ROOT,
     devtool: '#source-map',
     entry: {
-        vendors: Object.keys(packageJson.dependencies).filter(pkg => {
-            const excludedPackages = [
+        vendors: Object.keys(packageJson.dependencies).filter((pkg) => {
+            const excludedPackages = new Set([
                 'electron',
                 'electron-window-state',
                 'react-hot-loader',
                 'react-dom',
                 'normalize.css',
-            ];
-            return !excludedPackages.includes(pkg);
+            ]);
+            return !excludedPackages.has(pkg);
         }),
     },
     output: {

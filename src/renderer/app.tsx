@@ -4,6 +4,7 @@ import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RegisterPage, LoginPage } from 'pages';
+import { scrollToBottom } from 'pages/chat';
 import { ContainerWithNavbar } from 'layouts';
 import { RootState } from 'reducers';
 import { fetchProfile } from 'reducers/profile';
@@ -31,7 +32,6 @@ function App() {
     // 处理服务端推送的消息
     const handleChatMessage = useCallback(
         async (data: any) => {
-            console.log(data);
             const { from, fromUser, groupId, situation, content, contentType, createdAt } = data;
             const digest = contentType === 'text' ? content.slice(0, 20) : '图片';
             if (situation === 'private') {
@@ -71,7 +71,7 @@ function App() {
                 if (!sessionExisted) {
                     dispatch(
                         addSession({
-                            id: from,
+                            id: groupId,
                             name: group.name,
                             avatar: group.avatar,
                             digest,
@@ -94,6 +94,7 @@ function App() {
                     }),
                 );
             }
+            scrollToBottom();
             dispatch(stickySession({ id: from, situation }));
             history.push('/message/chat');
         },

@@ -36,15 +36,6 @@ const prodConfig = merge(commonConfig, {
     ],
     optimization: {
         runtimeChunk: 'single',
-        splitChunks: {
-            cacheGroups: {
-                vendor: {
-                    test: /[/\\]node_modules[/\\]/,
-                    name: 'vendor',
-                    chunks: 'all',
-                },
-            },
-        },
         minimize: true,
         minimizer: [
             new TerserPlugin({

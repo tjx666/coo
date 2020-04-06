@@ -1,12 +1,12 @@
 import { AxiosRequestConfig } from 'axios';
 
-interface Theme {
-    primaryColor: string;
-}
-
 interface CooDebug {
     j: (path: string) => void | undefined;
     resetMessages: () => void;
+}
+
+interface Theme {
+    primaryColor: string;
 }
 
 interface Coo {

@@ -34,8 +34,10 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
         },
     };
 
-    window.COO.theme = {
-        primaryColor: 'rgb(56, 115, 254)',
+    window.COO = {
+        theme: {
+            primaryColor: 'rgb(56, 115, 254)',
+        },
     };
 
     module.hot.accept('./app', render);
