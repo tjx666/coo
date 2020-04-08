@@ -17,6 +17,7 @@ import './app.scss';
 function App() {
     const dispatch = useDispatch();
     const history = useHistory();
+
     const { sessionList } = useSelector((state: RootState) => state.session);
     const { friendList } = useSelector((state: RootState) => state.friend);
     const { groupList } = useSelector((state: RootState) => state.group);
@@ -116,7 +117,7 @@ function App() {
                 <Route path="/profile" component={ContainerWithNavbar} />
                 <Route path="/message" component={ContainerWithNavbar} />
                 <Route path="/contacts" component={ContainerWithNavbar} />
-                <Redirect to="/login" />
+                <Redirect to="/message" />
             </Switch>
         </div>
     );

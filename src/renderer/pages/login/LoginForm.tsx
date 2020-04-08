@@ -30,9 +30,9 @@ export default function LoginForm() {
         } catch (error) {
             console.error(error);
             const code = error?.response?.data?.code;
-            if (code === 2) {
+            if (code === 1) {
                 message.error('邮箱不存在！');
-            } else if (code === 3) {
+            } else if (code === 2) {
                 message.error('密码错误！');
             } else {
                 message.error('登入失败！');

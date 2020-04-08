@@ -1,5 +1,3 @@
-@import '~styles/theme.scss';
-
 .navbar {
     display: flex;
     flex-direction: column;
@@ -7,7 +5,7 @@
     width: 60px;
     min-width: 60px;
     height: 100vh;
-    background-image: linear-gradient(rgb(83, 96, 128), rgb(47, 56, 78));
+    background-image: linear-gradient(185deg, #536080, #2e374d);
 
     .navbar-avatar-link {
         margin: 20px 0 30px;
@@ -35,8 +33,8 @@
             }
         }
 
-        &-activated {
-            background-color: $primary-color;
+        &-active {
+            background-image: linear-gradient(270deg, #4e83fd, #3370ff);
 
             .icon-font {
                 color: white;

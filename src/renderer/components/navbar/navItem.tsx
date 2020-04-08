@@ -5,18 +5,18 @@ import classNames from 'classnames';
 import { IconFont } from 'lib';
 
 interface NavItemProps {
-    activated: boolean;
+    active: boolean;
     iconType: string;
     onClick?: (activated: boolean) => void;
     to: string;
 }
 
-export default function NavItem({ iconType, activated, onClick, to }: NavItemProps) {
+export default function NavItem({ iconType, active, onClick, to }: NavItemProps) {
     const history = useHistory();
-    const className = classNames('nav-item', { 'nav-item-activated': activated });
+    const className = classNames('nav-item', { 'nav-item-active': active });
 
     const handleClick = () => {
-        onClick && onClick(activated);
+        onClick && onClick(active);
         history.push(to);
     };
 

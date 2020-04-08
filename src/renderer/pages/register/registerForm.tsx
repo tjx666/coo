@@ -25,7 +25,7 @@ export default function RegisterForm() {
                 });
             } catch (error) {
                 console.error(error);
-                if (error?.response?.data?.code === 2) {
+                if (error?.response?.data?.code === 1) {
                     message.error(`邮箱 ${email} 已经被注册！`);
                 } else {
                     message.error('注册失败！');

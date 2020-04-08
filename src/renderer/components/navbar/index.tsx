@@ -55,10 +55,10 @@ export default function Navbar() {
         <aside className="navbar">
             <NavbarAvatar avatar={avatar} />
             <IconFont type="message1" />
-            <NavItem to={chatUrl} activated={activeIndex === 0} iconType="icon-message-" />
+            <NavItem to={chatUrl} active={activeIndex === 0} iconType="icon-message-" />
             <NavItem
                 to={latestPathNameInContactsPage}
-                activated={activeIndex === 1}
+                active={activeIndex === 1}
                 iconType="icon-contacts-fill"
             />
         </aside>

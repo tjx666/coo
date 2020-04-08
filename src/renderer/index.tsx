@@ -24,7 +24,7 @@ function render() {
 }
 render();
 
-if (process.env.NODE_ENV === 'development' && module.hot) {
+if (process.env.NODE_ENV === 'development') {
     window.COO_DEBUG = {
         j(path = '/login') {
             window.location.href = path;
@@ -40,5 +40,5 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
         },
     };
 
-    module.hot.accept('./app', render);
+    module.hot!.accept('./app', render);
 }

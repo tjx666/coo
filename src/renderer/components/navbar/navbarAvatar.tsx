@@ -16,7 +16,7 @@ export default function NavbarAvatar({ avatar, onClick }: NavbarAvatarProps) {
                 <Avatar
                     className="navbar-avatar"
                     src={avatar ? `${ASSETS_BASE_URL}${avatar}` : DEFAULT_AVATAR}
-                    size={34}
+                    size={36}
                 />
             </div>
         </Link>
