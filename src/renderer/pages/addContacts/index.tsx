@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, message, Select } from 'antd';
 import debounce from 'lodash/debounce';
@@ -19,7 +19,7 @@ import './style.scss';
 const { Search } = Input;
 const { Option } = Select;
 
-export default function AddContactsSubPage() {
+function AddContactsSubPage() {
     const dispatch = useDispatch();
 
     const friends = useSelector((state: RootState) => state.friend.friendList);
@@ -140,3 +140,5 @@ export default function AddContactsSubPage() {
         </div>
     );
 }
+
+export default memo(AddContactsSubPage);

@@ -14,10 +14,9 @@ interface MessageListProps {
 }
 
 function MessageList({ className, messages }: MessageListProps) {
-    const { name: loginUserName, avatar: loginUserAvatar } = useSelector(
-        (state: RootState) => state.profile,
-    );
-    const currentSession = useSelector((state: RootState) => state.session.currentSession!)!;
+    const loginUserName = useSelector((state: RootState) => state.profile.name);
+    const loginUserAvatar = useSelector((state: RootState) => state.profile.avatar);
+    const currentSession = useSelector((state: RootState) => state.session.currentSession!);
 
     const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (event.target === event.currentTarget) {

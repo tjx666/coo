@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,7 +12,7 @@ import AddContactsSubPage from '../addContacts';
 import CreateGroupSubPage from '../createGroup';
 import './style.scss';
 
-export default function ContactsPage() {
+function ContactsPage() {
     const dispatch = useDispatch();
     const isFirstEnterContactsPage = useSelector(
         (state: RootState) => state.status.isFirstEnterContactsPage,
@@ -36,3 +36,5 @@ export default function ContactsPage() {
         </main>
     );
 }
+
+export default memo(ContactsPage);

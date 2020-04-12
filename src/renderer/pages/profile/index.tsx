@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import ProfileForm from './profileForm';
 import './style.scss';
 
-export default function ProfilePage() {
+function ProfilePage() {
     return (
         <div className="profile-page">
             <h2 className="title">个人信息</h2>
@@ -11,3 +11,5 @@ export default function ProfilePage() {
         </div>
     );
 }
+
+export default memo(ProfilePage);

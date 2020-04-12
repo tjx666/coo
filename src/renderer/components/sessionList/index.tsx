@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, memo } from 'react';
 import { List } from 'antd';
 
 import { Session } from 'reducers/session';
@@ -14,7 +14,7 @@ interface SessionListProps {
 /**
  * 显示所有会话信息的列表组件
  */
-export default function SessionList({ sessions, activeItemId }: SessionListProps) {
+function SessionList({ sessions, activeItemId }: SessionListProps) {
     const renderItem = useCallback(
         (item: Session) => {
             return <SessionItem session={item} active={item.id === activeItemId} />;
@@ -31,3 +31,5 @@ export default function SessionList({ sessions, activeItemId }: SessionListProps
         />
     );
 }
+
+export default memo(SessionList);

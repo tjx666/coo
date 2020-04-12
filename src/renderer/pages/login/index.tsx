@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import LoginForm from './LoginForm';
 import './style.scss';
 
-export default function LoginPage() {
+function LoginPage() {
     return (
         <main className="login-page">
             <span className="title">登入</span>
@@ -11,3 +11,5 @@ export default function LoginPage() {
         </main>
     );
 }
+
+export default memo(LoginPage);

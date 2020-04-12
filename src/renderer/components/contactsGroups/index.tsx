@@ -16,12 +16,10 @@ const { Panel } = Collapse;
 export default function ContactsGroup() {
     const dispatch = useDispatch();
 
-    const { isLoading: isFriendsLoading, friendList } = useSelector(
-        (state: RootState) => state.friend,
-    );
-    const { isLoading: isGroupsLoading, groupList } = useSelector(
-        (state: RootState) => state.group,
-    );
+    const isFriendsLoading = useSelector((state: RootState) => state.friend.isLoading);
+    const friendList = useSelector((state: RootState) => state.friend.friendList);
+    const isGroupsLoading = useSelector((state: RootState) => state.group.isLoading);
+    const groupList = useSelector((state: RootState) => state.group.groupList);
     const activeGroupInContactsPage = useSelector(
         (state: RootState) => state.status.activeGroupsInContactsPage,
     );

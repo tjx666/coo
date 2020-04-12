@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Avatar, message } from 'antd';
 
 import api from 'api';
@@ -15,7 +15,7 @@ interface SearchFriendResultProps {
     onRemoveFriendSuccess: (friendId: string) => void;
 }
 
-export default function SearchFriendResult({
+function SearchFriendResult({
     searchStatus,
     searchResult,
     friends,
@@ -94,3 +94,5 @@ export default function SearchFriendResult({
 
     return <span className="search-result-text">{searchStatus === 'error' && '请求出错'}</span>;
 }
+
+export default memo(SearchFriendResult);

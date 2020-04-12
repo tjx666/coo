@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Avatar, message } from 'antd';
 import { TeamOutlined } from '@ant-design/icons';
 
@@ -17,7 +17,7 @@ interface SearchGroupResultProps {
     onExitGroupSuccess: (groupId: string) => void;
 }
 
-export default function SearchGroupResult({
+function SearchGroupResult({
     searchStatus,
     searchResult,
     joinedGroups,
@@ -132,3 +132,5 @@ export default function SearchGroupResult({
 
     return <span className="search-result-text">{searchStatus === 'error' && '请求出错'}</span>;
 }
+
+export default memo(SearchGroupResult);

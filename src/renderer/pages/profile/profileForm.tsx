@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Input, Button, Modal, Avatar, Upload, message } from 'antd';
@@ -6,22 +6,25 @@ import { EditOutlined } from '@ant-design/icons';
 import { UploadChangeParam, UploadProps } from 'antd/lib/upload/interface';
 import debounce from 'lodash/debounce';
 
-import { RootState } from '@/store';
 import api from 'api';
 import { UpdateProfileResponse } from 'api/user';
+import { RootState } from 'reducers';
 import { fetchProfile } from 'reducers/profile';
 import { API_PREFIX, ASSETS_BASE_URL, DEFAULT_AVATAR } from 'utils/constants';
 import storage from 'utils/storage';
 
 const { Item: FormItem } = Form;
 
-export default function ProfileForm() {
-    const history = useHistory();
+function ProfileForm() {
     const dispatch = useDispatch();
+
+    const history = useHistory();
     const [form] = Form.useForm();
 
+    const name = useSelector((state: RootState) => state.profile.name);
+    const avatar = useSelector((state: RootState) => state.profile.avatar);
+
     const [modalVisible, setVisible] = useState(false);
-    const { name, avatar } = useSelector((state: RootState) => state.profile);
 
     useEffect(() => {
         form.setFieldsValue({ name });
@@ -167,3 +170,5 @@ export default function ProfileForm() {
         </Form>
     );
 }
+
+export default memo(ProfileForm);

@@ -18,9 +18,9 @@ function App() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const { sessionList } = useSelector((state: RootState) => state.session);
-    const { friendList } = useSelector((state: RootState) => state.friend);
-    const { groupList } = useSelector((state: RootState) => state.group);
+    const sessionList = useSelector((state: RootState) => state.session.sessionList);
+    const friendList = useSelector((state: RootState) => state.friend.friendList);
+    const groupList = useSelector((state: RootState) => state.group.groupList);
 
     // 同步用户信息
     useEffect(() => {

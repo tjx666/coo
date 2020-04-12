@@ -15,7 +15,7 @@ interface SessionItemProps {
 /**
  * 会话项组件
  */
-const SessionItem = ({ session, active }: SessionItemProps) => {
+function SessionItem({ session, active }: SessionItemProps) {
     const { id, name, avatar, digest, situation } = session;
     const className = classNames('session-item', { 'session-item-current': active });
 
@@ -36,6 +36,6 @@ const SessionItem = ({ session, active }: SessionItemProps) => {
             </div>
         </div>
     );
-};
+}
 
 export default memo(SessionItem);

@@ -12,7 +12,7 @@ interface MessageItemProps {
     right?: boolean;
 }
 
-const MessageItem = ({ avatar: avatarPath, name, content, type, right }: MessageItemProps) => {
+function MessageItem({ avatar: avatarPath, name, content, type, right }: MessageItemProps) {
     const messageItemClassName = useMemo(
         () =>
             classNames('message-item', {
@@ -54,6 +54,6 @@ const MessageItem = ({ avatar: avatarPath, name, content, type, right }: Message
             {right && avatar}
         </div>
     );
-};
+}
 
 export default memo(MessageItem);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import { ProfilePage, MessagePage, ContactsPage } from 'pages';
@@ -6,7 +6,7 @@ import { Navbar } from 'components';
 
 import './style.scss';
 
-export default function ContainerWithNavbar() {
+function ContainerWithNavbar() {
     return (
         <div className="container-with-navbar">
             <Navbar />
@@ -18,3 +18,5 @@ export default function ContainerWithNavbar() {
         </div>
     );
 }
+
+export default memo(ContainerWithNavbar);

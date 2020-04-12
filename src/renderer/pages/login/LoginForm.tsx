@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Form, Input, Button, message } from 'antd';
@@ -12,7 +12,7 @@ import storage from 'utils/storage';
 
 const { Item: FormItem } = Form;
 
-export default function LoginForm() {
+function LoginForm() {
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -77,3 +77,5 @@ export default function LoginForm() {
         </Form>
     );
 }
+
+export default memo(LoginForm);

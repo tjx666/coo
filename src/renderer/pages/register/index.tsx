@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import RegisterForm from './registerForm';
 import './style.scss';
 
-export default function RegisterPage() {
+function RegisterPage() {
     return (
         <main className="register-page">
             <span className="title">用户注册</span>
@@ -11,3 +11,5 @@ export default function RegisterPage() {
         </main>
     );
 }
+
+export default memo(RegisterPage);

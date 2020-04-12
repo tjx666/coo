@@ -12,7 +12,7 @@ import {
     PersistConfig,
 } from 'redux-persist';
 
-import rootReducer, { RootState as TempRootState } from 'reducers';
+import rootReducer, { RootState } from 'reducers';
 import persistStorage from 'utils/persistStorage';
 
 const persistConfig: PersistConfig<RootState> = {
@@ -44,5 +44,9 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
 }
 
 export type AppDispatch = typeof store.dispatch;
-export type RootState = TempRootState;
-export type AppThunk = ThunkAction<void, RootState, unknown, Action<string>>;
+export type AppThunk<ReturnType = void> = ThunkAction<
+    ReturnType,
+    RootState,
+    unknown,
+    Action<string>
+>;

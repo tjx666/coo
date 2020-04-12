@@ -24,7 +24,15 @@ function render() {
 }
 render();
 
+// 一些全局的项目配置
+window.COO = {
+    theme: {
+        primaryColor: 'rgb(56, 115, 254)',
+    },
+};
+
 if (process.env.NODE_ENV === 'development') {
+    // 初始化 debug 工具方法
     window.COO_DEBUG = {
         j(path = '/login') {
             window.location.href = path;
@@ -34,11 +42,7 @@ if (process.env.NODE_ENV === 'development') {
         },
     };
 
-    window.COO = {
-        theme: {
-            primaryColor: 'rgb(56, 115, 254)',
-        },
-    };
-
-    module.hot!.accept('./app', render);
+    if (module.hot) {
+        module.hot.accept('./app', render);
+    }
 }

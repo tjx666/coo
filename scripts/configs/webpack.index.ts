@@ -7,8 +7,7 @@ import prodConfig from './webpack.prod';
 
 // eslint-disable-next-line import/no-mutable-exports
 let webpackConfiguration = __DEV__ ? devConfig : prodConfig;
-if (argv.analyze && !__DEV__) {
-    // FIXME: conflicts with add-asset-html-webpack-plugin
+if (argv.analyze) {
     const smp = new SpeedMeasurePlugin();
     webpackConfiguration = smp.wrap(webpackConfiguration);
 }

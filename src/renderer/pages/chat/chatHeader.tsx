@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Avatar } from 'antd';
 
 import { ASSETS_BASE_URL, DEFAULT_AVATAR } from 'utils/constants';
@@ -9,7 +9,7 @@ interface MessageBoxHeaderProps {
     avatar: string | undefined;
 }
 
-export default function ChatHeader({ id, name, avatar }: MessageBoxHeaderProps) {
+function ChatHeader({ id, name, avatar }: MessageBoxHeaderProps) {
     return (
         <div className="chat-header">
             <Avatar src={avatar ? `${ASSETS_BASE_URL}${avatar}` : DEFAULT_AVATAR} size="large" />
@@ -20,3 +20,5 @@ export default function ChatHeader({ id, name, avatar }: MessageBoxHeaderProps) 
         </div>
     );
 }
+
+export default memo(ChatHeader);

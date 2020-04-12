@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { Form, Input, Button, message } from 'antd';
 import debounce from 'lodash/debounce';
@@ -11,7 +11,7 @@ import './style.scss';
 
 const { Item: FormItem } = Form;
 
-export default function CreateGroupSubPage() {
+function CreateGroupSubPage() {
     const dispatch = useDispatch();
 
     const submit = useCallback(
@@ -66,3 +66,5 @@ export default function CreateGroupSubPage() {
         </div>
     );
 }
+
+export default memo(CreateGroupSubPage);

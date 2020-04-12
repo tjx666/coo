@@ -1,6 +1,7 @@
 const envPreset = [
     '@babel/preset-env',
     {
+        modules: false,
         useBuiltIns: 'usage',
         targets: {
             // eslint-disable-next-line global-require

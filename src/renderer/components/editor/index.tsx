@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, memo } from 'react';
 import { Upload, message } from 'antd';
 import { UploadChangeParam, UploadProps } from 'antd/lib/upload/interface';
 
@@ -13,7 +13,7 @@ interface EditorProps {
     imageUploadAddress: string;
 }
 
-export default function Editor({ onEnter, imageUploadAddress, onUploadImageSuccess }: EditorProps) {
+function Editor({ onEnter, imageUploadAddress, onUploadImageSuccess }: EditorProps) {
     const editorRef = useRef<HTMLDivElement | null>(null);
 
     const uploadImageProps: UploadProps = {
@@ -69,3 +69,5 @@ export default function Editor({ onEnter, imageUploadAddress, onUploadImageSucce
         </div>
     );
 }
+
+export default memo(Editor);

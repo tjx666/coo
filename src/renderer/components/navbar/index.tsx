@@ -1,8 +1,7 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-use';
 
-import { IconFont } from 'lib';
 import { RootState } from 'reducers';
 import { setLatestPathNameInContactsPage } from 'reducers/status';
 import emitter from 'utils/emitter';
@@ -11,13 +10,17 @@ import NavbarAvatar from './navbarAvatar';
 import NavItem from './navItem';
 import './style.scss';
 
-export default function Navbar() {
+function Navbar() {
     const dispatch = useDispatch();
-    const location = useLocation();
-    const { avatar } = useSelector((state: RootState) => state.profile);
-    const { currentSession } = useSelector((state: RootState) => state.session);
-    const { latestPathNameInContactsPage } = useSelector((state: RootState) => state.status);
 
+    const location = useLocation();
+    const avatar = useSelector((state: RootState) => state.profile.avatar);
+    const currentSession = useSelector((state: RootState) => state.session.currentSession);
+    const latestPathNameInContactsPage = useSelector(
+        (state: RootState) => state.status.latestPathNameInContactsPage,
+    );
+
+    // 监听 URL 变化，更新 redux store 中保存的联系人页面最新 pathName
     useEffect(() => {
         const handleUrlChange = () => {
             const { pathname } = window.location;
@@ -33,6 +36,7 @@ export default function Navbar() {
         };
     }, [dispatch, latestPathNameInContactsPage]);
 
+    // 激活的菜单项根据当前 URL 变化而变化
     const activeIndex = useMemo(() => {
         const pathName = location.pathname;
 
@@ -53,8 +57,7 @@ export default function Navbar() {
 
     return (
         <aside className="navbar">
-            <NavbarAvatar avatar={avatar} />
-            <IconFont type="message1" />
+            <NavbarAvatar src={avatar} />
             <NavItem to={chatUrl} active={activeIndex === 0} iconType="icon-message-" />
             <NavItem
                 to={latestPathNameInContactsPage}
@@ -64,3 +67,5 @@ export default function Navbar() {
         </aside>
     );
 }
+
+export default memo(Navbar);

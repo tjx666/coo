@@ -1,5 +1,5 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { memo } from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 import { Editor } from 'components';
 import api, { Response } from 'api';
@@ -21,11 +21,11 @@ export function scrollToBottom() {
     });
 }
 
-export default function ChatSubPage() {
+function ChatSubPage() {
     const dispatch = useDispatch();
 
-    const { profile, session: sessionState } = useSelector((state: RootState) => state);
-    const currentSession = sessionState.currentSession!;
+    const profile = useSelector((state: RootState) => state.profile);
+    const currentSession = useSelector((state: RootState) => state.session.currentSession!);
     const messages = useSelector((state: RootState) => {
         const messageState = state.message;
         const { id } = currentSession;
@@ -34,7 +34,7 @@ export default function ChatSubPage() {
                 ? messageState.privateChat[id]?.messages
                 : messageState.groupChat[id]?.messages) || []
         );
-    });
+    }, shallowEqual);
 
     const imageUploadAddress = `${API_PREFIX}/messages/${
         currentSession.situation
@@ -148,3 +148,5 @@ export default function ChatSubPage() {
         </div>
     );
 }
+
+export default memo(ChatSubPage);

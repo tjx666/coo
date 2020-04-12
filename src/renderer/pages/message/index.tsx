@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -8,8 +8,10 @@ import { RootState } from 'reducers';
 import ChatSubPage from '../chat';
 import './style.scss';
 
-export default function MessagePage() {
-    const { sessionList, currentSession } = useSelector((state: RootState) => state.session);
+function MessagePage() {
+    const sessionList = useSelector((state: RootState) => state.session.sessionList);
+    const currentSession = useSelector((state: RootState) => state.session.currentSession);
+
     return (
         <main className="message-page">
             <SessionList sessions={sessionList} activeItemId={currentSession?.id} />
@@ -21,3 +23,5 @@ export default function MessagePage() {
         </main>
     );
 }
+
+export default memo(MessagePage);
