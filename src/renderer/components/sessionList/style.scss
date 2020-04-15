@@ -11,8 +11,9 @@
         width: 8px;
 
         &-thumb {
-            background-color: rgb(221, 223, 225);
-            border-radius: 5px;
+            background-color: rgba(187, 191, 196, 0.5);
+            border-radius: 4px;
+            transition: all 1s;
 
             &:hover {
                 background-color: rgb(187, 191, 196);
@@ -21,36 +22,86 @@
     }
 
     .session-item {
+        position: relative;
         display: flex;
         align-items: center;
         height: 60px;
+        padding: 10px 14px;
         cursor: pointer;
+        transition: background-color 0.2s ease-in;
 
         &-current {
-            background-color: rgb(239, 240, 241);
-            border-left: 3px solid $primary-color;
+            background-color: #eff0f1;
+
+            &::before {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                width: 3px;
+                background-color: $primary-color;
+                border-radius: 0;
+                content: '';
+            }
+
+            .preview-header-time {
+                opacity: 0;
+            }
         }
 
         &:hover {
-            background-color: rgb(222, 224, 227);
-            transition: background-color 0.3s ease-in-out;
+            background-color: #dee0e3;
         }
 
-        .avatar {
-            margin: 0 10px;
+        &-avatar {
+            flex-shrink: 0;
         }
 
-        &-main {
+        &-preview {
             display: flex;
+            flex: 1;
             flex-direction: column;
+            margin-left: 10px;
+            overflow: hidden;
 
-            .name {
-                color: black;
+            .preview-header {
+                display: flex;
+                align-items: center;
+
+                &-name {
+                    display: flex;
+                    flex: 1;
+                    align-items: center;
+                    overflow: hidden;
+
+                    &-text {
+                        overflow: hidden;
+                        color: #1f2329;
+                        font-size: 14px;
+                        line-height: 20px;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
+                }
+
+                &-time {
+                    margin-left: 10px;
+                    color: #8f959e;
+                    font-size: 12px;
+                    transition: opacity 0.2s ease-in;
+                }
             }
 
-            .digest {
-                color: gray;
-                font-size: 12px;
+            .preview-digest {
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                .digest {
+                    color: #8f959e;
+                    font-size: 12px;
+                    line-height: 18px;
+                    white-space: nowrap;
+                }
             }
         }
     }

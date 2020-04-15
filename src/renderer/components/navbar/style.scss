@@ -1,3 +1,5 @@
+@import '~styles/theme.scss';
+
 .navbar {
     display: flex;
     flex-direction: column;
@@ -34,7 +36,7 @@
         }
 
         &-active {
-            background-image: linear-gradient(270deg, #4e83fd, #3370ff);
+            background-image: linear-gradient(270deg, #4e83fd, $primary-color);
 
             .icon-font {
                 color: white;

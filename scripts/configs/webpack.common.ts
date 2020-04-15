@@ -50,11 +50,7 @@ const renderer = resolve(PROJECT_ROOT, 'src/renderer/');
 const commonConfig: Configuration = {
     target: 'electron-renderer',
     context: PROJECT_ROOT,
-    entry: [
-        'react-hot-loader/patch',
-        resolve(PROJECT_ROOT, 'src/renderer/utils/wdyr.ts'),
-        resolve(PROJECT_ROOT, 'src/renderer/index.tsx'),
-    ],
+    entry: ['react-hot-loader/patch', resolve(PROJECT_ROOT, 'src/renderer/index.tsx')],
     output: {
         publicPath: '/',
         path: resolve(PROJECT_ROOT, 'dist'),
@@ -68,8 +64,6 @@ const commonConfig: Configuration = {
         alias: {
             'normalize.css$': resolve(PROJECT_ROOT, 'node_modules/normalize.css/normalize.css'),
             'react-dom': '@hot-loader/react-dom',
-            'react-redux':
-                process.env.NODE_ENV === 'development' ? 'react-redux/lib' : 'react-redux',
             '@': renderer,
             api: resolve(renderer, 'api'),
             assets: resolve(renderer, 'assets'),

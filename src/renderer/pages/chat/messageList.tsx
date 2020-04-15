@@ -65,7 +65,7 @@ function MessageList({ className, messages }: MessageListProps) {
     );
 
     return (
-        <div className={`message-list ${className || ''}`} onClick={handleClick}>
+        <div className={`message-list ${className ?? ''}`} onClick={handleClick}>
             {messageList}
         </div>
     );

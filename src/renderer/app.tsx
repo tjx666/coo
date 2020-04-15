@@ -1,11 +1,12 @@
 import { hot } from 'react-hot-loader/root';
-import React, { useEffect, useCallback } from 'react';
+import React, { memo, useEffect, useCallback } from 'react';
 import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RegisterPage, LoginPage } from 'pages';
 import { scrollToBottom } from 'pages/chat';
 import { ContainerWithNavbar } from 'layouts';
+
 import { RootState } from 'reducers';
 import { fetchProfile } from 'reducers/profile';
 import { addPrivateMessage, addGroupMessage } from 'reducers/message';
@@ -34,7 +35,6 @@ function App() {
     const handleChatMessage = useCallback(
         async (data: any) => {
             const { from, fromUser, groupId, situation, content, contentType, createdAt } = data;
-            const digest = contentType === 'text' ? content.slice(0, 20) : '图片';
             if (situation === 'private') {
                 const sessionExisted = sessionList.some(
                     (session) =>
@@ -47,7 +47,7 @@ function App() {
                             id: from,
                             name: friend.name,
                             avatar: friend.avatar,
-                            digest,
+                            latestMessage: content,
                             situation,
                             updatedAt: createdAt,
                         }),
@@ -75,7 +75,7 @@ function App() {
                             id: groupId,
                             name: group.name,
                             avatar: group.avatar,
-                            digest,
+                            latestMessage: '图片',
                             situation,
                             updatedAt: createdAt,
                         }),
@@ -99,7 +99,7 @@ function App() {
             dispatch(stickySession({ id: from, situation }));
             history.push('/message/chat');
         },
-        [dispatch, friendList, groupList, history, sessionList],
+        [dispatch, history, sessionList, friendList, groupList],
     );
 
     useEffect(() => {
@@ -123,4 +123,4 @@ function App() {
     );
 }
 
-export default hot(App);
+export default hot(memo(App));

@@ -27,7 +27,7 @@ export default function ContactItem({ contact, type }: ContactItemProps) {
             name,
             avatar,
             situation: type === 'friend' ? MessageSituation.PRIVATE : MessageSituation.GROUP,
-            digest: '',
+            latestMessage: '',
             updatedAt: Date.now(),
         };
         dispatch(addSession(newSession));

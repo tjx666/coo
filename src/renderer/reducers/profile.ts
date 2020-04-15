@@ -64,7 +64,7 @@ export function fetchProfile(): AppThunk {
         } catch (error) {
             console.error(error);
             message.error('获取用户信息出错！');
-            dispatch(getProfileFailed(error.message || '请求用户信息出错'));
+            dispatch(getProfileFailed(error.message ?? '请求用户信息出错'));
             return;
         }
         dispatch(getProfileSuccess(resp.data.data));

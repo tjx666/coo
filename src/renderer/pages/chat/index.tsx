@@ -32,7 +32,7 @@ function ChatSubPage() {
         return (
             (currentSession.situation === MessageSituation.PRIVATE
                 ? messageState.privateChat[id]?.messages
-                : messageState.groupChat[id]?.messages) || []
+                : messageState.groupChat[id]?.messages) ?? []
         );
     }, shallowEqual);
 

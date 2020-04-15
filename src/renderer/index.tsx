@@ -27,7 +27,7 @@ render();
 // 一些全局的项目配置
 window.COO = {
     theme: {
-        primaryColor: 'rgb(56, 115, 254)',
+        primaryColor: '#3370ff',
     },
 };
 

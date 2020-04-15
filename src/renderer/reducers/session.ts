@@ -9,7 +9,7 @@ export interface Session {
     id: string;
     name: string;
     avatar?: string;
-    digest: string;
+    latestMessage: string;
     situation: MessageSituation;
     updatedAt: number;
 }

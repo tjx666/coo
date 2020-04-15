@@ -53,7 +53,7 @@ export function fetchGroups(): AppThunk {
         } catch (error) {
             console.error(error);
             message.error('拉取群列表失败！');
-            dispatch(getGroupsFailed(error.message || '请求群数据出错'));
+            dispatch(getGroupsFailed(error.message ?? '请求群数据出错'));
             return;
         }
         dispatch(getGroupsSuccess(resp.data.data));

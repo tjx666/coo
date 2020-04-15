@@ -53,7 +53,7 @@ export function fetchFriends(): AppThunk {
         } catch (error) {
             console.error(error);
             message.error('拉取好友列表失败！');
-            dispatch(getFriendsFailed(error.message || '请求好友数据出错'));
+            dispatch(getFriendsFailed(error.message ?? '请求好友数据出错'));
             return;
         }
         dispatch(getFriendsSuccess(resp.data.data));
