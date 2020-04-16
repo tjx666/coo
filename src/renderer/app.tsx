@@ -4,7 +4,7 @@ import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RegisterPage, LoginPage } from 'pages';
-import { scrollToBottom } from 'pages/chat';
+import { moveMessageListScrollBarToBottom } from 'pages/chat';
 import { ContainerWithNavbar } from 'layouts';
 
 import { RootState } from 'reducers';
@@ -95,7 +95,7 @@ function App() {
                     }),
                 );
             }
-            scrollToBottom();
+            moveMessageListScrollBarToBottom();
             dispatch(stickySession({ id: from, situation }));
             history.push('/message/chat');
         },

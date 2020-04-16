@@ -5,22 +5,25 @@
     flex: 1;
     flex-direction: column;
     align-items: center;
+    height: 100%;
+    padding-top: 80px;
 
     .title {
-        margin-top: 40px;
+        color: black;
+        font-weight: bold;
+        font-size: 24px;
     }
 
     .profile-form {
-        width: -webkit-fill-available;
-        max-width: 400px;
-        margin-top: 60px;
+        width: 400px;
+        margin-top: 40px;
 
         .avatar-container {
             position: relative;
             width: 60px;
             height: 60px;
             margin: 0 auto;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
 
             .avatar {
                 position: absolute;
@@ -33,9 +36,10 @@
                 justify-content: center;
                 width: 100%;
                 height: 100%;
-                background-color: rgba(34, 34, 34, 0.2);
+                background-color: rgba(34, 34, 34, 0.3);
                 border-radius: 50%;
                 opacity: 0;
+                transition: opacity 0.2s ease-in;
 
                 &:hover {
                     opacity: 1;
@@ -43,7 +47,7 @@
 
                 .pen {
                     color: $primary-color;
-                    font-size: 18px;
+                    font-size: 24px;
                     cursor: pointer;
                 }
             }
@@ -62,6 +66,14 @@
 
         .title {
             font-weight: bold;
+        }
+    }
+
+    .ant-modal-body {
+        text-align: center;
+
+        .warning-title {
+            margin-bottom: 5px;
         }
     }
 

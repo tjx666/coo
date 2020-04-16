@@ -22,6 +22,8 @@ function createWindow() {
         y: mainWindowState.y,
         width: mainWindowState.width,
         height: mainWindowState.height,
+        minWidth: 960,
+        minHeight: 640,
         webPreferences: {
             nodeIntegration: true,
         },
@@ -38,8 +40,8 @@ function createWindow() {
 app.on('ready', () => {
     createWindow();
     installExtension([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS])
-        .then(name => console.log(`Added Extension:  ${name}`))
-        .catch(error => console.log('An error occurred:', error));
+        .then((name) => console.log(`Added Extension:  ${name}`))
+        .catch((error) => console.log('An error occurred:', error));
 });
 
 app.on('window-all-closed', () => {

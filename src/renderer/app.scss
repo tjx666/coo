@@ -1,6 +1,8 @@
 @import '~styles/reset.scss';
 
 .app {
+    width: 100vw;
+    height: 100vh;
     font-family: -apple-system, system-ui, BlinkMacSystemFont, Helvetica Neue, PingFang SC,
         Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
     user-select: none;
