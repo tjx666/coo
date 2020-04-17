@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useMemo } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { Form, Input, Button, message } from 'antd';
 import { MailOutlined, UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -8,51 +8,58 @@ import api from 'api';
 import { RegisterResponse } from 'api/user';
 
 const { Item: FormItem } = Form;
-
-const InputsStyle: React.CSSProperties = {
-    color: 'rgba(0,0,0,.25)',
+const formRules = {
+    email: [{ required: true, message: '请输入邮箱！' }],
+    name: [{ required: true, message: '请输入您的昵称！' }],
+    password: [{ required: true, message: '请输入您的密码！' }],
 };
 
 export default function RegisterForm() {
     const history = useHistory();
 
-    const handleSubmit = useCallback(
-        async (values: any) => {
-            const { email, name, password } = values;
-            try {
-                await api<RegisterResponse>('register', {
-                    data: { email, name, password },
-                });
-            } catch (error) {
-                console.error(error);
-                if (error?.response?.data?.code === 1) {
-                    message.error(`邮箱 ${email} 已经被注册！`);
-                } else {
-                    message.error('注册失败！');
+    const handleSubmit = useMemo(
+        () =>
+            debounce(async (values: any) => {
+                const { email, name, password } = values;
+                try {
+                    await api<RegisterResponse>('register', {
+                        data: { email, name, password },
+                    });
+                } catch (error) {
+                    console.error(error);
+                    if (error?.response?.data?.code === 1) {
+                        message.error(`邮箱 ${email} 已经被注册！`);
+                    } else {
+                        message.error('注册失败！');
+                    }
+                    return;
                 }
-                return;
-            }
 
-            message.success('注册成功！');
-            history.push('/login');
-        },
+                await message.success('注册成功！');
+                history.push('/login');
+            }, 200),
         [history],
     );
 
+    const prefixIcons = useMemo(
+        () => ({
+            mail: <MailOutlined />,
+            user: <UserOutlined />,
+            lock: <LockOutlined />,
+        }),
+        [],
+    );
+
     return (
-        <Form className="register-form" onFinish={debounce(handleSubmit, 200)}>
-            <FormItem name="email" rules={[{ required: true, message: '请输入邮箱！' }]}>
-                <Input prefix={<MailOutlined style={InputsStyle} />} placeholder="邮箱" />
+        <Form className="register-form" onFinish={handleSubmit}>
+            <FormItem name="email" rules={formRules.email}>
+                <Input prefix={prefixIcons.mail} placeholder="邮箱" />
             </FormItem>
-            <FormItem name="name" rules={[{ required: true, message: '请输入您的昵称！' }]}>
-                <Input prefix={<UserOutlined style={InputsStyle} />} placeholder="昵称" />
+            <FormItem name="name" rules={formRules.password}>
+                <Input prefix={prefixIcons.user} placeholder="昵称" />
             </FormItem>
-            <FormItem name="password" rules={[{ required: true, message: '请输入您的密码！' }]}>
-                <Input
-                    type="password"
-                    prefix={<LockOutlined style={InputsStyle} />}
-                    placeholder="密码"
-                />
+            <FormItem name="password" rules={formRules.name}>
+                <Input type="password" prefix={prefixIcons.lock} placeholder="密码" />
             </FormItem>
             <FormItem>
                 <Button className="register-btn" type="primary" htmlType="submit">

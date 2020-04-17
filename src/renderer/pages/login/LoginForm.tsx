@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Form, Input, Button, message } from 'antd';
@@ -11,62 +11,61 @@ import { updateProfile } from 'reducers/profile';
 import storage from 'utils/storage';
 
 const { Item: FormItem } = Form;
+const formRules = {
+    email: [{ required: true, message: '请输入邮箱！' }],
+    password: [{ required: true, message: '请输入您的密码！' }],
+};
 
 function LoginForm() {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const handleSubmit = async (values: any) => {
-        const { email, password } = values;
+    const handleSubmit = useMemo(
+        () =>
+            debounce(async (values: any) => {
+                const { email, password } = values;
 
-        let resp: Response<LoginResponse> | undefined;
-        try {
-            resp = await api('login', {
-                data: {
-                    email,
-                    password,
-                },
-            });
-        } catch (error) {
-            console.error(error);
-            const code = error?.response?.data?.code;
-            if (code === 1) {
-                message.error('邮箱不存在！');
-            } else if (code === 2) {
-                message.error('密码错误！');
-            } else {
-                message.error('登入失败！');
-            }
-            return;
-        }
+                let resp: Response<LoginResponse> | undefined;
+                try {
+                    resp = await api('login', {
+                        data: {
+                            email,
+                            password,
+                        },
+                    });
+                } catch (error) {
+                    console.error(error);
+                    const code = error?.response?.data?.code;
+                    if (code === 1) {
+                        message.error('邮箱不存在！');
+                    } else if (code === 2) {
+                        message.error('密码错误！');
+                    } else {
+                        message.error('登入失败！');
+                    }
+                    return;
+                }
 
-        const { user, token } = resp.data.data;
-        message.success('登入成功！');
-        dispatch(updateProfile(user));
-        storage.set('token', token);
-        storage.set('id', user.id);
-        history.push('/message');
-    };
+                const { user, token } = resp.data.data;
+                dispatch(updateProfile(user));
+                storage.set('token', token);
+                storage.set('id', user.id);
 
-    const InputsStyle: React.CSSProperties = {
-        color: 'rgba(0,0,0,.25)',
-    };
+                await message.success('登入成功！');
+                history.push('/message');
+            }, 200),
+        [dispatch, history],
+    );
+
+    const prefixIcons = useMemo(() => ({ mail: <MailOutlined />, lock: <LockOutlined /> }), []);
 
     return (
-        <Form className="login-form" onFinish={debounce(handleSubmit, 200)}>
-            <FormItem name="email" rules={[{ required: true, message: '请输入邮箱！' }]}>
-                <Input
-                    type="email"
-                    prefix={<MailOutlined style={InputsStyle} />}
-                    placeholder="邮箱"
-                />
+        <Form className="login-form" onFinish={handleSubmit}>
+            <FormItem name="email" rules={formRules.email}>
+                <Input type="email" prefix={prefixIcons.mail} placeholder="邮箱" />
             </FormItem>
-            <FormItem name="password" rules={[{ required: true, message: '请输入您的密码！' }]}>
-                <Input
-                    type="password"
-                    prefix={<LockOutlined style={InputsStyle} />}
-                    placeholder="密码"
-                />
+            <FormItem name="password" rules={formRules.password}>
+                <Input type="password" prefix={prefixIcons.lock} placeholder="密码" />
             </FormItem>
             <FormItem>
                 <Button className="login-btn" type="primary" htmlType="submit">
