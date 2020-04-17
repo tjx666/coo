@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState, useCallback, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Collapse, List, Popover } from 'antd';
 import { PlusCircleOutlined, PlusCircleFilled } from '@ant-design/icons';
@@ -12,8 +12,10 @@ import OperationsList from './operationsList';
 import './style.scss';
 
 const { Panel } = Collapse;
+const noUserLocale = { emptyText: '你还没有好友哦' };
+const noGroupLocale = { emptyText: '你还没有加入任何群哦' };
 
-export default function ContactsGroup() {
+function ContactsGroup() {
     const dispatch = useDispatch();
 
     const isFriendsLoading = useSelector((state: RootState) => state.friend.isLoading);
@@ -25,11 +27,32 @@ export default function ContactsGroup() {
     );
     const [isHover, setIsHover] = useState(false);
 
-    const handleChange = (key: string | string[]) => {
-        if (Array.isArray(key)) {
-            dispatch(setActiveGroupsInContactsPage(key));
-        }
-    };
+    const handleChange = useCallback(
+        (key: string | string[]) => {
+            if (Array.isArray(key)) {
+                dispatch(setActiveGroupsInContactsPage(key));
+            }
+        },
+        [dispatch],
+    );
+
+    const handlePopoverVisibleChange = useCallback((visible: boolean) => {
+        setIsHover(visible);
+    }, []);
+
+    const renderFriendItem = useCallback(
+        (friend: UserModel) => <ContactItem contact={friend} type="friend" />,
+        [],
+    );
+
+    const renderGroupItem = useCallback(
+        (group: GroupModel) => <ContactItem contact={group} type="group" />,
+        [],
+    );
+
+    const addIcon = useMemo(() => (isHover ? <PlusCircleFilled /> : <PlusCircleOutlined />), [
+        isHover,
+    ]);
 
     return (
         <Collapse
@@ -41,31 +64,34 @@ export default function ContactsGroup() {
                 <List
                     loading={isFriendsLoading}
                     dataSource={friendList}
-                    renderItem={(friend: UserModel) => (
-                        <ContactItem contact={friend} type="friend" />
-                    )}
-                    locale={{ emptyText: '你还没有好友哦' }}
+                    renderItem={renderFriendItem}
+                    locale={noUserLocale}
                 />
             </Panel>
             <Panel header="群组" key="groups">
                 <List
                     loading={isGroupsLoading}
                     dataSource={groupList}
-                    renderItem={(group: GroupModel) => <ContactItem contact={group} type="group" />}
-                    locale={{ emptyText: '你还没有加入任何群哦' }}
+                    renderItem={renderGroupItem}
+                    locale={noGroupLocale}
                 />
             </Panel>
             <div className="add-contact-button">
                 <Popover
                     overlayClassName="operations-popover"
-                    content={<OperationsList />}
-                    onVisibleChange={(visible: boolean) => {
-                        setIsHover(visible);
-                    }}
+                    content={useMemo(
+                        () => (
+                            <OperationsList />
+                        ),
+                        [],
+                    )}
+                    onVisibleChange={handlePopoverVisibleChange}
                 >
-                    {isHover ? <PlusCircleFilled /> : <PlusCircleOutlined />}
+                    {addIcon}
                 </Popover>
             </div>
         </Collapse>
     );
 }
+
+export default memo(ContactsGroup);

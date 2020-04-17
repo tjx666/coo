@@ -97,7 +97,7 @@ function App() {
             }
             moveMessageListScrollBarToBottom();
             dispatch(stickySession({ id: from, situation }));
-            history.push('/message/chat');
+            if (window.location.pathname !== '/message/chat') history.push('/message/chat');
         },
         [dispatch, history, sessionList, friendList, groupList],
     );

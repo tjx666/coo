@@ -18,14 +18,14 @@ interface SessionItemProps {
  */
 function SessionItem({ session, active }: SessionItemProps) {
     const dispatch = useDispatch();
-    const history = useHistory();
 
+    const history = useHistory();
     const { id, name, avatar, latestMessage, situation, updatedAt } = session;
     const className = classNames('session-item', { 'session-item-current': active });
 
     const openSession = useCallback(() => {
         dispatch(setCurrentSession({ id, situation }));
-        history.push(`/message/chat`);
+        if (window.location.pathname !== '/message/chat') history.push(`/message/chat`);
     }, [dispatch, history, id, situation]);
 
     return (

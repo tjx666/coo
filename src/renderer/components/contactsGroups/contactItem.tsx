@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { List, Avatar } from 'antd';
@@ -14,7 +14,7 @@ interface ContactItemProps {
     type: 'friend' | 'group';
 }
 
-export default function ContactItem({ contact, type }: ContactItemProps) {
+function ContactItem({ contact, type }: ContactItemProps) {
     const { id, avatar, name } = contact;
 
     const history = useHistory();
@@ -43,3 +43,5 @@ export default function ContactItem({ contact, type }: ContactItemProps) {
         </ListItem>
     );
 }
+
+export default memo(ContactItem);
