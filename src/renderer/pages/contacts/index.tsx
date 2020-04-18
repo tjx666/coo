@@ -20,11 +20,11 @@ function ContactsPage() {
 
     useEffect(() => {
         if (isFirstEnterContactsPage) {
+            dispatch(setIsFirstEnterContactsPage(false));
             dispatch(fetchFriends());
             dispatch(fetchGroups());
-            dispatch(setIsFirstEnterContactsPage(false));
         }
-    }, [isFirstEnterContactsPage, dispatch]);
+    }, [dispatch, isFirstEnterContactsPage]);
 
     return (
         <main className="contacts-page">

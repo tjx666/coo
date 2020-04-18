@@ -1,14 +1,16 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { Avatar, message } from 'antd';
 
 import api from 'api';
 import { SearchUserResponseData } from 'api/user';
-import { UserModel } from 'typings/coo';
 import { ASSETS_BASE_URL, DEFAULT_AVATAR } from 'utils/constants';
 import storage from 'utils/storage';
+import { UserModel } from 'typings/coo';
+
+import { SearchStatus } from './types';
 
 interface SearchFriendResultProps {
-    searchStatus: 'initial' | 'success' | 'error';
+    searchStatus: SearchStatus;
     searchResult: SearchUserResponseData | undefined;
     friends: UserModel[];
     onApplyForFriendSuccess: () => void;
@@ -22,39 +24,45 @@ function SearchFriendResult({
     onApplyForFriendSuccess,
     onRemoveFriendSuccess,
 }: SearchFriendResultProps) {
-    const applyForFriend = async (friendId: string) => {
-        try {
-            await api('applyForFriend', {
-                pathParams: { id: storage.get('id') },
-                data: {
-                    id: friendId,
-                },
-            });
-        } catch (error) {
-            message.error('申请好友的请求失败！');
-            console.error(error);
-            return;
-        }
+    const applyForFriend = useCallback(
+        async (friendId: string) => {
+            try {
+                await api('applyForFriend', {
+                    pathParams: { id: storage.get('id') },
+                    data: {
+                        id: friendId,
+                    },
+                });
+            } catch (error) {
+                console.error(error);
+                message.error('申请好友的请求失败！');
+                return;
+            }
 
-        onApplyForFriendSuccess();
-    };
+            onApplyForFriendSuccess();
+        },
+        [onApplyForFriendSuccess],
+    );
 
-    const removeFriend = async (friendId: string) => {
-        try {
-            await api('removeFriend', {
-                pathParams: { id: storage.get('id') },
-                data: {
-                    id: friendId,
-                },
-            });
-        } catch (error) {
-            message.error('删除好友的请求失败！');
-            console.error(error);
-            return;
-        }
+    const removeFriend = useCallback(
+        async (friendId: string) => {
+            try {
+                await api('removeFriend', {
+                    pathParams: { id: storage.get('id') },
+                    data: {
+                        id: friendId,
+                    },
+                });
+            } catch (error) {
+                console.error(error);
+                message.error('删除好友的请求失败！');
+                return;
+            }
 
-        onRemoveFriendSuccess(friendId);
-    };
+            onRemoveFriendSuccess(friendId);
+        },
+        [onRemoveFriendSuccess],
+    );
 
     if (searchStatus === 'success') {
         if (searchResult!.existed) {

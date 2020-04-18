@@ -11,6 +11,14 @@
         margin: 0 auto;
         margin-top: 200px;
         margin-bottom: 10px;
+
+        .ant-select {
+            width: 20%;
+        }
+
+        .ant-input-search {
+            width: 80%;
+        }
     }
 
     .search-result {
