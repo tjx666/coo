@@ -106,9 +106,11 @@ const commonConfig: Configuration = {
                     {
                         loader: 'less-loader',
                         options: {
-                            javascriptEnabled: true,
-                            modifyVars: {
-                                '@primary-color': 'rgb(56, 115, 254)',
+                            lessOptions: {
+                                javascriptEnabled: true,
+                                modifyVars: {
+                                    '@primary-color': 'rgb(56, 115, 254)',
+                                },
                             },
                             sourceMap: true,
                         },

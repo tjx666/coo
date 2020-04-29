@@ -30,14 +30,12 @@ const initialState: SessionState = {
     currentSession: undefined,
 };
 
-function findSessionIndex(sessionState: SessionState, { id, situation }: SessionIdentity) {
-    return sessionState.sessionList.findIndex(
-        (session) => session.id === id && situation === session.situation,
-    );
+export function findSessionIndex(sessionList: Array<Session>, { id, situation }: SessionIdentity) {
+    return sessionList.findIndex((session) => session.id === id && situation === session.situation);
 }
 
-function findSession(sessionState: SessionState, sessionIdentity: SessionIdentity) {
-    return sessionState.sessionList[findSessionIndex(sessionState, sessionIdentity)];
+export function findSession(sessionList: Array<Session>, sessionIdentity: SessionIdentity) {
+    return sessionList[findSessionIndex(sessionList, sessionIdentity)];
 }
 
 /**
@@ -54,16 +52,16 @@ const sessionSlice = createSlice({
             Object.assign(sessionState, initialState);
         },
         stickySession(sessionState, action: PayloadAction<SessionIdentity>) {
-            const index = findSessionIndex(sessionState, action.payload);
+            const index = findSessionIndex(sessionState.sessionList, action.payload);
             const stickySession = sessionState.sessionList.splice(index, 1);
             sessionState.sessionList.unshift(stickySession[0]);
         },
         setCurrentSession(sessionState, action: PayloadAction<SessionIdentity>) {
-            sessionState.currentSession = findSession(sessionState, action.payload);
+            sessionState.currentSession = findSession(sessionState.sessionList, action.payload);
         },
         addSession(sessionState, action: PayloadAction<Session>) {
             const newSession = action.payload;
-            const session = findSession(sessionState, newSession);
+            const session = findSession(sessionState.sessionList, newSession);
             if (session) {
                 sessionState.currentSession = session;
             } else {
@@ -73,7 +71,7 @@ const sessionSlice = createSlice({
         },
         removePrivateSession(sessionState, action: PayloadAction<string>) {
             const friendId = action.payload;
-            const removedSessionIndex = findSessionIndex(sessionState, {
+            const removedSessionIndex = findSessionIndex(sessionState.sessionList, {
                 id: friendId,
                 situation: MessageSituation.PRIVATE,
             });
@@ -81,9 +79,9 @@ const sessionSlice = createSlice({
                 sessionState.sessionList.splice(removedSessionIndex, 1);
             }
 
-            const currentSession = sessionState.currentSession!;
+            const { currentSession } = sessionState;
             if (
-                friendId === currentSession.id &&
+                friendId === currentSession?.id &&
                 currentSession.situation === MessageSituation.PRIVATE
             ) {
                 sessionState.currentSession = undefined;
@@ -91,7 +89,7 @@ const sessionSlice = createSlice({
         },
         removeGroupSession(sessionState, action: PayloadAction<string>) {
             const groupId = action.payload;
-            const removedSessionIndex = findSessionIndex(sessionState, {
+            const removedSessionIndex = findSessionIndex(sessionState.sessionList, {
                 id: groupId,
                 situation: MessageSituation.PRIVATE,
             });

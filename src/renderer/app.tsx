@@ -10,7 +10,7 @@ import { ContainerWithNavbar } from 'layouts';
 import { RootState } from 'reducers';
 import { fetchProfile } from 'reducers/profile';
 import { addPrivateMessage, addGroupMessage } from 'reducers/message';
-import { addSession, stickySession, MessageSituation } from 'reducers/session';
+import { addSession, stickySession, MessageSituation, findSessionIndex } from 'reducers/session';
 
 import socket from './socket';
 import './app.scss';
@@ -63,11 +63,12 @@ function App() {
                         createdAt,
                     }),
                 );
+                dispatch(stickySession({ id: from, situation }));
             } else if (situation === 'group') {
-                const sessionExisted = sessionList.some(
-                    (session) =>
-                        session.id === from && session.situation === MessageSituation.GROUP,
-                );
+                const sessionExisted = ~findSessionIndex(sessionList, {
+                    id: groupId,
+                    situation: MessageSituation.GROUP,
+                });
                 const group = groupList.find((item) => item.id === groupId)!;
                 if (!sessionExisted) {
                     dispatch(
@@ -84,7 +85,7 @@ function App() {
 
                 dispatch(
                     addGroupMessage({
-                        id: group.id,
+                        id: groupId,
                         name: fromUser.name,
                         avatar: fromUser.avatar,
                         from,
@@ -94,9 +95,9 @@ function App() {
                         createdAt,
                     }),
                 );
+                dispatch(stickySession({ id: groupId, situation }));
             }
             moveMessageListScrollBarToBottom();
-            dispatch(stickySession({ id: from, situation }));
             if (window.location.pathname !== '/message/chat') history.push('/message/chat');
         },
         [dispatch, history, sessionList, friendList, groupList],
