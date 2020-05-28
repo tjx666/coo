@@ -68,6 +68,7 @@ module.exports = {
         'unicorn/no-process-exit': OFF,
         'unicorn/no-reduce': OFF,
         'unicorn/prevent-abbreviations': OFF,
+        'unicorn/no-null': OFF,
 
         '@typescript-eslint/ban-types': OFF,
         '@typescript-eslint/explicit-function-return-type': OFF,

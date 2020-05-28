@@ -59,7 +59,6 @@ function ProfileForm() {
     }, [dispatch]);
 
     const updateProfile = useCallback(async () => {
-        // eslint-disable-next-line unicorn/no-reduce
         const newProfile = Object.entries(form.getFieldsValue()).reduce((pre: any, current) => {
             const value = current[1];
             pre[current[0]] = value === undefined ? '' : value.trim();
